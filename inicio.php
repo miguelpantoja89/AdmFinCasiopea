@@ -10,23 +10,45 @@
     <title>Comunidades</title>
 </head>
 <body>
-        <div class="loader">
+  <!--      <div class="loader">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
         <script type="text/javascript">
             $(window).load(function(){
                 $(".loader").delay(1000).fadeOut(1000);
             });
-            </script>
+            </script> -->
             </div>
     <?php include('cabecera.php') ?>
     <?php include('navegacion.php') ?>
+  
     <main>
+    
        <section>
         <article class="inp">
             <div class="contenedor">
+                <style type="text/css">
+                #pen{
+                    width: 20px;
+                    height: 20px;
+                    float:right;
+                }
+                #trash{
+                    width: 20px;
+                    height: 20px;
+                    float:right;
+                }
+                .caja { 
+   font-family: sans-serif; 
+   font-size: 18px; 
+   font-weight: 400; 
+   color: #ffffff; 
+   background:#d7cec7;}
+                            
+                </style>
                     <ul >
-                        <li><a href="informacion.php">Finca San Isidro .... C/ Reina Mercedes, 23</a> </li>
-                        <li>Comunidad 1</li>
+                        
+                        <li class="caja"><a href="infoComunidades.php">Finca San Isidro .... C/ Reina Mercedes, 23</a> <a href="elimina.php"><img id="trash" src="img/trash.png" alt=""></a><a href="modifica.php"><img id="pen" src="img/pencil.png" alt=""></a></li>
+                        <li class="caja"><a href="">Comunidad 1</a></li>
                         <li>Comunidad 1</li>
                         <li>Comunidad 1</li>
                         <li>Comunidad 1</li>
