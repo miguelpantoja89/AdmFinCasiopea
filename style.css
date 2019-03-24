@@ -1,0 +1,141 @@
+*{
+    margin: 0%;
+    padding: 0%;
+}
+.loader {
+   position: fixed;
+   left: 0px;
+   top: 0px;
+   width: 100%;
+   height: 100%;
+   z-index: 9998;
+   background: url('img/casiopea.jpg') 50% 50% no-repeat white;
+   background-size: 55%;
+}
+
+#navegador ul{
+   padding-left:10px;
+    list-style-type: none;
+    text-align: left;
+ }
+ #navegador li{
+    display: inline;
+    text-align: center;
+    margin: 0 0px 0 0;
+    
+ }
+ #navegador li a {
+    padding: 2px 13px 2px 13px;
+    color: #666;
+    background-color: #eeeeee;
+    border: 0px solid #ccc;
+    text-decoration: none;
+ }
+ #navegador li a:hover{
+    background-color: #333333;
+    color: #c09f80;
+ }
+ #navegador{
+    background: #c09f80;
+     padding: 3.5px;
+ }
+
+ main{
+    background-color:#d7cec7;
+ }
+header{
+   width: 100%;
+   overflow: hidden;
+   margin-bottom: 0;
+ background-color: #d7cec7;
+ 
+  
+  
+   
+}
+.te{
+   
+   text-align: center;
+   font-size: 30px;
+  font-weight: bold;
+   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+#texto{
+   color: black;
+}
+.wrapper{
+   padding:150px 150px  150px 150px;
+   width: 90%;
+   max-width: 1000px;
+   margin: auto;
+   overflow: hidden;
+}
+.contenedor{
+   width: 1370px;
+   margin: auto;
+   background: #c09f80;
+   padding: 10px 20px;
+   padding-bottom: 100px;
+   box-sizing: border-box;
+   margin-top: 20px;
+   border-radius: 7px;
+ }
+ .banner{
+    width:  100%;
+    background: #c09f80;
+ }
+ footer{
+    width: 100%;
+    height: 50px;
+    position: fixed;
+    bottom: 0;
+ }
+ body{
+    background: #d7cec7;
+    background-size: 100vw 100vh;
+    background-attachment: fixed;
+ }
+ .boton a{
+  
+     
+   
+   padding: 1px 1px 1px 1px;
+    color: #666;
+    background-color: #eeeeee;
+    border: 0px solid #ccc;
+    text-decoration: none;
+ }
+ .contenedor li{
+   display: block;
+   text-align: left;
+   margin: 0 0px 0 0;
+
+ }
+ a{
+    text-decoration: none;
+    color: black;
+
+}
+form{
+   width: 1370px;
+   margin: auto;
+   background: #c09f80;
+   padding: 10px 20px;
+   padding-bottom: 100px;
+   box-sizing: border-box;
+   margin-top: 20px;
+   border-radius: 7px;
+   
+}
+form input{
+   
+   width: 280px;
+   height: 20px;
+   padding: 0px 10px;
+ 
+   margin: 10px 30px;
+}
+.textoin{
+   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+   
+}
