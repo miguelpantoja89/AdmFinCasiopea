@@ -13,6 +13,7 @@
     <?php include('navegacion.php') ?>
 
     <form action="accioncomunidad.php" method="POST">
+        
         <p class="textoin">Direccion: </p><input type="text" name="Direccion">
         <p class="textoin">Propietarios: </p><input type="number" name="NumeroPropietarios">
         <p class="textoin">Num cuenta :</p><input type="text" name="CuentaCorriente">

@@ -1,10 +1,8 @@
 <style type="text/css">
-.contenedor2{
-    padding-left:10px;
-    
-}
+
 .boton{
-    border-radius:50px;
+   margin-top:20px;
+   
 }
 </style>
 <div class="contenedor2">

@@ -1,3 +1,12 @@
+<?php
+session_start();
+include_once ("gestionBD.php");
+$conexion= crearConexionBD();
+
+$Comando_sql =  "SELECT DIRECCION FROM COMUNIDADES";
+$Resultado=$conexion->query($Comando_sql);
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,61 +19,54 @@
     <title>Comunidades</title>
 </head>
 <body>
-  <!--      <div class="loader">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-        <script type="text/javascript">
-            $(window).load(function(){
-                $(".loader").delay(1000).fadeOut(1000);
-            });
-            </script> -->
-            </div>
-    <?php include('cabecera.php') ?>
-    <?php include('navegacion.php') ?>
+    <?php include_once ('cabecera.php') ?>
+    <?php include_once ('navegacion.php') ?>
   
     <main>
     
        <section>
         <article class="inp">
             <div class="contenedor">
-                <style type="text/css">
-                #pen{
-                    width: 20px;
-                    height: 20px;
-                    float:right;
-                }
-                #trash{
-                    width: 20px;
-                    height: 20px;
-                    float:right;
-                }
-                .caja { 
-   font-family: sans-serif; 
-   font-size: 18px; 
-   font-weight: 400; 
-   color: #ffffff; 
-   background:#d7cec7;}
-                            
-                </style>
-                    <ul >
+               
+   <section>
+             <article> 
+             <?php foreach ($Resultado as $Fila) {
+					
+				?>	
+			
+    <div>
+    <ul >
+        
+        <li class="caja"><a href="infoComunidades.php"><?php echo $Fila["DIRECCION"]; ?></a> 
+        
+        
+    </ul>
+    <?php } ?>
+</div>
+
+      
+
+
+
+<style type="text/css">
+
+.boton{
+   margin-top:20px;
+   
+}
+</style>
+<div class="contenedor2">
                         
-                        <li class="caja"><a href="infoComunidades.php">Finca San Isidro .... C/ Reina Mercedes, 23</a> <a href="elimina.php"><img id="trash" src="img/trash.png" alt=""></a><a href="modifica.php"><img id="pen" src="img/pencil.png" alt=""></a></li>
-                        <li class="caja"><a href="">Comunidad 1</a></li>
-                        <li>Comunidad 1</li>
-                        <li>Comunidad 1</li>
-                        <li>Comunidad 1</li>
-                        <li>Comunidad 1</li>
-                        <li>Comunidad 1</li>
-                        <li>Comunidad 1</li>
-                        <li>Comunidad 1</li>
-                    </ul>
-                </div>
-               <?php include('botonAlta.php') ?>
+                        <button class="boton"><a href="alta.php">Dar de Alta</a></button>
+           
+                    
+        </div>
          </article>
         </section>
     
 
     </main>
-    <?php include('foot.php') ?>
+    <?php include_once ('foot.php') ?>
     
 </body>
 </html>
