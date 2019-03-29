@@ -18,15 +18,10 @@ SET SERVEROUTPUT ON;
 
 BEGIN
 pck_comunidades.inicializar;
-pck_comunidades.insertar('Insertar una comunidad','Logroño 20',10,'ES3400000000000000000001',500,NULL,TRUE);
+pck_comunidades.insertar('Insertar una comunidad','Palencia 3',10,'ES3400000000000000000001',500,NULL,TRUE);
 pck_comunidades.insertar('Insertar una comunidad','Logroño 22',20,'ES3400000000000000000002',700,NULL,TRUE);
 pck_comunidades.insertar('Insertar una comunidad','Reina Mercedes 3',15,'ES3400000000000000000003',400,NULL,TRUE);
 pck_comunidades.insertar('Insertar una comunidad','Reina Mercedes 5',15,'ES3400000000000000000004',200,NULL,TRUE);
-pck_comunidades.insertar('Insertar una comunidad con cuenta bancaria mal escrita','Logroño 22',10,'RE3400000000000000000002',600,NULL,FALSE);
-pck_comunidades.actualizar('Actualizar una comunidad',1,'Palencia 3',14,'ES3400000000000000000001',300,NULL,TRUE);
-pck_comunidades.actualizar('Actualizar una comunidad no existente',10,'Palencia 3',14,'ES3400000000000000000001',600,NULL,FALSE);
-pck_comunidades.eliminar('Eliminar una comunidad',4,TRUE);
-
 
 pck_propietarios.inicializar;
 pck_propietarios.insertar('Insertar un propietario','Enrique Barba Roque','12345678B','954691579','enriquebarba@gmail.com',TRUE);

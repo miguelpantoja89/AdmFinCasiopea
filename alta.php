@@ -8,7 +8,15 @@ if(!isset($_SESSION["form"])){
     $form["saldoInicial"] = "";
 
     $_SESSION["form"] = $form;
+} else{
+    $form = $_SESSION["form"];
 }
+
+if (isset($_SESSION["errores"])){
+    $errores = $_SESSION["errores"];
+    unset($_SESSION["errores"]);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -23,14 +31,25 @@ if(!isset($_SESSION["form"])){
 </head>
 <body>
 <?php include('cabecera.php') ?>
-    <?php include('navegacion.php') ?>
+    <?php include('navegacion.php');?>
+
+    <?php
+    if (isset($errores) && count($errores)>0) { 
+        echo "<div id=\"div_errores\" class=\"error\">";
+        echo "<h4> Errores en el formulario:</h4>";
+        foreach($errores as $error){
+            echo $error;
+        } 
+        echo "</div>";
+      }
+    ?>
 
     <form action="accioncomunidad.php" method="POST">
         
-        <p class="textoin">Direccion: </p><input type="text" name="Direccion" >
-        <p class="textoin">Propietarios: </p><input type="number" name="NumeroPropietarios">
-        <p class="textoin">Num cuenta :</p><input type="text" name="CuentaCorriente">
-        <p class="textoin">SaldoInicial :</p><input type="text" name="SaldoInicial">
+        <p class="textoin">Direccion: </p><input type="text" name="Direccion" value=<?php echo $form["direccion"] ?>>
+        <p class="textoin">Propietarios: </p><input type="number" name="NumeroPropietarios" value=<?php echo $form["numPropietarios"] ?>>
+        <p class="textoin">Num cuenta :</p><input type="text" name="CuentaCorriente" value=<?php echo $form["cuenta"] ?>>
+        <p class="textoin">SaldoInicial :</p><input type="text" name="SaldoInicial" value=<?php echo $form["saldoInicial"] ?>>
         <p><input  type="submit" value="enviar"></p>
     </form>
     <?php
