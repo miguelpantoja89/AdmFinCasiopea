@@ -1,6 +1,9 @@
 <?php
 session_start();
 include_once ("gestionBD.php");
+
+
+
 $conexion= crearConexionBD();
 
 $Comando_sql =  "SELECT DIRECCION FROM COMUNIDADES";

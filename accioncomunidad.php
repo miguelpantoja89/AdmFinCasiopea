@@ -1,19 +1,24 @@
 <?php
 session_start();
 include('gestionBD.php');
-$nombre=$_POST['Direccion'];
-$correo=$_POST['NumeroPropietarios'];
-$cuenta=$_POST['CuentaCorriente'];
-$saldo=$_POST['SaldoInicial'];
+if(isset($_SESSION["form"])){
+    $form["direccion"] = $_POST['Direccion'];
+    $form["numPropietarios"] = $_POST['NumeroPropietarios'];
+    $form["cuenta"] = $_POST['CuentaCorriente'];
+    $form["saldoInicial"] = $_POST['SaldoInicial'];
+
+    $_SESSION['form'] = $form;
+}
 $conexion=crearConexionBD();
 
 try{
-    $stmn = $conexion -> prepare('INSERT INTO comunidades VALUES(:Direccion, :NumeroPropietarios,:CuentaCorriente,:SaldoInicial)');
-    $stmn -> bindParam(':Direccion', $nombre);
-    $stmn -> bindParam(':NumeroPropietarios', $correo);
-    $stmn -> bindParam(':CuentaCorriente', $cuenta);
-    $stmn -> bindParam(':SaldoInicial', $saldo);
+    $stmn = $conexion -> prepare('INSERT INTO comunidades (Direccion, NumeroPropietarios, CuentaCorriente, SaldoInicial) VALUES(:Direccion, :NumeroPropietarios,:CuentaCorriente,:SaldoInicial)');
+    $stmn -> bindParam(':Direccion', $form["direccion"]);
+    $stmn -> bindParam(':NumeroPropietarios', $form["numPropietarios"]);
+    $stmn -> bindParam(':CuentaCorriente', $form["cuenta"]);
+    $stmn -> bindParam(':SaldoInicial', $form["saldoInicial"]);
     $stmn -> execute();
+    $_SESSION["mensaje"] =  "Comunidad añadida satisfactoriamente";
 } catch(PDOException $e){
     $_SESSION["excepcion"] = $e -> GetMessage();
 
