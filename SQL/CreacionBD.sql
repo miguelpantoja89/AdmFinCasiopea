@@ -593,8 +593,8 @@ DECLARE
     Comun_presidente INTEGER;
 BEGIN
 IF (:NEW.presidente IS NOT NULL) THEN
-    SELECT IdC INTO Comun_presidente FROM Pertenece WHERE IdP = :NEW.Presidente;
-    IF (Comun_presidente<>:NEW.IdC) THEN
+    SELECT COUNT(*) INTO Comun_presidente FROM Pertenece WHERE IdP=:NEW.presidente AND IdC=:NEW.IdC;
+    IF (Comun_presidente=0) THEN
         raise_application_error(-20003,:NEW.Presidente||' El presidente de la comunidad debe ser propietario de la misma.');
     END IF;
 END IF;

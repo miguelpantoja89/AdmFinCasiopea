@@ -68,7 +68,7 @@ pck_pertenece.insertar('Insertar pertenencia a comunidad',3,6,TRUE);
 pck_pertenece.insertar('Insertar pertenencia a comunidad',1,7,TRUE);
 pck_pertenece.insertar('Insertar pertenencia a comunidad',2,8,TRUE);
 pck_pertenece.insertar('Insertar pertenencia a comunidad',3,9,TRUE);
-pck_pertenece.insertar('Insertar pertenencia a comunidad con comunidad no existente',4,1,FALSE);
+pck_pertenece.insertar('Insertar pertenencia a comunidad con comunidad no existente',7,1,FALSE);
 pck_pertenece.insertar('Insertar pertenencia a comunidad con propietario no existente',1,100,FALSE);
 
 pck_comunidades.actualizar('Actualizar el presidente de una comunidad',1,'Palencia 3',14,'ES3400000000000000000001',300,1,TRUE);

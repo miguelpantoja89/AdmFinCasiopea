@@ -21,6 +21,7 @@ $stmn -> execute();
 } catch(PDOException $e){
     $_SESSION["excepcion"] = $e -> getMessage();
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,6 +30,7 @@ $stmn -> execute();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css"  href="style.css">
+    <link rel="icon" href="img/favicon.jpg">
     
     <title>Comunidades</title>
 </head>
@@ -47,7 +49,7 @@ $stmn -> execute();
                    <P>Número de propietarios:   <?php echo $Fila["NUMEROPROPIETARIOS"]; ?></P>
                    <P>Cuenta corriente:  <?php echo $Fila["CUENTACORRIENTE"]; ?></P>
                    <P>Saldo:   <?php echo  $Fila["SALDOINICIAL"]; ?></P>
-                   <P>Presidente:  <?php echo $Fila["PRESIDENTE"]; ?></P>
+                   <P>Presidente:  <?php echo getNombrePropietario($conexion, $Fila["PRESIDENTE"]); ?></P>
                 </div>     
          </article>
         </section>
@@ -58,3 +60,19 @@ $stmn -> execute();
     
 </body>
 </html>
+
+<?php 
+
+function getNombrePropietario($conexion, $IdP){
+    try{
+    $stmn = $conexion -> prepare("SELECT NombreAp FROM Propietarios WHERE IdP=:IdP");
+    $stmn -> bindParam(":IdP", $IdP);
+    $stmn -> execute();
+    return $stmn -> fetchColumn();
+    }catch(PDOException $e){
+        $_SESSION["excepcion"] = $e -> getMessage();
+    }
+}
+
+
+?>
