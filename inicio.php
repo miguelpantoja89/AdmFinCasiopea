@@ -11,7 +11,7 @@ $Resultado=$conexion->query($Comando_sql);
 
 ?>
 
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -31,8 +31,7 @@ $Resultado=$conexion->query($Comando_sql);
         <article class="inp">
             <div class="contenedor">
                
-   <section>
-             <article> 
+   
              <?php foreach ($Resultado as $Fila) {
 					
 				?>	
@@ -44,21 +43,20 @@ $Resultado=$conexion->query($Comando_sql);
         
         
     </ul>
+    
     <?php } ?>
 </div>
+            
+             
+<form method= "post" action="infoComunidades.php">
+        <input type="hidden">
+    </form>
 
       
 
 
 
-<style type="text/css">
-
-.boton{
-   margin-top:20px;
-   
-}
-</style>
-<div class="contenedor2">
+<div >
                         
                         <button class="boton"><a href="alta.php">Dar de Alta</a></button>
            

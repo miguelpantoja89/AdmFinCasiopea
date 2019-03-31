@@ -19,13 +19,13 @@ if (isset($_SESSION["errores"])){
 
 ?>
 
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" type="text/css"  href="style.css">
+    <link rel='stylesheet' type='text/css'  href='style.css'>
     <title>Alta</title>
     
 </head>
@@ -52,6 +52,7 @@ if (isset($_SESSION["errores"])){
         <p class="textoin">SaldoInicial :</p><input type="text" name="SaldoInicial" value=<?php echo $form["saldoInicial"] ?>>
         <p><input  type="submit" value="enviar"></p>
     </form>
+    
     <?php
     $mensaje = "";
      if(isset($_SESSION["mensaje"])){
