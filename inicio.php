@@ -6,7 +6,7 @@ include_once ("gestionBD.php");
 
 $conexion= crearConexionBD();
 
-$Comando_sql =  "SELECT DIRECCION FROM COMUNIDADES";
+$Comando_sql =  "SELECT IdC, DIRECCION FROM COMUNIDADES";
 $Resultado=$conexion->query($Comando_sql);
 
 ?>
@@ -39,7 +39,7 @@ $Resultado=$conexion->query($Comando_sql);
     <div>
     <ul >
         
-        <li class="caja"><a href="infoComunidades.php"><?php echo $Fila["DIRECCION"]; ?></a> 
+        <li class="caja"><a href="infoComunidades.php?IdC=<?php echo $Fila["IDC"]; ?>"><?php echo $Fila["DIRECCION"]; ?></a> 
         
         
     </ul>

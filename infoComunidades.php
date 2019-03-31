@@ -3,14 +3,24 @@ session_start();
 include_once ("gestionBD.php");
 $conexion= crearConexionBD();
 
-$Comando_sql =  "SELECT IdC ,
+if(!isset($_REQUEST["IdC"])){
+    header("Location: inicio.php");
+} else{
+    $IdC = $_REQUEST["IdC"];
+}
+try{
+$Comando_sql =  "SELECT IdC,
 Direccion,
 NumeroPropietarios,
 CuentaCorriente,
 SaldoInicial,
-Presidente FROM COMUNIDADES";
-$Resultado=$conexion->query($Comando_sql);
-
+Presidente FROM COMUNIDADES WHERE IdC = :IdC";
+$stmn = $conexion->prepare($Comando_sql);
+$stmn -> bindParam(":IdC", $IdC);
+$stmn -> execute();
+} catch(PDOException $e){
+    $_SESSION["excepcion"] = $e -> getMessage();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,7 +37,7 @@ $Resultado=$conexion->query($Comando_sql);
     <?php include('cabecera.php') ?>
     <?php include('navegacion2.php') ?>
     <main>
-    <?php foreach ($Resultado as $Fila) {
+    <?php foreach ($stmn as $Fila) {
 					
                     ?>	
        <section>

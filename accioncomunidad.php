@@ -8,6 +8,8 @@ if(isset($_SESSION["form"])){
     $form["saldoInicial"] = $_POST['SaldoInicial'];
 
     $_SESSION['form'] = $form;
+}else{
+    header('Location: alta.php');
 }
 $conexion=crearConexionBD();
 
@@ -19,7 +21,7 @@ if($error!=""){
 if (count($errores)>0) {
     $_SESSION["errores"] = $errores;
 }else{
-    insertarComunidad($conexion, $comunidad);
+    insertarComunidad($conexion, $form);
     unset($_SESSION["form"]);
 }
 cerrarConexionBD($conexion);
