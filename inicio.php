@@ -48,9 +48,7 @@ $Resultado=$conexion->query($Comando_sql);
 </div>
             
              
-<form method= "post" action="infoComunidades.php">
-        <input type="hidden">
-    </form>
+
 
       
 

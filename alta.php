@@ -50,7 +50,8 @@ if (isset($_SESSION["errores"])){
         <p class="textoin">Propietarios: </p><input type="number" name="NumeroPropietarios" value=<?php echo $form["numPropietarios"] ?>>
         <p class="textoin">Num cuenta :</p><input type="text" name="CuentaCorriente" value=<?php echo $form["cuenta"] ?>>
         <p class="textoin">SaldoInicial :</p><input type="text" name="SaldoInicial" value=<?php echo $form["saldoInicial"] ?>>
-        <p><input  type="submit" value="enviar"></p>
+        <p><input  type="submit" value="enviar"> <input  type="button" value="cancelar" onClick="location.href='inicio.php'"></p>
+       
     </form>
     
     <?php
