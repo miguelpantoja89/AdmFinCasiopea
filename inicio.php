@@ -69,6 +69,17 @@ $Resultado=$conexion->query($Comando_sql);
            
                     
         </div>
+        <?php
+        if(isset($_SESSION["excepcion"])){
+        ?>
+            <div>
+        <?php
+        echo $_SESSION["excepcion"];
+        $_SESSION["excepcion"]=null; ?>
+        </div>
+       <?php }
+        
+        ?>
          </article>
         </section>
     
