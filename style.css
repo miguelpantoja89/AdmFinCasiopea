@@ -173,4 +173,27 @@ form input[type=button]:hover {
    color: #c09f80;
  }
 
+.editar_fila{
+   width: 20px;
+   height: 12px;
+	border:0px;
+	margin:3px;
+   padding:0px;
+   float: right;
+		
+
+}
+.caja{
+   background-image: linear-gradient( #d7cec7 , #c09f80);
+   font-weight:lighter;
+}
+.caja a:hover{
+   background-image: linear-gradient( #d7cec7 ,#c09f80, #333333);
+   
+   color: black;
+
+}
+.espacio{
+   margin-top:10px;
+}
 
