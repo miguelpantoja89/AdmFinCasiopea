@@ -1,19 +1,29 @@
 <?php	
     session_start();
     
-    include_once ("gestionBD.php");
+	include_once ("gestionBD.php");
+	$conexion= crearConexionBD(); 
 	
-	if (isset($_REQUEST["IdC"])){
-		$com["Direccion"] = $_GET["Direccion"];
-		$com["IdC"] = $_REQUEST["IdC"];
-		$com["tipo"]=$_REQUEST["tipo"];
-		
-		$_SESSION["com"] = $com;
-			
-		if (isset($_REQUEST["editar"])) Header("Location: inicio.php"); 
-		else  if (isset($_REQUEST["borrar"]))  Header("Location: accion_borrar_libro.php"); 
+	if(!isset($_REQUEST["IdC"])){
+		header("Location: infoComunidades.php");
+	} else{
+		$IdC = $_REQUEST["IdC"];
+		$tipo=$_REQUEST["tipo"];
 	}
-	else 
-		Header("Location: inicio.php");
+	if(isset($_REQUEST["tipo"]) and ($tipo=="borrar")){
+		try{
+			$Comando_sql =  "DELETE  FROM COMUNIDADES WHERE IdC = :IdC";
+			 $stmn = $conexion->prepare($Comando_sql);
+			 $stmn -> bindParam(":IdC", $IdC);
+			 $stmn -> execute();
+			 } catch(PDOException $e){
+				 $_SESSION["excepcion"] = $e -> getMessage();
+			 }
+
+	}else{
+		header("Location: infoComunidades.php");
+	}
+
+
 
 ?>
