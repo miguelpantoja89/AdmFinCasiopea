@@ -1,7 +1,7 @@
 <?php	
     session_start();
     
-	include_once ("gestionBD.php");
+	include_once ('includes/gestionBD.php');
 	$conexion= crearConexionBD(); 
 	
 	if(!isset($_REQUEST["IdC"])or(!isset($_REQUEST["tipo"]))){

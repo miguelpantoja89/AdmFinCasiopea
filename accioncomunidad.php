@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('gestionBD.php');
+include('includes/gestionBD.php');
 if(isset($_SESSION["form"])){
     $form["direccion"] = $_POST['Direccion'];
     $form["numPropietarios"] = $_POST['NumeroPropietarios'];

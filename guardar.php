@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('gestionBD.php');
+include_once ('includes/gestionBD.php');
 $nombre=$_POST["Direccion"];
 $correo=$_POST["Propietarios"];
 $conexion=crearConexionBD();

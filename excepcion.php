@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once ("gestionBD.php");
+include_once ('includes/gestionBD.php');
 if (isset($_SESSION["excepcion"])) {
 	$excepcion = $_SESSION["excepcion"];
 	unset($_SESSION["excepcion"]);

@@ -1,6 +1,6 @@
 <?php
 
-include_once ("gestionBD.php");
+include_once ('includes/gestionBD.php');
 $conexion= crearConexionBD();  
 
   	
