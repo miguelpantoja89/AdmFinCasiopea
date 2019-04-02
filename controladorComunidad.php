@@ -18,6 +18,8 @@
 				 } catch(PDOException $e){
 					 $_SESSION["excepcion"] = $e -> getMessage();
 				 }
+	}else if($tipo=="editar"){
+
 	}
 	header("Location: inicio.php");
 

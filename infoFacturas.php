@@ -19,6 +19,7 @@ $Comando_sql =  "SELECT IdC,Importe,FechaEmision,TipoServicio
      $_SESSION["excepcion"] = $e -> getMessage();
  }
 
+
  ?>
  <!DOCTYPE html>
 <html lang="en">
