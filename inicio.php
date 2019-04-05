@@ -32,21 +32,23 @@ $Resultado=$conexion->query($Comando_sql);
         <article >
             <div class="contenedor">
                
-   
+                <div class="espacio">
              <?php foreach ($Resultado as $Fila) {
 					
 				?>	
 			
        
     
+        <form action="controladorComunidad.php" method="post" >
         
-        <div class="espacio" >
-               <div class="caja"><a href="infoComunidades.php?IdC=<?php echo $Fila["IDC"]; ?>"><?php echo $Fila["DIRECCION"]; ?></a>
+                
+                <div class="caja"><?php echo $Fila["DIRECCION"]; ?></div>
                 <a href="controladorComunidad.php?IdC=<?php echo $Fila["IDC"]; ?>&tipo=editar"><img src="img/pencil.png" alt="editar" class="editar_fila"></a>
                 <a href="controladorComunidad.php?IdC=<?php echo $Fila["IDC"]; ?>&tipo=borrar"><img src="img/trash.png" alt="borrar" class="editar_fila"></a>
-                </div> 
+                
 
-        </div>
+        
+        </form>
         
       
        
@@ -59,7 +61,7 @@ $Resultado=$conexion->query($Comando_sql);
              
 
 
-      
+    </div>
 
 
 

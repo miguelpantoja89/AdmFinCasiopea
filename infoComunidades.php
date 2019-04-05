@@ -39,9 +39,8 @@ $stmn -> execute();
     <?php include('cabecera.php') ?>
     <?php include('navegacion2.php') ?>
     <main>
-    <?php foreach ($stmn as $Fila) {
-					
-                    ?>	
+        <?php $Fila=$stmn->fetch(); ?>
+    
        <section>
         <article class="inp">
             <div class="contenedor">
@@ -53,7 +52,7 @@ $stmn -> execute();
                 </div>     
          </article>
         </section>
-        <?php } ?>
+        
 
     </main>
     <!---<?php include('foot.php') ?>--->

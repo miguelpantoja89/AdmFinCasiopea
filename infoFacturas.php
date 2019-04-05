@@ -37,19 +37,51 @@ $Comando_sql =  "SELECT IdC,Importe,FechaEmision,TipoServicio
     <?php include('cabecera.php') ?>
     <?php include('navegacion2.php') ?>
     <main>
-    <?php foreach ($stmn as $Fila) {
-					
-                    ?>	
+        <style>
+    table,td,tr,th{
+        border: 1px solid black;
+        border-collapse: collapse;
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+
+       }
+       table{
+           width:100%;
+           
+       }
+       th{
+        color: white;
+        background-color: #565656;
+        opacity:0.6;
+       }
+       th,tr, td {
+            padding: 15px;
+            text-align: left;
+          }
+          </style>
        <section>
         <article class="inp">
             <div class="contenedor">
-                   <p>Importe:   <?php echo $Fila["IMPORTE"]; ?></p>
-                   <P>Fecha de Emisión:   <?php echo $Fila["FECHAEMISION"]; ?></P>
-                   <P>Tipo de Servicio:  <?php echo $Fila["TIPOSERVICIO"]; ?></P>
+            <table>
+            <tr>
+            <th>Importe</th>
+            <th>Fecha de Emisión</th>
+            <th>Tipo de Servicio</th>
+            </tr>
+            <?php foreach ($stmn as $Fila) {
+				
+                ?>
+             <tr>	
+               <td><?php echo $Fila["IMPORTE"]; ?></td>
+               <td><?php echo $Fila["FECHAEMISION"]; ?></td>
+               <td><?php echo $Fila["TIPOSERVICIO"]; ?></td>
+            </tr>
+               <?php } ?>
+               
+        </table>
                 </div>     
          </article>
         </section>
-        <?php } ?>
+        
 
     </main>
     <!---<?php include('foot.php') ?>--->

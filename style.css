@@ -14,18 +14,18 @@
 }
 
 #navegador ul{
-   padding-left:10px;
+   padding-left:10%;
     list-style-type: none;
     text-align: left;
  }
  #navegador li{
     display: inline;
     text-align: center;
-    margin: 0 0px 0 0;
+    margin: 0 0p 0 0;
     
  }
  #navegador li a {
-    padding: 2px 13px 2px 13px;
+    padding: 2% 13% 2% 13%;
     color: #669;
     background-color: #eeeeee;
     border: 0px solid #ccc;
@@ -37,7 +37,7 @@
  }
  #navegador{
     background: #c09f80;
-     padding: 3.5px;
+     padding: 3.5%;
  }
 
  main{
@@ -56,7 +56,7 @@ header{
 .te{
    
    text-align: center;
-   font-size: 30px;
+   font-size: 30%;
   font-weight: bold;
    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
@@ -196,4 +196,6 @@ form input[type=button]:hover {
 .espacio{
    margin-top:10px;
 }
+
+
 
