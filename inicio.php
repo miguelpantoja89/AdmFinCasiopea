@@ -30,9 +30,7 @@ $Resultado=$conexion->query($Comando_sql);
     
        <section>
         <article >
-            <div class="contenedor">
-               
-                <div class="espacio">
+           
              <?php foreach ($Resultado as $Fila) {
 					
 				?>	
@@ -75,11 +73,10 @@ $Resultado=$conexion->query($Comando_sql);
              
 
 
-    </div>
 
 
 
-<div >
+        <div >
                         
                         <button class="boton"><a href="alta.php">Dar de Alta</a></button>
            
