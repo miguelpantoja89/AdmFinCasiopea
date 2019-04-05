@@ -4,11 +4,14 @@
 	include_once ('includes/gestionBD.php');
 	$conexion= crearConexionBD(); 
 	
-	if(!isset($_REQUEST["IdC"])or(!isset($_REQUEST["tipo"]))){
+	if(!isset($_REQUEST["IdC"])){
 		header("Location: inicio.php");
 	} else{
 		$IdC = $_REQUEST["IdC"];
-		$tipo=$_REQUEST["tipo"];
+		if(isset($_REQUEST["consultar"])){
+			$_SESSION["IdC"] = $IdC;
+			header("Location:infoComunidades.php");
+		}
 		if( $tipo=="borrar"){
 			try{
 				$Comando_sql =  "DELETE FROM COMUNIDADES WHERE IdC = :IdC";

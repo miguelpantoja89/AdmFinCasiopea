@@ -71,14 +71,14 @@ header{
    overflow: hidden;
 }
 .contenedor{
-   width: 1370px;
+   width: 90%;
    margin: auto;
    background: #c09f80;
-   padding: 10px 20px;
-   padding-bottom: 100px;
+   padding: 10% 20%;
+   padding-bottom: 100%;
    box-sizing: border-box;
-   margin-top: 20px;
-   border-radius: 7px;
+   margin-top: 20%;
+   border-radius: 7%;
  }
  .banner{
     width:  100%;
@@ -116,6 +116,10 @@ header{
     color: black;
 
 }
+
+
+
+
 form{
    width: 1370px;
    margin: auto;

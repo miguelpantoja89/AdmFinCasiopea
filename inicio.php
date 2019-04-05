@@ -39,13 +39,27 @@ $Resultado=$conexion->query($Comando_sql);
 			
        
     
-        <form action="controladorComunidad.php" method="post" >
+        <form class="enlaces" action="controladorComunidad.php" method="post" >
         
                 
-                <div class="caja"><?php echo $Fila["DIRECCION"]; ?></div>
-                <a href="controladorComunidad.php?IdC=<?php echo $Fila["IDC"]; ?>&tipo=editar"><img src="img/pencil.png" alt="editar" class="editar_fila"></a>
-                <a href="controladorComunidad.php?IdC=<?php echo $Fila["IDC"]; ?>&tipo=borrar"><img src="img/trash.png" alt="borrar" class="editar_fila"></a>
+                <div class="caja"><?php echo $Fila["DIRECCION"]; ?>
+                <input type="hidden" id="IdC" name="IdC" value=<?php echo $Fila["IDC"];?>/>
                 
+                </div>
+
+            <div class="botones">
+                <button id="consultar" name="consultar" type="submit" class="editar_fila" value="Consultar">
+                </button>
+
+                <button id="editar" name="editar" type="submit" class="editar_fila">
+				<img src="img/pencil.png" class="editar_fila" alt="Guardar modificación">
+                </button>
+                
+                <button id="grabar" name="grabar" type="submit" class="editar_fila">
+				<img src="img/trash.png" class="editar_fila" alt="Guardar modificación">
+				</button>
+                
+             </div>
 
         
         </form>

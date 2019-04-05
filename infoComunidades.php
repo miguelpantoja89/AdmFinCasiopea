@@ -3,10 +3,10 @@ session_start();
 include_once ('includes/gestionBD.php');
 $conexion= crearConexionBD();
 
-if(!isset($_REQUEST["IdC"])){
+if(!isset($_SESSION["IdC"])){
     header("Location: inicio.php");
 } else{
-    $IdC = $_REQUEST["IdC"];
+    $IdC = $_SESSION["IdC"];
 }
 try{
 $Comando_sql =  "SELECT IdC,
