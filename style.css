@@ -25,7 +25,7 @@
     
  }
  #navegador li a {
-    padding: 2% 13% 2% 13%;
+    padding: 0.05% 0.05% 0.05% 0.05%;
     color: #669;
     background-color: #eeeeee;
     border: 0px solid #ccc;
@@ -37,7 +37,7 @@
  }
  #navegador{
     background: #c09f80;
-     padding: 3.5%;
+     padding: 0.2%;
  }
 
  main{

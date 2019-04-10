@@ -8,19 +8,8 @@ if(!isset($_SESSION["IdC"])){
 } else{
     $IdC = $_SESSION["IdC"];
 }
-try{
-$Comando_sql =  "SELECT IdC,
-Direccion,
-NumeroPropietarios,
-CuentaCorriente,
-SaldoInicial,
-Presidente FROM COMUNIDADES WHERE IdC = :IdC";
-$stmn = $conexion->prepare($Comando_sql);
-$stmn -> bindParam(":IdC", $IdC);
-$stmn -> execute();
-} catch(PDOException $e){
-    $_SESSION["excepcion"] = $e -> getMessage();
-}
+
+$stmn = informacionComunidad($conexion, $IdC);
 
 ?>
 <!DOCTYPE html>
@@ -70,8 +59,26 @@ function getNombrePropietario($conexion, $IdP){
     return $stmn -> fetchColumn();
     }catch(PDOException $e){
         $_SESSION["excepcion"] = $e -> getMessage();
+        header("Location: excepcion.php");
     }
 }
 
+function informacionComunidad($conexion, $IdC){
+    try{
+        $Comando_sql =  "SELECT IdC,
+        Direccion,
+        NumeroPropietarios,
+        CuentaCorriente,
+        SaldoInicial,
+        Presidente FROM COMUNIDADES WHERE IdC = :IdC";
+        $stmn = $conexion->prepare($Comando_sql);
+        $stmn -> bindParam(":IdC", $IdC);
+        $stmn -> execute();
+        return $stmn;
+    } catch(PDOException $e){
+            $_SESSION["excepcion"] = $e -> getMessage();
+            header("Location: excepcion.php");
+        }
+}
 
 ?>

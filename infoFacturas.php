@@ -1,27 +1,21 @@
 <?php
 
+session_start();
+
 include_once ('includes/gestionBD.php');
 $conexion= crearConexionBD();  
 
   	
-if(!isset($_REQUEST["IdC"])){
-    header("Location: infoComunidades.php");
+if(!isset($_SESSION["IdC"])){
+    header("Location: inicio.php");
 } else{
-    $IdC = $_REQUEST["IdC"];
+    $IdC = $_SESSION["IdC"];
 }
-try{
-$Comando_sql =  "SELECT IdC,Importe,FechaEmision,TipoServicio
- FROM FACTURAS  WHERE IdC = :IdC"  ;
- $stmn = $conexion->prepare($Comando_sql);
- $stmn -> bindParam(":IdC", $IdC);
- $stmn -> execute();
- } catch(PDOException $e){
-     $_SESSION["excepcion"] = $e -> getMessage();
- }
 
+$stmn = facturasComunidad($conexion, $IdC);
 
  ?>
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -88,3 +82,19 @@ $Comando_sql =  "SELECT IdC,Importe,FechaEmision,TipoServicio
     
 </body>
 </html>
+
+<?php 
+function facturasComunidad($conexion, $IdC){
+    try{
+        $Comando_sql =  "SELECT IdC,Importe,FechaEmision,TipoServicio FROM FACTURAS  WHERE IdC = :IdC";
+        $stmn = $conexion->prepare($Comando_sql);
+        $stmn -> bindParam(":IdC", $IdC);
+        $stmn -> execute();
+        return $stmn;
+    }catch(PDOException $e){
+        $_SESSION["excepcion"] = $e -> getMessage();
+        header("Location: excepcion.php");
+ }
+}
+
+?>

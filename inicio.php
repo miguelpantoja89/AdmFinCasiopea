@@ -41,24 +41,23 @@ $Resultado=$conexion->query($Comando_sql);
         
                 
                 <div class="caja"><?php echo $Fila["DIRECCION"]; ?>
-                <input type="hidden" id="IdC" name="IdC" value=<?php echo $Fila["IDC"];?>/>
+                <input id="IdC" name="IdC" type="hidden" value="<?php echo $Fila["IDC"];?>" />
                 
                 </div>
 
             <div class="botones">
-                <button id="consultar" name="consultar" type="submit" class="editar_fila" value="Consultar">
+                <button id="consultar" name="consultar" type="submit" class="editar_fila">
                 </button>
 
                 <button id="editar" name="editar" type="submit" class="editar_fila">
 				<img src="img/pencil.png" class="editar_fila" alt="Guardar modificación">
                 </button>
                 
-                <button id="grabar" name="grabar" type="submit" class="editar_fila">
+                <button id="borrar" name="borrar" type="submit" class="editar_fila">
 				<img src="img/trash.png" class="editar_fila" alt="Guardar modificación">
 				</button>
                 
              </div>
-
         
         </form>
         
