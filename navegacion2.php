@@ -1,18 +1,11 @@
-<nav>
-        <div id="navegador">
-        <ul>
-            <li><a href="inicio.php">Inicio</a> </li>
-            <li><a href="infoComunidades.php"> Información general</a> </li>
-            <li><a href="propietarios.php">Propietarios</a> </li>
-            <li><a href="infoFacturas.php">Facturas</a> </li>
-            <li><a href="infoContratos.php">Contratos</a> </li>
-            <li><a href="pp.html">Presupuestos</a> </li>
-            <li><a href="pp.html">Pagos</a> </li>
-            <li><a href="pp.html">Cuotas</a> </li>
-            <li><a href="pp.html">Estadillos</a> </li>
-           
-        </ul>
-    </div>
-
-
+<nav class="nav_flex">
+            <a href="inicio.php">Inicio</a> 
+            <a href="infoComunidades.php"> Información general</a> 
+            <a href="propietarios.php">Propietarios</a> 
+            <a href="infoFacturas.php">Facturas</a> 
+            <a href="infoContratos.php">Contratos</a> 
+            <a href="pp.html">Presupuestos</a> 
+            <a href="pp.html">Pagos</a> 
+            <a href="pp.html">Cuotas</a> 
+            <a href="pp.html">Estadillos</a> 
     </nav>

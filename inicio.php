@@ -29,7 +29,7 @@ $Resultado=$conexion->query($Comando_sql);
     <main>
     
        <section>
-        <article >
+        <article class="contenedor">
            
              <?php foreach ($Resultado as $Fila) {
 					
@@ -38,26 +38,25 @@ $Resultado=$conexion->query($Comando_sql);
        
     
         <form class="enlaces" action="controladorComunidad.php" method="post" >
-        
+            
+            <input id="IdC" name="IdC" type="hidden" value="<?php echo $Fila["IDC"];?>" />
                 
                 <div class="caja"><?php echo $Fila["DIRECCION"]; ?>
-                <input id="IdC" name="IdC" type="hidden" value="<?php echo $Fila["IDC"];?>" />
+                    
+                    <button id="consultar" name="consultar" type="submit" class="editar_fila">
+                    Consultar
+                    </button>
+
+                    <button id="editar" name="editar" type="submit" class="editar_fila">
+				    <img src="img/pencil.png" class="editar_fila" alt="Guardar modificación">
+                    </button>
+                
+                    <button id="borrar" name="borrar" type="submit" class="editar_fila">
+				    <img src="img/trash.png" class="editar_fila" alt="Guardar modificación">
+				    </button>
+                
                 
                 </div>
-
-            <div class="botones">
-                <button id="consultar" name="consultar" type="submit" class="editar_fila">
-                </button>
-
-                <button id="editar" name="editar" type="submit" class="editar_fila">
-				<img src="img/pencil.png" class="editar_fila" alt="Guardar modificación">
-                </button>
-                
-                <button id="borrar" name="borrar" type="submit" class="editar_fila">
-				<img src="img/trash.png" class="editar_fila" alt="Guardar modificación">
-				</button>
-                
-             </div>
         
         </form>
         
@@ -67,9 +66,7 @@ $Resultado=$conexion->query($Comando_sql);
     
     
     <?php } ?>
-
-            
-             
+           
 
 
 

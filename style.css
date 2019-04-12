@@ -12,6 +12,29 @@
    background: url('img/casiopea.jpg') 50% 50% no-repeat white;
    background-size: 55%;
 }
+/* Navegador flex */
+.nav_flex{
+   display: flex;
+   flex-wrap: wrap;
+   background: #c09f80;
+   padding: 0.2%;
+   justify-content: center;
+}
+
+.nav_flex a{
+   padding: 0.2em 0.5em 0.2em 0.5em;
+   color: #669;
+   background-color: #eeeeee;
+   border: 0px solid #ccc;
+   text-decoration: none;
+   margin: 0.3em 0.7em 0.3em 0.7em;
+}
+
+.nav_flex a:hover{
+   background-color: #333333;
+   color: #c09f80;
+}
+
 
 #navegador ul{
    padding-left:10%;
@@ -22,7 +45,7 @@
     display: inline;
     text-align: center;
     margin: 0 0p 0 0;
-    
+
  }
  #navegador li a {
     padding: 0.05% 0.05% 0.05% 0.05%;
@@ -74,11 +97,11 @@ header{
    width: 90%;
    margin: auto;
    background: #c09f80;
-   padding: 10% 20%;
-   padding-bottom: 100%;
+   padding: 1%;
+   padding-bottom: 1%;
    box-sizing: border-box;
-   margin-top: 20%;
-   border-radius: 7%;
+   margin-top: 2em;
+   border-radius: 2%;
  }
  .banner{
     width:  100%;
@@ -86,7 +109,7 @@ header{
  }
  footer{
     width: 100%;
-    height: 50px;
+    height: 1.1em;
     position: fixed;
     bottom: 0;
  }
@@ -120,7 +143,7 @@ header{
 
 
 
-form{
+.alta{
    width: 1370px;
    margin: auto;
    background: #c09f80;
@@ -131,7 +154,7 @@ form{
    border-radius: 7px;
    
 }
-form input{
+.alta input{
    
    width: 280px;
    height: 20px;
@@ -143,7 +166,7 @@ form input{
    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
    
 }
-form input[type=submit] {
+.alta input[type=submit] {
    width: 90px;
    height: 25px;
    padding:5px 10px; 
@@ -151,19 +174,19 @@ form input[type=submit] {
    cursor:pointer;
   
 }  
-form input[type=button] {
-    width: 90px;
+.alta input[type=button] {
+   width: 90px;
    height: 25px;
    padding:5px 15px; 
    border:0 none;
    cursor:pointer;
   
 }
-form input[type=submit]:hover {
+.alta input[type=submit]:hover {
     background-color: #333333;
     color: #c09f80;
  }
-form input[type=button]:hover {
+.alta input[type=button]:hover {
     background-color: #333333;
     color: #c09f80;
  }
@@ -188,6 +211,7 @@ form input[type=button]:hover {
 
 }
 .caja{
+   
    background-image: linear-gradient( #d7cec7 , #c09f80);
    font-weight:lighter;
 }
@@ -200,8 +224,10 @@ form input[type=button]:hover {
 .espacio{
    margin-top:10px;
 }
+
 .enlaces{
    width: 80%;
+   margin: 1em
 }
 
 

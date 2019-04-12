@@ -45,7 +45,7 @@ if (isset($_SESSION["errores"])){
       }
     ?>
 
-    <form action="accioncomunidad.php" method="POST">
+    <form class="alta"ction="accioncomunidad.php" method="POST">
         
         <p class="textoin">Direccion: </p><input type="text" name="Direccion" value=<?php echo $form["direccion"] ?>>
         <p class="textoin">Propietarios: </p><input min="1" type="number" name="NumeroPropietarios" value=<?php echo $form["numPropietarios"] ?>>
