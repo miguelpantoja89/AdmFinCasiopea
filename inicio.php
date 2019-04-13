@@ -44,15 +44,15 @@ $Resultado=$conexion->query($Comando_sql);
                 <div class="caja"><?php echo $Fila["DIRECCION"]; ?>
                     
                     <button id="consultar" name="consultar" type="submit" class="editar_fila">
-                    Consultar
+                    <img src="img/info.png" class="editar_fila" alt="informaciñon">
                     </button>
 
                     <button id="editar" name="editar" type="submit" class="editar_fila">
-				    <img src="img/pencil.png" class="editar_fila" alt="Guardar modificación">
+				    <img src="img/pencil.png" class="editar_fila" alt="modificación">
                     </button>
                 
                     <button id="borrar" name="borrar" type="submit" class="editar_fila">
-				    <img src="img/trash.png" class="editar_fila" alt="Guardar modificación">
+				    <img src="img/trash.png" class="editar_fila" alt="Borrar ">
 				    </button>
                 
                 

@@ -18,13 +18,15 @@
    flex-wrap: wrap;
    background: #c09f80;
    padding: 0.2%;
+   opacity: 0.9;
    justify-content: center;
 }
 
 .nav_flex a{
    padding: 0.2em 0.5em 0.2em 0.5em;
-   color: #669;
-   background-color: #eeeeee;
+   color: black;
+   font-size: 18px;
+   
    border: 0px solid #ccc;
    text-decoration: none;
    margin: 0.3em 0.7em 0.3em 0.7em;
@@ -63,9 +65,6 @@
      padding: 0.2%;
  }
 
- main{
-    background-color:#d7cec7;
- }
 header{
    width: 100%;
    overflow: hidden;
@@ -81,10 +80,11 @@ header{
    text-align: center;
    font-size: 30%;
   font-weight: bold;
-   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+   color: white;
 }
 #texto{
-   color: black;
+   color: white;
 }
 .wrapper{
    padding:150px 150px  150px 150px;
@@ -97,6 +97,7 @@ header{
    width: 90%;
    margin: auto;
    background: #c09f80;
+   opacity: 0.9;
    padding: 1%;
    padding-bottom: 1%;
    box-sizing: border-box;
@@ -105,7 +106,8 @@ header{
  }
  .banner{
     width:  100%;
-    background: #c09f80;
+    background: #393939;
+    color: white;
  }
  footer{
     width: 100%;
@@ -114,9 +116,7 @@ header{
     bottom: 0;
  }
  body{
-    background: #d7cec7;
-    background-size: 100vw 100vh;
-    background-attachment: fixed;
+    background-image: url("img/cristal.jpg");
  }
  .boton a{
   
@@ -144,7 +144,8 @@ header{
 
 
 .alta{
-   width: 1370px;
+   width: 28%;
+   opacity: 0.9;
    margin: auto;
    background: #c09f80;
    padding: 10px 20px;
@@ -153,17 +154,19 @@ header{
    margin-top: 20px;
    border-radius: 7px;
    
+   
 }
 .alta input{
    
    width: 280px;
    height: 20px;
    padding: 0px 10px;
+   
  
    margin: 10px 30px;
 }
 .textoin{
-   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
    
 }
 .alta input[type=submit] {
@@ -226,8 +229,33 @@ header{
 }
 
 .enlaces{
-   width: 80%;
+   width: 97%;
    margin: 1em
 }
 
-
+header{
+   background-color: #393939;
+   border-bottom: black 2px solid;
+              }
+           img{
+             float:left;
+               margin-top:10px;
+               margin-bottom:10px;
+               margin-left:10px;
+               border-radius:10px;
+               
+           width:150px;
+           height:100px;
+           }
+           #texto{
+               padding-top:85px;
+               padding-left: 80px;
+               float:left;
+               font-size: 20px;
+           }
+           #texto2{
+             padding-top:85px;
+             padding-right:20px;
+               float:right;
+               font-size:15px;
+             }
