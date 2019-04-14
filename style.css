@@ -218,6 +218,36 @@ header{
    background-image: linear-gradient( #d7cec7 , #c09f80);
    font-weight:lighter;
 }
+.caja2{
+   margin-top: 0.5em;
+   background-image: linear-gradient( #d7cec7 , #c09f80);
+   font-weight:lighter;
+   width: 10%;
+}
+.caja3{
+   margin-bottom: 0.5em;
+   background-image: linear-gradient( #d7cec7 , #c09f80);
+   font-weight:lighter;
+   width: 25%;
+}
+.caja2 a:active{
+   background-color: white;
+   border: 1px solid black;
+  
+   color: white;
+}
+.caja2 a:not(:active) {
+   background-color: white;
+
+}
+.caja2 a:first-child{
+   border-top-left-radius: 5px;
+   border-bottom-left-radius: 5px;
+}
+.caja2 a:last-child{
+   border-top-right-radius: 5px;
+   border-bottom-right-radius: 5px;
+}
 .caja a:hover{
    background-image: linear-gradient( #d7cec7 ,#c09f80, #333333);
    
@@ -237,7 +267,7 @@ header{
    background-color: #393939;
    border-bottom: black 2px solid;
               }
-           img{
+img{
              float:left;
                margin-top:10px;
                margin-bottom:10px;
@@ -259,3 +289,25 @@ header{
                float:right;
                font-size:15px;
              }
+table,td,tr,th{
+             border: 1px solid black;
+             border-collapse: collapse;
+             font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+         
+            }
+             table{
+               width:100%;
+               
+               
+               
+           }
+         th{
+            color: white;
+            background-color: #565656;
+            opacity:0.6;
+           }
+         th,tr, td {
+                padding: 15px;
+                text-align: left;
+         }
+             
