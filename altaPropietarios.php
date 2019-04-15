@@ -8,6 +8,11 @@ if(!isset($_SESSION["IdC"])){
     $IdC = $_SESSION["IdC"];
 }
 
+if(isset($_SESSION["mensaje"])){
+    $mensaje = $_SESSION["mensaje"];
+    unset($_SESSION["mensaje"]);
+}
+
 if (isset($_SESSION["errores"])){
     $errores = $_SESSION["errores"];
     unset($_SESSION["errores"]);
@@ -31,6 +36,11 @@ if (isset($_SESSION["errores"])){
     <?php include('navegacion2.php') ?>
     
     <?php
+    if(isset($mensaje)){
+        echo "<div id=\"div_mensaje\" class=\"mensaje\">";
+        echo "<h3>" . $mensaje . "</h3>";
+    }
+
     if (isset($errores) && count($errores)>0) { 
         echo "<div id=\"div_errores\" class=\"error\">";
         echo "<h4> Errores en el formulario:</h4>";
