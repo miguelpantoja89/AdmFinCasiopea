@@ -37,17 +37,53 @@ $Comando_sql =  "SELECT nombre, fechainicio, fechafin FROM CONTRATOS NATURAL JOI
     <?php include('cabecera.php') ?>
     <?php include('navegacion2.php') ?>
     <main>
-    <?php foreach ($stmn as $Fil) { ?>	
-       <section>
+    <section>
         <article class="inp">
             <div class="contenedor">
-                   <p>Fecha de inicio del contrato:   <?php echo $Fil["FECHAINICIO"]; ?></p>
-                   <P>Fecha de fin:   <?php echo $Fil["FECHAFIN"]; ?></P>
-                   <P>Empresa:  <?php echo $Fil["NOMBRE"]; ?></P>
+            <table>
+            <tr>
+            <th>Empresa</th>
+            <th>Fecha de inicio</th>
+            <th>Fecha de extinción</th>
+            <th>Acciones disponibles</th>
+            </tr>
+            <?php foreach ($stmn as $Fila) {
+				
+                ?>
+             <tr>	
+               <td><?php echo $Fila["NOMBRE"]; ?></td>
+               <td><?php echo $Fila["FECHAINICIO"]; ?></td>
+               <td><?php echo $Fila["FECHAFIN"]; ?></td>
+               <td> <form  action="controladorFacturas.php" method="post" >
+            
+            <input id="IdC" name="IdC" type="hidden" value="<?php echo $Fila["IDC"];?>" />
+                
+                
+                    
+                    <button id="consultar" name="consultar" type="submit" class="editar_fila">
+                    <img src="img/info.png" class="editar_fila" alt="informaciñon">
+                    </button>
+
+                    <button id="editar" name="editar" type="submit" class="editar_fila">
+				    <img src="img/pencil.png" class="editar_fila" alt="modificación">
+                    </button>
+                
+                    <button id="borrar" name="borrar" type="submit" class="editar_fila">
+				    <img src="img/trash.png" class="editar_fila" alt="Borrar ">
+				    </button>
+                
+               
+        
+        </form></td>
+            </tr>
+            
+       
+               <?php } ?>
+               
+        </table>
                 </div>     
          </article>
         </section>
-        <?php } ?>
 
     </main>
     <!---<?php include('foot.php') ?>--->

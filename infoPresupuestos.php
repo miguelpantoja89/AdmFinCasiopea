@@ -12,7 +12,7 @@ if(!isset($_SESSION["IdC"])){
     $IdC = $_SESSION["IdC"];
 }
 
-$stmn = facturasComunidad($conexion, $IdC);
+$stmn = presupuestosComunidad($conexion, $IdC);
 
  ?>
 <!DOCTYPE html>
@@ -37,27 +37,27 @@ $stmn = facturasComunidad($conexion, $IdC);
             <div class="contenedor">
             <table>
             <tr>
-            <th>Importe</th>
-            <th>Fecha de Emisión</th>
-            <th>Tipo de Servicio</th>
+            <th>Fecha de aprobación</th>
+            <th>Fecha de aplicación</th>
+            <th>Motivo</th>
             <th>Acciones disponibles</th>
             </tr>
             <?php foreach ($stmn as $Fila) {
 				
                 ?>
              <tr>	
-               <td><?php echo $Fila["IMPORTE"]; ?></td>
-               <td><?php echo $Fila["FECHAEMISION"]; ?></td>
-               <td><?php echo $Fila["TIPOSERVICIO"]; ?></td>
+               <td><?php echo $Fila["FECHAAPROBACION"]; ?></td>
+               <td><?php echo $Fila["FECHAAPLICACION"]; ?></td>
+               <td><?php echo $Fila["MOTIVO"]; ?></td>
                <td> <form  action="controladorFacturas.php" method="post" >
             
             <input id="IdC" name="IdC" type="hidden" value="<?php echo $Fila["IDC"];?>" />
                 
-                
-                    
-                    <button id="consultar" name="consultar" type="submit" class="editar_fila">
+            <button id="consultar" name="consultar" type="submit" class="editar_fila">
                     <img src="img/info.png" class="editar_fila" alt="informaciñon">
                     </button>
+                    
+                    
 
                     <button id="editar" name="editar" type="submit" class="editar_fila">
 				    <img src="img/pencil.png" class="editar_fila" alt="modificación">
@@ -88,9 +88,12 @@ $stmn = facturasComunidad($conexion, $IdC);
 </html>
 
 <?php 
-function facturasComunidad($conexion, $IdC){
+function presupuestosComunidad($conexion, $IdC){
     try{
-        $Comando_sql =  "SELECT IdC,Importe,FechaEmision,TipoServicio FROM FACTURAS  WHERE IdC = :IdC";
+        $Comando_sql =  "SELECT IdC,IdPresupuesto,
+        FechaAprobacion,
+        FechaAplicacion,
+        Motivo FROM PRESUPUESTOS  WHERE IdC = :IdC";
         $stmn = $conexion->prepare($Comando_sql);
         $stmn -> bindParam(":IdC", $IdC);
         $stmn -> execute();
