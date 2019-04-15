@@ -310,4 +310,11 @@ table,td,tr,th{
                 padding: 15px;
                 text-align: left;
          }
-             
+.separador{
+     
+      width: 100%;
+      border-bottom: 3px solid black;
+      margin: 0 auto;
+      height: 16px;
+  
+}            

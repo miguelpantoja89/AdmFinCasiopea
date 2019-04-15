@@ -71,6 +71,7 @@ $filas = consulta_paginada($conexion, $Comando_sql, $pagina_seleccionada, $pag_t
 		</form>
 </div>
 
+
        <section>
         
            
