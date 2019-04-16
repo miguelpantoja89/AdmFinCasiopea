@@ -318,3 +318,25 @@ table,td,tr,th{
       height: 16px;
   
 }            
+
+
+
+/* Caja de errores */
+
+.error{
+   width: 90%;
+   margin: auto;
+   text-align: center;
+   border: 2px solid red;
+   color: #D8000C;
+   background-color: #FFD2D2;
+}
+
+.mensaje{
+   width: 28%;
+   margin: auto;
+   text-align: center;
+   border: 2px solid green;
+   color: #4F8A10;
+   background-color: #DFF2BF;
+}

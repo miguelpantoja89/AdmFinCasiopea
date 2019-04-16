@@ -17,6 +17,11 @@ if (isset($_SESSION["errores"])){
     unset($_SESSION["errores"]);
 }
 
+if(isset($_SESSION["mensaje"])){
+    $mensaje = $_SESSION["mensaje"];
+    unset($_SESSION["mensaje"]);
+}
+
 ?>
 
 
@@ -59,15 +64,11 @@ if (isset($_SESSION["errores"])){
     </form>
     
     <?php
-    $mensaje = "";
-     if(isset($_SESSION["mensaje"])){
-        $mensaje = $_SESSION["mensaje"];
-        unset($_SESSION["mensaje"]);
-     }elseif (isset($_SESSION["excepcion"])) {
-        $mensaje = $_SESSION["excepcion"];
-        unset($_SESSION["excepcion"]);
-     }
-     echo $mensaje;
+    if (isset($mensaje)) { 
+        echo "<div id=\"div_mensaje\" class=\"mensaje\">";
+        echo $mensaje;
+        echo "</div>";
+      }
      ?>
     <?php include('foot.php') ?>
 </body>

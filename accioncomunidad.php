@@ -17,15 +17,13 @@ $errores = validarComunidad($conexion, $form);
 
 if (count($errores)>0) {
     $_SESSION["errores"] = $errores;
-    cerrarConexionBD($conexion);
-    header('Location: alta.php');
 }else{
     insertarComunidad($conexion, $form);
     unset($_SESSION["form"]);
-    cerrarConexionBD($conexion);
-    header('Location: alta.php');
 }
 cerrarConexionBD($conexion);
+header('Location: alta.php');
+
 
 
 
