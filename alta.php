@@ -39,13 +39,13 @@ if (isset($_SESSION["errores"])){
         echo "<div id=\"div_errores\" class=\"error\">";
         echo "<h4> Errores en el formulario:</h4>";
         foreach($errores as $error){
-            echo $error;
+            echo $error . "<br>";
         } 
         echo "</div>";
       }
     ?>
 
-    <form class="alta"ction="accioncomunidad.php" method="POST">
+    <form class="alta" action="accioncomunidad.php" method="POST">
         
         <p class="textoin">Dirección: </p><input type="text" name="Direccion" value=<?php echo $form["direccion"] ?>>
         <p class="textoin">Número de propietarios: </p><input min="1" type="number" name="NumeroPropietarios" value=<?php echo $form["numPropietarios"] ?>>

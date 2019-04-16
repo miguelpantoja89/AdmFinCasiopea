@@ -13,19 +13,20 @@ if(isset($_SESSION["form"])){
 }
 $conexion=crearConexionBD();
 
-$error = validarCuentaBancaria($conexion, $form["cuenta"]);
-if($error!=""){
-    $errores[] = $error;
-}
+$errores = validarComunidad($conexion, $form);
 
 if (count($errores)>0) {
     $_SESSION["errores"] = $errores;
+    cerrarConexionBD($conexion);
+    header('Location: alta.php');
 }else{
     insertarComunidad($conexion, $form);
     unset($_SESSION["form"]);
+    cerrarConexionBD($conexion);
+    header('Location: alta.php');
 }
 cerrarConexionBD($conexion);
-Header('Location: alta.php');
+
 
 
 
@@ -40,10 +41,36 @@ function insertarComunidad($conexion, $comunidad){
         $_SESSION["mensaje"] =  "Comunidad añadida satisfactoriamente";
     } catch(PDOException $e){
         $_SESSION["excepcion"] = $e -> GetMessage();
-
+        header("Location: excepcion.php");
     }
 }
 
+
+
+// FUNCIONES DE VALIDACION
+function validarComunidad($conexion, $comunidad){
+    $errores = array();
+    if($comunidad["direccion"]==""){
+        $errores[] = "La dirección no puede estar vacía";
+    }
+    if($comunidad["numPropietarios"]<=0){
+        $errores[] = "El número de propietarios debe ser mayor que 0";
+    }
+    if($comunidad["cuenta"]==""){
+        $errores[] = "La cuenta bancaria no puede estar vacía";
+    }else{
+        $error = validarCuentaBancaria($conexion, $comunidad["cuenta"]);
+        if($error!=""){
+            $errores[] = $error;
+        }
+    }
+    if($comunidad["saldoInicial"]==""){
+        $errores[] = "El saldo inicial no puede estar vacío";
+    }else if($comunidad["saldoInicial"]<0){
+        $errores[] = "El saldo inical no puede ser negativo";
+    }
+    return $errores;
+}
 
 function validarCuentaBancaria($conexion, $cuenta){
     $error = "";
@@ -57,6 +84,7 @@ function validarCuentaBancaria($conexion, $cuenta){
         }
     } catch(PDOException $e){
         $_SESSION["excepcion"] = $e -> GetMessage();
+        header("Location: excepcion.php");
     }
     return $error;
 }
