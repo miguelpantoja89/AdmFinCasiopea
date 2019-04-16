@@ -6,6 +6,6 @@
             <a href="infoContratos.php">Contratos</a> 
             <a href="infoPresupuestos.php">Presupuestos</a> 
             <a href="infoPagos.php">Pagos</a> 
-            <a href="pp.html">Cuotas</a> 
+            <a href="infoCuotas.php">Cuotas</a> 
             <a href="pp.html">Estadillos</a> 
     </nav>
