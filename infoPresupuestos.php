@@ -103,5 +103,4 @@ function presupuestosComunidad($conexion, $IdC){
         header("Location: excepcion.php");
  }
 }
-
 ?>

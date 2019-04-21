@@ -37,6 +37,7 @@ $stmn = propietariosComunidad($conexion, $IdC);
             <div class="contenedor">
             <table>
             <tr>
+            <th>Piso</th>
             <th>Propietarios</th>
             <th>Dni</th>
             <th>Teléfono</th>
@@ -47,6 +48,7 @@ $stmn = propietariosComunidad($conexion, $IdC);
 				
                 ?>
              <tr>	
+               <td><?php echo $Fila["PISOLETRA"]; ?></td>
                <td><?php echo $Fila["NOMBREAP"]; ?></td>
                <td><?php echo $Fila["DNI"]; ?></td>
                <td><?php echo $Fila["TELEFONO"]; ?></td>
@@ -90,7 +92,7 @@ $stmn = propietariosComunidad($conexion, $IdC);
 <?php 
 function propietariosComunidad($conexion, $IdC){
     try{
-        $Comando_sql =  "SELECT NombreAp,Dni,Telefono,Email FROM PROPIETARIOS NATURAL JOIN PERTENECE WHERE IdC = :IdC";
+        $Comando_sql =  "SELECT NombreAp,Dni,Telefono,PisoLetra, Email FROM PROPIETARIOS Natural JOIN  PERTENECE natural JOIN PISOS WHERE IdC = :IdC";
         $stmn = $conexion->prepare($Comando_sql);
         $stmn -> bindParam(":IdC", $IdC);
         $stmn -> execute();

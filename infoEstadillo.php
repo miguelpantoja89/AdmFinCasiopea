@@ -120,6 +120,36 @@ function facturasPeriodo($conexion, $IdC, $FechaI,$FechaF){
  }
 }
 
-
-
 ?>
+
+<?php
+if(isset($_POST["generar"])){
+
+    //Incluimos la librería
+    require_once ('html2pdf/html2pdf.class.php');
+    ob_start(); 
+    include_once 'print.php';
+    $html= ob_get_clean();
+     
+    
+   
+    
+ 
+    try
+    {
+    $html2pdf = new HTML2PDF('L','A4','es', true, 'UTF-8'); //Configura la hoja
+    $html2pdf->pdf->SetDisplayMode('fullpage'); //Ver otros parámetros para SetDisplaMode
+    $html2pdf->writeHTML($html); //Se escribe el contenido
+    ob_end_clean();
+    $html2pdf->Output('Estadillo.pdf'); //Nombre default del PDF
+    }
+    catch(HTML2PDF_exception $e) {
+    echo $e;
+    exit;
+    }
+ 
+}
+?>
+<form action="" method="POST">
+    <input type="submit" value="Generar PDF" name="generar"/>
+</form>

@@ -10,6 +10,7 @@
 		$IdC = $_REQUEST["IdC"];
 		if(isset($_REQUEST["consultar"])){
 			$_SESSION["IdC"] = $IdC;
+			$_SESSION["Dir"]=$Dir;
 			header("Location: infoComunidades.php");
 		}
 		else if(isset($_REQUEST["borrar"])){
