@@ -8,9 +8,12 @@
 		header("Location: inicio.php");
 	} else{
 		$IdC = $_REQUEST["IdC"];
+		$Dir = $_REQUEST["DIRECCION"];
+		$sal= $_REQUEST["SALDOINICIAL"];
 		if(isset($_REQUEST["consultar"])){
 			$_SESSION["IdC"] = $IdC;
-			$_SESSION["Dir"]=$Dir;
+			$_SESSION["DIRECCION"]=$Dir;
+			$_SESSION["SALDOINICIAL"]=$sal;
 			header("Location: infoComunidades.php");
 		}
 		else if(isset($_REQUEST["borrar"])){

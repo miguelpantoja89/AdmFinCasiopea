@@ -6,11 +6,13 @@ include_once ('includes/gestionBD.php');
 $conexion= crearConexionBD();  
 
   	
-if(!isset($_SESSION["IdC"])){
+if(!isset($_SESSION["DIRECCION"])){
     header("Location: inicio.php");
 } else{
     $IdC = $_SESSION["IdC"];
-    $Dir=$_SESSION["Dir"];
+    $ar= $_SESSION["DIRECCION"];
+    
+    
     
 }
 
@@ -18,7 +20,9 @@ if(!isset($_SESSION["IdC"])){
 $stmn2 =PisoProp($conexion, $IdC);
 
 $stmn3 =Suma($conexion, $IdC);
-
+$fechaActual = date('d-m-Y');
+$stmn4=facturas($conexion,$IdC);
+$stmn5 =Suma2($conexion, $IdC);
 
  ?>
 <!DOCTYPE html>
@@ -36,7 +40,8 @@ $stmn3 =Suma($conexion, $IdC);
              border-collapse: collapse;
              display:inline;
              margin-left:50px;
-             margin-top:10px;
+             margin-top:30px;
+             margin-bottom:20px;
              width:50%;
             
             }
@@ -64,11 +69,15 @@ $stmn3 =Suma($conexion, $IdC);
              text-align:center;
 
          }
+         #separador{
+             margin-top: 1005px;
+             margin-bottom:1000px;
+         }
     </style>
     <table  width="*%" border=1 frame="box" rules="all" cellspacing=1 cellpadding=1>
 <tr><td>
 <img src="img/casiopea.jpg" alt="logo" ></td>
-<td id=" logo" style="width:660px"><?php echo $Dir ?></td>
+<td id=" logo" style="width:330px;"> <?php echo $ar ?> <br> <br>  Estadillo de <?php echo $fechaActual ?></td>
 </tr></table> 
    
     <table>
@@ -100,11 +109,56 @@ $stmn3 =Suma($conexion, $IdC);
 				
                 ?> 
             <tr>
-            <th style="width:540px" >Suma de Ingresos</th>
+            <th style="width:340px" >Suma de Ingresos</th>
             <td><?php echo $Fila3["CAN"]; ?></td>
             <td><?php echo $Fila3["CAN"] - $Fila3["PAG"]; ?></td>
             </tr>
-            <?php } ?>
+            <?php $ing= $Fila3["CAN"];} ?>
+        </table>
+        <div id="separador"></div>
+        <table>
+            <tr>
+            <th></th>
+            <th>Servicios</th>
+            <th>Cargos</th>
+            <th>Pagos</th>
+            <th>Pendiente de pago</th>
+            </tr>
+            <?php foreach ($stmn4 as $Fila4) {
+				
+                ?>
+             <tr>	
+               <td></td>
+               <td><?php echo $Fila4["TIPOSERVICIO"]; ?></td>
+               <td><?php echo $Fila4["IMP"]; ?></td>
+               <td><?php echo $Fila4["IMP"]; ?></td>
+               <td><?php echo $Fila4["IMP"] - $Fila4["IMP"]; ?></td>
+               
+            </tr>
+            
+       
+               <?php } ?>
+                 
+        </table>
+        <table>
+        <?php foreach ($stmn5 as $Fila5) {
+				
+                ?> 
+            <tr>
+            <th style="width:340px" >Suma de Pagos</th>
+            <td><?php echo $Fila5["IMP"]; ?></td>
+            <td><?php echo $Fila5["IMP"] - $Fila5["IMP"]; ?></td>
+            </tr>
+        
+            <?php  $pago= $Fila5["IMP"];} ?>
+        </table>
+        <table>
+        
+            <tr>
+            <th style="width:340px" >Saldo del banco</th>
+            <td><?php   echo $pago - $ing ?></td>
+            </tr>
+          
         </table>
         
 
@@ -133,6 +187,36 @@ function PisoProp($conexion, $IdC){
 function Suma($conexion, $IdC){
     try{
         $Comando_sql =  "SELECT  SUM(PagoExigido) AS PAG, SUM(Cantidad) AS CAN FROM  CUOTAS NATURAL JOIN PAGOS  WHERE IdC = :IdC  ";
+        $stmn = $conexion->prepare($Comando_sql);
+        $stmn -> bindParam(":IdC", $IdC);
+        $stmn -> execute();
+        return $stmn;
+    }catch(PDOException $e){
+        $_SESSION["excepcion"] = $e -> getMessage();
+        header("Location: excepcion.php");
+ }
+}
+
+?>
+<?php 
+function facturas($conexion, $IdC){
+    try{
+        $Comando_sql =  "SELECT TipoServicio, SUM(Importe) AS IMP FROM FACTURAS  WHERE IdC = :IdC GROUP BY TipoServicio";
+        $stmn = $conexion->prepare($Comando_sql);
+        $stmn -> bindParam(":IdC", $IdC);
+        $stmn -> execute();
+        return $stmn;
+    }catch(PDOException $e){
+        $_SESSION["excepcion"] = $e -> getMessage();
+        header("Location: excepcion.php");
+ }
+}
+
+?>
+<?php 
+function Suma2($conexion, $IdC){
+    try{
+        $Comando_sql =  "SELECT  SUM(IMPORTE) AS IMP FROM  FACTURAS  WHERE IdC = :IdC  ";
         $stmn = $conexion->prepare($Comando_sql);
         $stmn -> bindParam(":IdC", $IdC);
         $stmn -> execute();

@@ -84,7 +84,8 @@ $filas = consulta_paginada($conexion, $Comando_sql, $pagina_seleccionada, $pag_t
         <form class="enlaces" action="controladorComunidad.php" method="post" >
             
             <input id="IdC" name="IdC" type="hidden" value="<?php echo $Fila["IDC"];?>" />
-            <input id="Dir" name="Dir" type="hidden" value="<?php echo $Fila["DIRECCION"];?>" />
+            <input id="DIRECCION" name="DIRECCION" type="hidden" value="<?php echo $Fila["DIRECCION"];?>" />
+            <input id="SALDOINICIAL" name="SALDOINICIAL" type="hidden" value="<?php echo $Fila["SALDOINICIAL"];?>" />
                 
                 <div class="caja"><?php echo $Fila["DIRECCION"]; ?>
                     

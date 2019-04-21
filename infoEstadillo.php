@@ -47,6 +47,7 @@ $stmn = facturasPeriodo($conexion, $IdC, $FechaI, $FechaF);
             <input type="date" name="fechafin">
             <input type="submit" value="buscar">
             </form>
+           
             <div class="contenedor">
             
             <section>
@@ -124,6 +125,7 @@ function facturasPeriodo($conexion, $IdC, $FechaI,$FechaF){
 
 <?php
 if(isset($_POST["generar"])){
+   
 
     //Incluimos la librería
     require_once ('html2pdf/html2pdf.class.php');
@@ -137,7 +139,7 @@ if(isset($_POST["generar"])){
  
     try
     {
-    $html2pdf = new HTML2PDF('L','A4','es', true, 'UTF-8'); //Configura la hoja
+    $html2pdf = new HTML2PDF('P','A4','es', true, 'UTF-8'); //Configura la hoja
     $html2pdf->pdf->SetDisplayMode('fullpage'); //Ver otros parámetros para SetDisplaMode
     $html2pdf->writeHTML($html); //Se escribe el contenido
     ob_end_clean();
@@ -151,5 +153,7 @@ if(isset($_POST["generar"])){
 }
 ?>
 <form action="" method="POST">
+    
     <input type="submit" value="Generar PDF" name="generar"/>
+
 </form>
