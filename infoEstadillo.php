@@ -11,17 +11,22 @@ if(!isset($_SESSION["IdC"])){
 } else{
     $IdC = $_SESSION["IdC"];
 }
-if(isset($_POST)){
-    $FechaI=$_POST['fechainicio'];
-    $FechaF=$_POST['fechafin'];
+if(isset($_GET['fechainicio']) and isset($_GET['fechafin'])){
+    $FechaI=$_GET['fechainicio'];
+    $FechaF=$_GET['fechafin'];
+    $conexion= crearConexionBD();
+    $stmn = facturasPeriodo($conexion, $IdC, $FechaI, $FechaF);
 }
 
+  
+
+
 unset($_SESSION["form"]);
-$conexion= crearConexionBD();
 
 
 
-$stmn = facturasPeriodo($conexion, $IdC, $FechaI, $FechaF);
+
+
 
 
 ?>
@@ -42,9 +47,9 @@ $stmn = facturasPeriodo($conexion, $IdC, $FechaI, $FechaF);
     <?php include('navegacion2.php') ?>
     <main>
      
-    <form action="infoEstadillo.php" method="POST">
-            <input type="date" name="fechainicio">
-            <input type="date" name="fechafin">
+    <form action="" method="get">
+            <input type="text" name="fechainicio" placeholder="11/05/18">
+            <input type="text" name="fechafin" placeholder="11/05/18">
             <input type="submit" value="buscar">
             </form>
            
@@ -59,8 +64,13 @@ $stmn = facturasPeriodo($conexion, $IdC, $FechaI, $FechaF);
             <th>Fecha</th>
             <th>Acciones disponibles</th>
             </tr>
-            <?php foreach ($stmn as $Fila) {
-				
+            <?php
+            if(isset($stmn)){
+
+            
+            foreach ($stmn as $Fila) {
+            
+        
                 ?>
              <tr>	
                <td><?php echo $Fila["NOMBRE"]; ?></td>
@@ -92,7 +102,7 @@ $stmn = facturasPeriodo($conexion, $IdC, $FechaI, $FechaF);
             </tr>
             
        
-               <?php } ?>
+               <?php }} ?>
                
         </table>
                 </div>     
@@ -109,7 +119,7 @@ $stmn = facturasPeriodo($conexion, $IdC, $FechaI, $FechaF);
 <?php 
 function facturasPeriodo($conexion, $IdC, $FechaI,$FechaF){
     try{
-        $Comando_sql =  " SELECT Nombre, Importe, FechaEmision FROM EMPRESAS NATURAL JOIN FACTURAS WHERE :FechaI<=fechaemision and fechaemision<=:FechaF";
+        $Comando_sql =  " SELECT Nombre, Importe, FechaEmision FROM EMPRESAS NATURAL JOIN FACTURAS WHERE :FechaI <= FechaEmision  and FechaEmision <= :FechaF";
         $stmn = $conexion->prepare($Comando_sql);
         $stmn -> bindParam(":FechaI", $FechaI);
         $stmn -> bindParam(":FechaF", $FechaF);
