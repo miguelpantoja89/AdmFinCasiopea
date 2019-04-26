@@ -17,6 +17,11 @@ if (isset($_SESSION["errores"])){
     unset($_SESSION["errores"]);
 }
 
+if(isset($_SESSION["mensaje"])){
+    $mensaje = $_SESSION["mensaje"];
+    unset($_SESSION["mensaje"]);
+}
+
 ?>
 
 
@@ -39,32 +44,31 @@ if (isset($_SESSION["errores"])){
         echo "<div id=\"div_errores\" class=\"error\">";
         echo "<h4> Errores en el formulario:</h4>";
         foreach($errores as $error){
-            echo $error;
+            echo $error . "<br>";
         } 
         echo "</div>";
       }
     ?>
 
-    <form action="accioncomunidad.php" method="POST">
+    <form class="alta" action="accioncomunidad.php" method="POST">
         
-        <p class="textoin">Direccion: </p><input type="text" name="Direccion" value=<?php echo $form["direccion"] ?>>
-        <p class="textoin">Propietarios: </p><input min="1" type="number" name="NumeroPropietarios" value=<?php echo $form["numPropietarios"] ?>>
-        <p class="textoin">Num cuenta :</p><input type="text" name="CuentaCorriente" value=<?php echo $form["cuenta"] ?>>
-        <p class="textoin">SaldoInicial :</p><input type="text" name="SaldoInicial" value=<?php echo $form["saldoInicial"] ?>>
+        <p class="textoin">Dirección: </p><input type="text" name="Direccion" value=<?php echo $form["direccion"] ?>>
+        <p class="textoin">Número de propietarios: </p><input min="1" type="number" name="NumeroPropietarios" value=<?php echo $form["numPropietarios"] ?>>
+        <p class="textoin">Número de  cuenta :</p><input type="text" name="CuentaCorriente" value=<?php echo $form["cuenta"] ?>>
+        <p class="textoin">Saldo de Inicio :</p><input type="text" name="SaldoInicial" value=<?php echo $form["saldoInicial"] ?>>
+        <br>
+        <br>
+        <br>
         <p><input  type="submit" value="enviar"> <input  type="button" value="cancelar" onClick="location.href='inicio.php'"></p>
        
     </form>
     
     <?php
-    $mensaje = "";
-     if(isset($_SESSION["mensaje"])){
-        $mensaje = $_SESSION["mensaje"];
-        unset($_SESSION["mensaje"]);
-     }elseif (isset($_SESSION["excepcion"])) {
-        $mensaje = $_SESSION["excepcion"];
-        unset($_SESSION["excepcion"]);
-     }
-     echo $mensaje;
+    if (isset($mensaje)) { 
+        echo "<div id=\"div_mensaje\" class=\"mensaje\">";
+        echo $mensaje;
+        echo "</div>";
+      }
      ?>
     <?php include('foot.php') ?>
 </body>

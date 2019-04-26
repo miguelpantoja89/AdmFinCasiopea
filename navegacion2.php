@@ -1,18 +1,11 @@
-<nav>
-        <div id="navegador">
-        <ul>
-            <li><a href="inicio.php">Inicio</a> </li>
-            <li><a href="infoComunidades.php?IdC=<?php echo $_REQUEST["IdC"]; ?>"> Información general</a> </li>
-            <li><a href="propietarios.php">Propietarios</a> </li>
-            <li><a href="infoFacturas.php?IdC=<?php echo $_REQUEST["IdC"]; ?>">Facturas</a> </li>
-            <li><a href="infoContratos.php?IdC=<?php echo $_REQUEST["IdC"]; ?>">Contratos</a> </li>
-            <li><a href="pp.html">Presupuestos</a> </li>
-            <li><a href="pp.html">Pagos</a> </li>
-            <li><a href="pp.html">Cuotas</a> </li>
-            <li><a href="pp.html">Estadillos</a> </li>
-           
-        </ul>
-    </div>
-
-
+<nav class="nav_flex">
+            <a href="inicio.php">Inicio</a> 
+            <a href="infoComunidades.php"> Información general</a> 
+            <a href="infoPropietarios.php">Propietarios</a> 
+            <a href="infoFacturas.php">Facturas</a> 
+            <a href="infoContratos.php">Contratos</a> 
+            <a href="infoPresupuestos.php">Presupuestos</a> 
+            <a href="infoPagos.php">Pagos</a> 
+            <a href="infoCuotas.php">Cuotas</a> 
+            <a href="infoEstadillo.php">Estadillos</a> 
     </nav>

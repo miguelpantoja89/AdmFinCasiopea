@@ -3,24 +3,13 @@ session_start();
 include_once ('includes/gestionBD.php');
 $conexion= crearConexionBD();
 
-if(!isset($_REQUEST["IdC"])){
+if(!isset($_SESSION["IdC"])){
     header("Location: inicio.php");
 } else{
-    $IdC = $_REQUEST["IdC"];
+    $IdC = $_SESSION["IdC"];
 }
-try{
-$Comando_sql =  "SELECT IdC,
-Direccion,
-NumeroPropietarios,
-CuentaCorriente,
-SaldoInicial,
-Presidente FROM COMUNIDADES WHERE IdC = :IdC";
-$stmn = $conexion->prepare($Comando_sql);
-$stmn -> bindParam(":IdC", $IdC);
-$stmn -> execute();
-} catch(PDOException $e){
-    $_SESSION["excepcion"] = $e -> getMessage();
-}
+
+$stmn = informacionComunidad($conexion, $IdC);
 
 ?>
 <!DOCTYPE html>
@@ -39,21 +28,29 @@ $stmn -> execute();
     <?php include('cabecera.php') ?>
     <?php include('navegacion2.php') ?>
     <main>
-    <?php foreach ($stmn as $Fila) {
-					
-                    ?>	
+        <?php $Fila=$stmn->fetch(); ?>
+    
        <section>
-        <article class="inp">
+        
             <div class="contenedor">
-                   <p>Direccion:   <?php echo $Fila["DIRECCION"]; ?></p>
-                   <P>Número de propietarios:   <?php echo $Fila["NUMEROPROPIETARIOS"]; ?></P>
-                   <P>Cuenta corriente:  <?php echo $Fila["CUENTACORRIENTE"]; ?></P>
-                   <P>Saldo:   <?php echo  $Fila["SALDOINICIAL"]; ?></P>
-                   <P>Presidente:  <?php echo getNombrePropietario($conexion, $Fila["PRESIDENTE"]); ?></P>
-                </div>     
-         </article>
+            <table>
+            <tr>
+            <th>Dirección</th>
+            <th>Número de propietarios</th>
+            <th>Número de cuenta corriente</th>
+            <th>Saldo de la comunidad</th>
+            <th>Presidente</th>
+            </tr>
+            <tr>
+            <td> <?php echo $Fila["DIRECCION"]; ?></td>
+            <td> <?php echo $Fila["NUMEROPROPIETARIOS"]; ?></td>
+            <td><?php echo $Fila["CUENTACORRIENTE"]; ?></td>
+            <td><?php echo  $Fila["SALDOINICIAL"]; ?></td>
+            <td><?php echo getNombrePropietario($conexion, $Fila["PRESIDENTE"]); ?></td>
+            </tr>
+            </table>
         </section>
-        <?php } ?>
+        
 
     </main>
     <!---<?php include('foot.php') ?>--->
@@ -71,8 +68,26 @@ function getNombrePropietario($conexion, $IdP){
     return $stmn -> fetchColumn();
     }catch(PDOException $e){
         $_SESSION["excepcion"] = $e -> getMessage();
+        header("Location: excepcion.php");
     }
 }
 
+function informacionComunidad($conexion, $IdC){
+    try{
+        $Comando_sql =  "SELECT IdC,
+        Direccion,
+        NumeroPropietarios,
+        CuentaCorriente,
+        SaldoInicial,
+        Presidente FROM COMUNIDADES WHERE IdC = :IdC";
+        $stmn = $conexion->prepare($Comando_sql);
+        $stmn -> bindParam(":IdC", $IdC);
+        $stmn -> execute();
+        return $stmn;
+    } catch(PDOException $e){
+            $_SESSION["excepcion"] = $e -> getMessage();
+            header("Location: excepcion.php");
+        }
+}
 
 ?>

@@ -4,27 +4,37 @@
 	include_once ('includes/gestionBD.php');
 	$conexion= crearConexionBD(); 
 	
-	if(!isset($_REQUEST["IdC"])or(!isset($_REQUEST["tipo"]))){
+	if(!isset($_REQUEST["IdC"])){
 		header("Location: inicio.php");
 	} else{
 		$IdC = $_REQUEST["IdC"];
-		$tipo=$_REQUEST["tipo"];
-		if( $tipo=="borrar"){
-			try{
-				$Comando_sql =  "DELETE FROM COMUNIDADES WHERE IdC = :IdC";
-				 $stmn = $conexion->prepare($Comando_sql);
-				 $stmn -> bindParam(":IdC", $IdC);
-				 $stmn -> execute();
-				 } catch(PDOException $e){
-					 $_SESSION["excepcion"] = $e -> getMessage();
-				 }
+		$Dir = $_REQUEST["DIRECCION"];
+		$sal= $_REQUEST["SALDOINICIAL"];
+		if(isset($_REQUEST["consultar"])){
+			$_SESSION["IdC"] = $IdC;
+			$_SESSION["DIRECCION"]=$Dir;
+			$_SESSION["SALDOINICIAL"]=$sal;
+			header("Location: infoComunidades.php");
+		}
+		else if(isset($_REQUEST["borrar"])){
+			borrarComunidad($conexion, $IdC);
+			header("Location: inicio.php");
 	}else if($tipo=="editar"){
 
 	}
-	header("Location: inicio.php");
 
 	}
 
 
-
+function borrarComunidad($conexion, $IdC){
+	try{
+		$Comando_sql =  "DELETE FROM COMUNIDADES WHERE IdC = :IdC";
+		$stmn = $conexion->prepare($Comando_sql);
+		$stmn -> bindParam(":IdC", $IdC);
+		$stmn -> execute();
+	} catch(PDOException $e){
+		$_SESSION["excepcion"] = $e -> getMessage();
+		header("Location: excepcion.php");
+	}
+}
 ?>
