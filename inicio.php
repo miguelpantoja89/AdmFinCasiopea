@@ -48,7 +48,24 @@ $filas = consulta_paginada($conexion, $Comando_sql, $pagina_seleccionada, $pag_t
 <body>
     <?php include_once ('cabecera.php') ?>
     <?php include_once ('navegacion.php') ?>
-  
+    <script type="text/javascript">
+        $(document).ready(function() {
+			$(".editar_fila").on("click", function () {
+				
+        		$.get("auxi.php", { IdC: $("#IdC").val()}, function (data) {
+        			
+        			$(".c").empty();
+        			
+        			$(".c").append(data);
+				});
+    		});
+        });
+        
+        
+    </script>
+
+
+
     <main>
     <article class="contenedor">
 <div class= "caja3">
@@ -71,7 +88,9 @@ $filas = consulta_paginada($conexion, $Comando_sql, $pagina_seleccionada, $pag_t
 		</form>
 </div>
 
+<form  class="c" method="post" action="controladorComunidad.php">
 
+</form>
        <section>
         
            
@@ -83,12 +102,13 @@ $filas = consulta_paginada($conexion, $Comando_sql, $pagina_seleccionada, $pag_t
     
         <form class="enlaces" action="controladorComunidad.php" method="post" >
             
-            <input id="IdC" name="IdC" type="hidden" value="<?php echo $Fila["IDC"];?>" />
+            <input  id="IdC" name="IdC" type="hidden" value="<?php echo $Fila["IDC"];?>" />
             <input id="DIRECCION" name="DIRECCION" type="hidden" value="<?php echo $Fila["DIRECCION"];?>" />
             <input id="SALDOINICIAL" name="SALDOINICIAL" type="hidden" value="<?php echo $Fila["SALDOINICIAL"];?>" />
                 
-                <div class="caja"><?php echo $Fila["DIRECCION"]; ?>
-                    
+                <div class="caja"><?php echo $Fila["DIRECCION"]; ?> 
+
+              
                     <button id="consultar" name="consultar" type="submit" class="editar_fila">
                     <img src="img/info.png" class="editar_fila" alt="informaciñon">
                     </button>
@@ -96,8 +116,9 @@ $filas = consulta_paginada($conexion, $Comando_sql, $pagina_seleccionada, $pag_t
                     <button id="editar" name="editar" type="submit" class="editar_fila">
 				    <img src="img/pencil.png" class="editar_fila" alt="modificación">
                     </button>
+      
                 
-                    <button id="borrar" name="borrar" type="submit" class="editar_fila">
+                    <button id="borrar" name="borrar" type="submit" class="editar_fila" >
 				    <img src="img/trash.png" class="editar_fila" alt="Borrar ">
 				    </button>
                 
@@ -105,8 +126,7 @@ $filas = consulta_paginada($conexion, $Comando_sql, $pagina_seleccionada, $pag_t
                 </div>
         
         </form>
-        
-      
+       
        
 
     

@@ -17,9 +17,14 @@
 			header("Location: infoComunidades.php");
 		}
 		else if(isset($_REQUEST["borrar"])){
+
+		    echo 'alert("quieres borrar")';
 			borrarComunidad($conexion, $IdC);
 			header("Location: inicio.php");
-	}else if($tipo=="editar"){
+	}else if(isset($_REQUEST["editar"])){
+		$IdC["IdC"]=$_SESSION["IdC"];
+		$_SESSION["IdC"] = $IdC;
+		header("Location: inicio.php");
 
 	}
 
