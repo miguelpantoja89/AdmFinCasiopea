@@ -78,6 +78,13 @@ $stmn = propietariosComunidad($conexion, $IdC);
                <?php } ?>
                
         </table>
+        <div >
+                        
+                        <button class="boton"><a href="altaPropietarios.php">Importar desde .csv</a></button>
+                        <button class="boton"><a href="altaPropietario.php">Dar de alta </a></button>
+           
+                    
+        </div>
                 </div>     
          </article>
         </section>

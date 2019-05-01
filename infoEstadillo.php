@@ -42,99 +42,14 @@ unset($_SESSION["form"]);
     <title>Estadillo</title>
 </head>
 <body>
-        
-    <?php include('cabecera.php') ?>
-    <?php include('navegacion2.php') ?>
-    <main>
-     
-    <form action="" method="get">
-            <input type="text" name="fechainicio" placeholder="11/05/18">
-            <input type="text" name="fechafin" placeholder="11/05/18">
-            <input type="submit" value="buscar">
-            </form>
-           
-            <div class="contenedor">
-            
-            <section>
-                 <article class="inp">
-            <table>
-            <tr>
-            <th>Empresa</th>
-            <th>Importe</th>
-            <th>Fecha</th>
-            <th>Acciones disponibles</th>
-            </tr>
-            <?php
-            if(isset($stmn)){
-
-            
-            foreach ($stmn as $Fila) {
-            
-        
-                ?>
-             <tr>	
-               <td><?php echo $Fila["NOMBRE"]; ?></td>
-               <td><?php echo $Fila["IMPORTE"]; ?></td>
-               <td><?php echo $Fila["FECHAEMISION"]; ?> </td>
-               
-               <td> <form  action="controladorFacturas.php" method="post" >
-            
-            <input id="IdC" name="IdC" type="hidden" value="<?php echo $Fila["IDC"];?>" />
-                
-                
-                    
-
-                    <button id="consultar" name="consultar" type="submit" class="editar_fila">
-                    <img src="img/info.png" class="editar_fila" alt="informaciñon">
-                    </button>
-
-                    <button id="editar" name="editar" type="submit" class="editar_fila">
-				    <img src="img/pencil.png" class="editar_fila" alt="modificación">
-                    </button>
-                
-                    <button id="borrar" name="borrar" type="submit" class="editar_fila">
-				    <img src="img/trash.png" class="editar_fila" alt="Borrar ">
-				    </button>
-                
-               
-        
-        </form></td>
-            </tr>
-            
-       
-               <?php }} ?>
-               
-        </table>
-                </div>     
-         </article>
-        </section>
-        
-
-    </main>
-    <!---<?php include('foot.php') ?>--->
+   
     
 </body>
 </html>
 
-<?php 
-function facturasPeriodo($conexion, $IdC, $FechaI,$FechaF){
-    try{
-        $Comando_sql =  " SELECT Nombre, Importe, FechaEmision FROM EMPRESAS NATURAL JOIN FACTURAS WHERE :FechaI <= FechaEmision  and FechaEmision <= :FechaF";
-        $stmn = $conexion->prepare($Comando_sql);
-        $stmn -> bindParam(":FechaI", $FechaI);
-        $stmn -> bindParam(":FechaF", $FechaF);
-        $stmn -> execute();
-        return $stmn;
-    }catch(PDOException $e){
-        $_SESSION["excepcion"] = $e -> getMessage();
-        header("Location: excepcion.php");
- }
-}
-
-?>
 
 <?php
-if(isset($_POST["generar"])){
+
    
 
     //Incluimos la librería
@@ -160,10 +75,6 @@ if(isset($_POST["generar"])){
     exit;
     }
  
-}
-?>
-<form action="" method="POST">
-    
-    <input type="submit" value="Generar PDF" name="generar"/>
 
-</form>
+?>
+

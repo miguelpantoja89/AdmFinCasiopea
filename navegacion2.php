@@ -7,5 +7,5 @@
             <a href="infoPresupuestos.php">Presupuestos</a> 
             <a href="infoPagos.php">Pagos</a> 
             <a href="infoCuotas.php">Cuotas</a> 
-            <a href="infoEstadillo.php">Estadillos</a> 
+            <a href="infoEstadillo2.php">Estadillo</a> 
     </nav>
