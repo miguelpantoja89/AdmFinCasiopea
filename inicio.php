@@ -32,15 +32,16 @@ $paginacion["PAG_TAM"] = $pag_tam;
 $_SESSION["paginacion"] = $paginacion;
 
 $filas = consulta_paginada($conexion, $Comando_sql, $pagina_seleccionada, $pag_tam);
+
+
 ?>
-
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css"  href="style.css">
+    <script src="js/jquery-3.1.1.min.js" type="text/javascript"></script>
     <link rel="icon" href="img/favicon.jpg">
     
     <title>Comunidades</title>
@@ -48,27 +49,15 @@ $filas = consulta_paginada($conexion, $Comando_sql, $pagina_seleccionada, $pag_t
 <body>
     <?php include_once ('cabecera.php') ?>
     <?php include_once ('navegacion.php') ?>
-    <script type="text/javascript">
-        $(document).ready(function() {
-			$(".editar_fila").on("click", function () {
-				
-        		$.get("auxi.php", { IdC: $("#IdC").val()}, function (data) {
-        			
-        			$(".c").empty();
-        			
-        			$(".c").append(data);
-				});
-    		});
-        });
-        
-        
-    </script>
-
+    
+    
 
 
     <main>
+
     <article class="contenedor">
 <div class= "caja3">
+
 <form method="get" action="inicio.php">
 
 			<input id="PAG_NUM" name="PAG_NUM" type="hidden" value="<?php echo $pagina_seleccionada?>"/>
@@ -88,9 +77,7 @@ $filas = consulta_paginada($conexion, $Comando_sql, $pagina_seleccionada, $pag_t
 		</form>
 </div>
 
-<form  class="c" method="post" action="controladorComunidad.php">
 
-</form>
        <section>
         
            
@@ -113,9 +100,9 @@ $filas = consulta_paginada($conexion, $Comando_sql, $pagina_seleccionada, $pag_t
                     <img src="img/info.png" class="editar_fila" alt="informaciñon">
                     </button>
 
-                    <button id="editar" name="editar" type="submit" class="editar_fila">
-				    <img src="img/pencil.png" class="editar_fila" alt="modificación">
-                    </button>
+                    <a href="" id="show"   class="editar_fila" >
+                    <img src="img/pencil.png" class="editar_fila" alt="modificación">
+                    </a>
       
                 
                     <button id="borrar" name="borrar" type="submit" class="editar_fila" >
@@ -126,12 +113,18 @@ $filas = consulta_paginada($conexion, $Comando_sql, $pagina_seleccionada, $pag_t
                 </div>
         
         </form>
+        
        
        
 
     
     
     <?php } ?>
+    
+    <div id="c">
+<form  method="post" action="">
+</form>
+</div>
            
 
 
@@ -177,3 +170,15 @@ $filas = consulta_paginada($conexion, $Comando_sql, $pagina_seleccionada, $pag_t
     
 </body>
 </html>
+<script>
+		$(document).ready(function() {
+			$("#show").on("click", function () {
+        		$.get("auxi.php", { Ident: $("#IdC").val()}, function (data) {
+        			
+        			$("#c").empty();
+        			
+        			$("#c").append(data);
+				});
+    		});
+		});
+	</script>
