@@ -18,7 +18,7 @@
 		}
 		else if(isset($_REQUEST["borrar"])){
 
-		    echo 'alert("quieres borrar")';
+		    
 			borrarComunidad($conexion, $IdC);
 			header("Location: inicio.php");
 	}else if(isset($_REQUEST["editar"])){

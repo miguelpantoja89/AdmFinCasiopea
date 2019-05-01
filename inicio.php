@@ -103,9 +103,9 @@ $filas = consulta_paginada($conexion, $Comando_sql, $pagina_seleccionada, $pag_t
                     <button type="button" id="show" class="editar_fila" value="<?php echo $Fila["IDC"];?>">
                     <img src="img/pencil.png" class="editar_fila" alt="modificación">
                     </button>
-      
-                
-                    <button id="borrar" name="borrar" type="submit" class="editar_fila" >
+
+
+                    <button id="borrar" name="borrar" type="submit" class="editar_fila" onclick="return confirm('¿Estas seguro que quieres eliminar esta comunidad?');" >
 				    <img src="img/trash.png" class="editar_fila" alt="Borrar ">
 				    </button>
                 
@@ -113,11 +113,19 @@ $filas = consulta_paginada($conexion, $Comando_sql, $pagina_seleccionada, $pag_t
                 </div>
         
         </form>
+       
         <div id="update_<?php echo $Fila["IDC"];?>" class="update_form">
+        
         <form method="post" action="">
-            <input  id="IdC" name="IdC" type="hidden" value="<?php echo $Fila["IDC"];?>" />
+            <input  id="IdC" name="IdC" type="hidden" value="<?php echo $Fila["IDC"];?>" /> 
+           
         </form>
+        
         </div>
+       
+       
+             
+        
        
        
 
@@ -180,8 +188,13 @@ $filas = consulta_paginada($conexion, $Comando_sql, $pagina_seleccionada, $pag_t
         			$("#update_"+idc).empty();
         			
         			$("#update_"+idc).append(data);
+                   
 
-                    $("#update_"+idc).show(1000);
+                    $("#update_"+idc).toggle(100);
+
+                    
+
+                    
 				});
     		});
 		});
