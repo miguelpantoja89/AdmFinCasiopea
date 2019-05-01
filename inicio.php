@@ -113,7 +113,7 @@ $filas = consulta_paginada($conexion, $Comando_sql, $pagina_seleccionada, $pag_t
                 </div>
         
         </form>
-        <div class="update_<?php echo $Fila["IDC"];?>">
+        <div id="update_<?php echo $Fila["IDC"];?>" class="update_form">
         <form method="post" action="">
             <input  id="IdC" name="IdC" type="hidden" value="<?php echo $Fila["IDC"];?>" />
         </form>
@@ -172,13 +172,16 @@ $filas = consulta_paginada($conexion, $Comando_sql, $pagina_seleccionada, $pag_t
 </html>
 <script>
 		$(document).ready(function() {
+            $(".update_form").hide();
 			$(".editar_fila").on("click", function () {
                 var idc = $(this).val()
         		$.get("auxi.php", { Ident: idc}, function (data) {
         			
-        			$(".update_"+idc).empty();
+        			$("#update_"+idc).empty();
         			
-        			$(".update_"+idc).append(data);
+        			$("#update_"+idc).append(data);
+
+                    $("#update_"+idc).show(1000);
 				});
     		});
 		});
