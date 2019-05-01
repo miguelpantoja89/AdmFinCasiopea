@@ -100,9 +100,9 @@ $filas = consulta_paginada($conexion, $Comando_sql, $pagina_seleccionada, $pag_t
                     <img src="img/info.png" class="editar_fila" alt="informaciñon">
                     </button>
 
-                    <a href="" id="show"   class="editar_fila" >
+                    <button type="button" id="show" class="editar_fila" value="<?php echo $Fila["IDC"];?>">
                     <img src="img/pencil.png" class="editar_fila" alt="modificación">
-                    </a>
+                    </button>
       
                 
                     <button id="borrar" name="borrar" type="submit" class="editar_fila" >
@@ -113,7 +113,11 @@ $filas = consulta_paginada($conexion, $Comando_sql, $pagina_seleccionada, $pag_t
                 </div>
         
         </form>
-        
+        <div class="update_<?php echo $Fila["IDC"];?>">
+        <form method="post" action="">
+            <input  id="IdC" name="IdC" type="hidden" value="<?php echo $Fila["IDC"];?>" />
+        </form>
+        </div>
        
        
 
@@ -121,10 +125,6 @@ $filas = consulta_paginada($conexion, $Comando_sql, $pagina_seleccionada, $pag_t
     
     <?php } ?>
     
-    <div id="c">
-<form  method="post" action="">
-</form>
-</div>
            
 
 
@@ -172,12 +172,13 @@ $filas = consulta_paginada($conexion, $Comando_sql, $pagina_seleccionada, $pag_t
 </html>
 <script>
 		$(document).ready(function() {
-			$("#show").on("click", function () {
-        		$.get("auxi.php", { Ident: $("#IdC").val()}, function (data) {
+			$(".editar_fila").on("click", function () {
+                var idc = $(this).val()
+        		$.get("auxi.php", { Ident: idc}, function (data) {
         			
-        			$("#c").empty();
+        			$(".update_"+idc).empty();
         			
-        			$("#c").append(data);
+        			$(".update_"+idc).append(data);
 				});
     		});
 		});
