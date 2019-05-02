@@ -22,6 +22,12 @@ pck_comunidades.insertar('Insertar una comunidad','Palencia 3',10,'ES34000000000
 pck_comunidades.insertar('Insertar una comunidad','Logroño 22',20,'ES3400000000000000000002',700,NULL,TRUE);
 pck_comunidades.insertar('Insertar una comunidad','Reina Mercedes 3',15,'ES3400000000000000000003',400,NULL,TRUE);
 pck_comunidades.insertar('Insertar una comunidad','Reina Mercedes 5',15,'ES3400000000000000000004',200,NULL,TRUE);
+pck_comunidades.insertar('Insertar una comunidad','Rosa 20',15,'ES3400000000000000000005',200,NULL,TRUE);
+pck_comunidades.insertar('Insertar una comunidad','Francisco de la Fuente',15,'ES3400000000000000000006',200,NULL,TRUE);
+pck_comunidades.insertar('Insertar una comunidad','Isabel Cheix 14',15,'ES3400000000000000000007',600,NULL,TRUE);
+pck_comunidades.insertar('Insertar una comunidad','Guadalajara 40',15,'ES3400000000000000000008',200,NULL,TRUE);
+pck_comunidades.insertar('Insertar una comunidad','Guadalajara 41',15,'ES3400000000000000000009',1000,NULL,TRUE);
+pck_comunidades.insertar('Insertar una comunidad','Pamplona 25',15,'ES3400000000000000000005',700,NULL,TRUE);
 
 pck_propietarios.inicializar;
 pck_propietarios.insertar('Insertar un propietario','Enrique Barba Roque','12345678B','954691579','enriquebarba@gmail.com',TRUE);
