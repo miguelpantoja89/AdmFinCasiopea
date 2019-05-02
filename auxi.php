@@ -2,19 +2,22 @@
 session_start();
 require_once("includes/gestionBD.php");
 if(isset($_GET["Ident"])){
-	
+	$IdC = $_GET["Ident"];
 	$conexion = crearConexionBD();
-	$resultado = informacionComunidad($conexion, $_GET["Ident"]);
+	$resultado = informacionComunidad($conexion, $IdC);
 	
 	if($resultado != NULL){
 		
 		foreach($resultado as $form){
-            echo "<input type='" . "text" . "' value='" . $form["DIRECCION"] . "'/>";
-            echo "<input type='" . "number" . "' value='" . $form["NUMEROPROPIETARIOS"] . "'/>";
-            echo "<input type='" . "text" . "' value='" . $form["CUENTACORRIENTE"] . "'/>";
-            echo "<input type='" . "text" . "' value='" . $form["SALDOINICIAL"] . "'/>";
-            echo "<input type='" . "submit" . "' value='" . "enviar" . "'/>";
-           
+            echo "<form id='update_form_".$IdC."' class='update_form' method='post' action='controladorComunidad.php'>";
+            echo "<input  id='IdC' name='IdC' type='hidden' value='".$IdC."'/> ";
+            echo "<input  id='editar' name='editar' type='hidden' value=''/> ";
+            echo "<input type='" . "text" . "' name='Direccion' value='" . $form["DIRECCION"] . "'/>";
+            echo "<input type='" . "number" . "' name='NumeroPropietarios' value='" . $form["NUMEROPROPIETARIOS"] . "'/>";
+            echo "<input type='" . "text" . "' name='CuentaCorriente' value='" . $form["CUENTACORRIENTE"] . "'/>";
+            echo "<input type='" . "text" . "' name='SaldoInicial' value='" . $form["SALDOINICIAL"] . "'/>";
+            echo "<input id='".$IdC."' class='enviar' type='" . "submit" . "' value='Enviar'/>";
+            echo "</form>";
            
 
           
