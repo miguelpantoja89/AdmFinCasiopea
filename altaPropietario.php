@@ -4,6 +4,7 @@ session_start();
 if(!isset($_SESSION["form"])){
     $form["NombreAp"] = "";
     $form["Dni"] = " ";
+    $form["PisoLetra"] = " ";
     $form["Telefono"] = "";
     $form["Email"] = "";
 
@@ -46,6 +47,7 @@ if(!isset($_SESSION["form"])){
         
         <p class="textoin">Nombre y Apellidos: </p><input type="text" name="NombreAp" value=<?php echo $form["NombreAp"] ?>>
         <p class="textoin">DNI: </p><input  type="text" name="Dni" value=<?php echo $form["Dni"] ?>>
+        <p class="textoin">Piso y Letra: </p><input  type="text" name="PisoLetra" value=<?php echo $form["PisoLetra"] ?>>
         <p class="textoin">Telefono :</p><input type="text" name="Telefono" value=<?php echo $form["Telefono"] ?>>
         <p class="textoin">Email :</p><input type="text" name="Email" value=<?php echo $form["Email"] ?>>
         <br>
