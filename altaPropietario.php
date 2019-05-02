@@ -54,6 +54,14 @@ if(!isset($_SESSION["form"])){
         <p><input  type="submit" value="enviar"> <input  type="button" value="cancelar" onClick="location.href='infoPropietarios.php'"></p>
        
     </form>
+
+    <form class="alta" action="accionPropietarios.php" method="POST" enctype="multipart/form-data">
+        <label class="textoin">Importar archivo CSV</label> <input
+            type="file" name="file" id="file" accept=".csv">
+        <button type="submit" id="submit" name="import"
+            class="btn-submit">Import</button>
+        <br />
+</form>
     
     <?php
     if (isset($mensaje)) { 

@@ -149,9 +149,10 @@ header{
    margin: auto;
    background: #c09f80;
    padding: 10px 20px;
-   padding-bottom: 100px;
+   padding-bottom: 3em;
    box-sizing: border-box;
    margin-top: 20px;
+   margin-bottom: 40px;
    border-radius: 7px;
    
    

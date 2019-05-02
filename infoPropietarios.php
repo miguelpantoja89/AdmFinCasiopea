@@ -24,7 +24,7 @@ $stmn = propietariosComunidad($conexion, $IdC);
     <link rel="stylesheet" type="text/css"  href="style.css">
     <link rel="icon" href="img/favicon.jpg">
     
-    <title>Facturas</title>
+    <title>Propietarios</title>
 </head>
 <body>
         
@@ -80,7 +80,6 @@ $stmn = propietariosComunidad($conexion, $IdC);
         </table>
         <div >
                         
-                        <button class="boton"><a href="altaPropietarios.php">Importar desde .csv</a></button>
                         <button class="boton"><a href="altaPropietario.php">Dar de alta </a></button>
            
                     
