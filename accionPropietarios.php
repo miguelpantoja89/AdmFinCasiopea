@@ -27,6 +27,7 @@ if (isset($_POST["import"])) {
                 $IdP = getIdPropietario($conexion, $column[1]);
                 $IdC = $_SESSION["IdC"];
                 insertarPertenencia($conexion, $IdP, $IdC);
+                insertarPiso($conexion, $IdP, $IdC, $column[4]);
                 $counter++;
             }
         }
@@ -96,5 +97,18 @@ function validarDNI($conexion, $propietario){
         }
     }
     return $error;
+}
+
+function insertarPiso($conexion, $IdP, $IdC, $piso){
+    try{
+        $stmn = $conexion -> prepare("INSERT INTO Pisos (PISOLETRA, IDP, IDC) VALUES (:pisoletra, :idp, :idc)");
+        $stmn -> bindParam(':pisoletra', $piso);
+        $stmn -> bindParam(':idp', $IdP);
+        $stmn -> bindParam(':idc', $IdC);
+        $stmn -> execute();
+    }catch(PDOException $e){
+        $_SESSION["excepcion"] = $e -> getMessage();
+        header("Location: excepcion.php");
+    }
 }
 ?>
