@@ -14,7 +14,10 @@ if(isset($_SESSION["form"])){
 }
 $conexion=crearConexionBD();
 
-$errores = validarDNI($conexion, $form);
+$error = validarDNI($conexion, $form);
+if($error!=""){
+    $errores[] = $error;
+}
 
 if (count($errores)>0) {
     $_SESSION["errores"] = $errores;
@@ -24,6 +27,7 @@ if (count($errores)>0) {
     $IdC = $_SESSION["IdC"];
     insertarPertenencia($conexion, $IdP, $IdC);
     insertarPiso($conexion, $IdP, $IdC, $form["PisoLetra"]);
+    $_SESSION["mensaje"] = "Propietario añadido satisfactoriamente";
     unset($_SESSION["form"]);
 }
 cerrarConexionBD($conexion);

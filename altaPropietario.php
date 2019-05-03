@@ -13,6 +13,15 @@ if(!isset($_SESSION["form"])){
     $form = $_SESSION["form"];
 }
 
+if(isset($_SESSION["mensaje"])){
+    $mensaje = $_SESSION["mensaje"];
+    unset($_SESSION["mensaje"]);
+}
+
+if (isset($_SESSION["errores"])){
+    $errores = $_SESSION["errores"];
+    unset($_SESSION["errores"]);
+}
 
 
 ?>
@@ -30,7 +39,7 @@ if(!isset($_SESSION["form"])){
 </head>
 <body>
 <?php include('cabecera.php') ?>
-    <?php include('navegacion.php');?>
+    <?php include('navegacion2.php');?>
 
     <?php
     if (isset($errores) && count($errores)>0) { 

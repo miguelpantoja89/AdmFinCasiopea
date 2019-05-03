@@ -36,7 +36,7 @@ if (isset($_POST["import"])) {
         $_SESSION["errores"] = $errores;
     }
     $_SESSION["mensaje"] = $counter . " propietarios insertados satisfactoriamente";
-    header("Location: altaPropietarios.php");
+    header("Location: altaPropietario.php");
 }
 
 
