@@ -9,14 +9,14 @@ if(isset($_GET["Ident"])){
 	if($resultado != NULL){
 		
 		foreach($resultado as $form){
-            echo "<form id='update_form_".$IdC."' class='update_form' method='post' action='controladorComunidad.php'>";
+            echo "<form id='update_form' method='post' action='controladorComunidad.php'>";
             echo "<input  id='IdC' name='IdC' type='hidden' value='".$IdC."'/> ";
             echo "<input  id='editar' name='editar' type='hidden' value=''/> ";
             echo "<input type='" . "text" . "' name='Direccion' value='" . $form["DIRECCION"] . "'/>";
             echo "<input type='" . "number" . "' name='NumeroPropietarios' value='" . $form["NUMEROPROPIETARIOS"] . "'/>";
             echo "<input type='" . "text" . "' name='CuentaCorriente' value='" . $form["CUENTACORRIENTE"] . "'/>";
             echo "<input type='" . "text" . "' name='SaldoInicial' value='" . $form["SALDOINICIAL"] . "'/>";
-            echo "<input id='".$IdC."' class='enviar' type='" . "submit" . "' value='Enviar'/>";
+            echo "<input id='".$IdC."' class='enviar' type='" . "button" . "' value='Enviar'/>";
             echo "</form>";
            
 

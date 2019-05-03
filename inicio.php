@@ -181,7 +181,7 @@ $filas = consulta_paginada($conexion, $Comando_sql, $pagina_seleccionada, $pag_t
                 var idc = $(this).val()
         		$.get("auxi.php", { Ident: idc}, function (data) {
         			
-        			$("#update_"+idc).empty();
+        			$(".update_div").empty();
         			
         			$("#update_"+idc).append(data);
                    
@@ -193,20 +193,18 @@ $filas = consulta_paginada($conexion, $Comando_sql, $pagina_seleccionada, $pag_t
                     
 				});
     		});
-            $(".update_form").submit(function(e){
-                e.preventDefault();
-
-                var form = $(this);
+            $(".enviar").on("click",function(){
+                var form = $("#update_form");
                 var idc =  form.find("input[name=IdC]").val();
                 var url = form.attr('action');
 
                 $.ajax({
-                    type: "PUT",
+                    type: "POST",
                     url: url,
                     data: form.serialize(),
                     success: function(data)
                             {
-                                $("#update_"+idc).append(data); // show response from the php script.
+                                $("#update_"+idc).append(data); 
                              }
                 });
 

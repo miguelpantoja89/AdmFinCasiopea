@@ -6,17 +6,16 @@ include_once ('includes/gestionBD.php');
 $conexion= crearConexionBD();  
 
   	
-if(!isset($_SESSION["DIRECCION"])){
+if(!isset($_SESSION["IdC"])){
     header("Location: inicio.php");
 } else{
     $IdC = $_SESSION["IdC"];
-    $ar= $_SESSION["DIRECCION"];
     
     
     
 }
 
-
+$ar = direccionComunidad($conexion, $IdC);
 $stmn2 =PisoProp($conexion, $IdC);
 
 $stmn3 =Suma($conexion, $IdC);
@@ -191,7 +190,21 @@ function Suma2($conexion, $IdC){
     }catch(PDOException $e){
         $_SESSION["excepcion"] = $e -> getMessage();
         header("Location: excepcion.php");
- }
+    }
+}
+
+function direccionComunidad($conexion, $IdC){
+    try{
+        $Comando_sql =  "SELECT  Direccion FROM  Comunidades  WHERE IdC = :IdC  ";
+        $stmn = $conexion->prepare($Comando_sql);
+        $stmn -> bindParam(":IdC", $IdC);
+        $stmn -> execute();
+        $result = $stmn -> fetchColumn();
+        return $result;
+    }catch(PDOException $e){
+        $_SESSION["excepcion"] = $e -> getMessage();
+        header("Location: excepcion.php");
+    }
 }
 
 ?>
