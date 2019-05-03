@@ -10,7 +10,7 @@ if(isset($_SESSION["form"])){
 
     $_SESSION['form'] = $form;
 }else{
-    header('Location: alta.php');
+    header('Location: altaPropietario.php');
 }
 $conexion=crearConexionBD();
 
