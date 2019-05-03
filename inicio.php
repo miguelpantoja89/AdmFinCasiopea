@@ -194,18 +194,15 @@ $filas = consulta_paginada($conexion, $Comando_sql, $pagina_seleccionada, $pag_t
 				});
     		});
             $(".enviar").on("click",function(){
-                var form = $("#update_form");
-                var idc =  form.find("input[name=IdC]").val();
-                var url = form.attr('action');
+                $.post("controladorComunidad.php",{
+                    IdC: $("#IdC").val()
+                    Direccion: $("#Direccion").val();
+                    NumeroPropietarios: $("#NumeroPropietarios").val();
+                    CuentaCorriente: $("#CuentaCorriente");
+                    SaldoInicial: $("#SaldoInicial").val();
+                }, function(data){
 
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    data: form.serialize(),
-                    success: function(data)
-                            {
-                                $("#update_"+idc).append(data); 
-                             }
+                })
                 });
 
             });

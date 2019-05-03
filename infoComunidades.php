@@ -10,6 +10,7 @@ if(!isset($_SESSION["IdC"])){
 }
 
 $stmn = informacionComunidad($conexion, $IdC);
+$saldo = saldoComunidad($conexion, $IdC);
 
 ?>
 <!DOCTYPE html>
@@ -45,7 +46,7 @@ $stmn = informacionComunidad($conexion, $IdC);
             <td> <?php echo $Fila["DIRECCION"]; ?></td>
             <td> <?php echo $Fila["NUMEROPROPIETARIOS"]; ?></td>
             <td><?php echo $Fila["CUENTACORRIENTE"]; ?></td>
-            <td><?php echo  $Fila["SALDOINICIAL"]; ?></td>
+            <td><?php echo  $saldo; ?></td>
             <td><?php echo getNombrePropietario($conexion, $Fila["PRESIDENTE"]); ?></td>
             </tr>
             </table>
@@ -88,6 +89,18 @@ function informacionComunidad($conexion, $IdC){
             $_SESSION["excepcion"] = $e -> getMessage();
             header("Location: excepcion.php");
         }
+}
+
+function saldoComunidad($conexion, $IdC){
+    try{
+        $stmn = $conexion -> prepare('CALL SALDO_COMUNIDAD(:IdC)');
+        $stmn -> bindParam(":IdC", $IdC);
+        $stmn -> execute();
+        return $stmn -> fetchColumn();
+    }catch (PDOException $e){
+        $_SESSION["excepcion"] = $e -> getMessage();
+        header("Location: excepcion.php");
+    }
 }
 
 ?>

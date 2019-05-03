@@ -12,10 +12,10 @@ if(isset($_GET["Ident"])){
             echo "<form id='update_form' method='post' action='controladorComunidad.php'>";
             echo "<input  id='IdC' name='IdC' type='hidden' value='".$IdC."'/> ";
             echo "<input  id='editar' name='editar' type='hidden' value=''/> ";
-            echo "<input type='" . "text" . "' name='Direccion' value='" . $form["DIRECCION"] . "'/>";
-            echo "<input type='" . "number" . "' name='NumeroPropietarios' value='" . $form["NUMEROPROPIETARIOS"] . "'/>";
-            echo "<input type='" . "text" . "' name='CuentaCorriente' value='" . $form["CUENTACORRIENTE"] . "'/>";
-            echo "<input type='" . "text" . "' name='SaldoInicial' value='" . $form["SALDOINICIAL"] . "'/>";
+            echo "<input id='Direccion' type='" . "text" . "' name='Direccion' value='" . $form["DIRECCION"] . "'/>";
+            echo "<input id='NumeroPropietarios' type='" . "number" . "' name='NumeroPropietarios' value='" . $form["NUMEROPROPIETARIOS"] . "'/>";
+            echo "<input id='CuentaCorriente' type='" . "text" . "' name='CuentaCorriente' value='" . $form["CUENTACORRIENTE"] . "'/>";
+            echo "<input id='SaldoInicial' type='" . "text" . "' name='SaldoInicial' value='" . $form["SALDOINICIAL"] . "'/>";
             echo "<input id='".$IdC."' class='enviar' type='" . "button" . "' value='Enviar'/>";
             echo "</form>";
            
