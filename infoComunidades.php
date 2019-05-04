@@ -93,7 +93,7 @@ function informacionComunidad($conexion, $IdC){
 
 function saldoComunidad($conexion, $IdC){
     try{
-        $stmn = $conexion -> prepare('CALL SALDO_COMUNIDAD(:IdC)');
+        $stmn = $conexion -> prepare('SELECT SALDO_COMUNIDAD(:IdC) FROM DUAL');
         $stmn -> bindParam(":IdC", $IdC);
         $stmn -> execute();
         return $stmn -> fetchColumn();
