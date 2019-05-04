@@ -21,6 +21,11 @@ if(isset($_GET['fechainicio']) and isset($_GET['fechafin'])){
     $stmn = facturasPeriodo($conexion, $IdC, $FechaI, $FechaF);
 
 }
+if(isset($_GET['refrescar'])){
+    $FechaI="01-01-2017";
+    $FechaF=  date('d-m-Y');
+    $stmn = facturasPeriodo($conexion, $IdC, $FechaI, $FechaF);
+}
 
 
  ?>
@@ -47,7 +52,8 @@ if(isset($_GET['fechainicio']) and isset($_GET['fechafin'])){
             <input type="date" name="fechainicio" >
             <input type="date" name="fechafin">
             <input type="submit" value="buscar">
-            </form>
+            <input id="refrescar" name="refrescar" type="submit" value="todas las fechas">
+             </form>
 </div>
 </div>      
        <section>
@@ -123,10 +129,11 @@ function facturasComunidad($conexion, $IdC){
 <?php 
 function facturasPeriodo($conexion, $IdC, $FechaI,$FechaF){
     try{
-        $Comando_sql =  " SELECT Nombre, Importe,TO_CHAR(FechaEmision, 'DD-MM-YYYY') AS FechaEmision,TipoServicio FROM EMPRESAS NATURAL JOIN FACTURAS WHERE :FechaI <= FechaEmision  and FechaEmision <= :FechaF ORDER BY FechaEmision " ;
+        $Comando_sql =  " SELECT Nombre, Importe,TO_CHAR(FechaEmision, 'DD-MM-YYYY') AS FechaEmision,TipoServicio FROM EMPRESAS NATURAL JOIN FACTURAS WHERE :FechaI <= FechaEmision  and FechaEmision <= :FechaF and IdC = :IdC ORDER BY FechaEmision " ;
         $stmn = $conexion->prepare($Comando_sql);
         $stmn -> bindParam(":FechaI", $FechaI);
         $stmn -> bindParam(":FechaF", $FechaF);
+        $stmn -> bindParam(":IdC", $IdC);
         $stmn -> execute();
         return $stmn;
     }catch(PDOException $e){
