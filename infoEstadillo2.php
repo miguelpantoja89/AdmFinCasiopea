@@ -14,14 +14,42 @@ if(!isset($_SESSION["IdC"])){
     
     
 }
+if(isset($_GET['fechainicio']) and isset($_GET['fechafin'])){
+    $FechaI= date('d-m-Y',strtotime($_GET['fechainicio']));
+    $FechaF= date('d-m-Y',strtotime($_GET['fechafin']));
+    $ar = direccionComunidad($conexion, $IdC);
+$stmn2 =PisoProp($conexion, $IdC ,  $FechaI, $FechaF);
 
-$ar = direccionComunidad($conexion, $IdC);
-$stmn2 =PisoProp($conexion, $IdC);
-
-$stmn3 =Suma($conexion, $IdC);
+$stmn3 =Suma($conexion, $IdC ,  $FechaI, $FechaF);
 $fechaActual = date('d-m-Y');
-$stmn4=facturas($conexion,$IdC);
-$stmn5 =Suma2($conexion, $IdC);
+$stmn4=facturas($conexion,$IdC,$FechaI,$FechaF);
+$stmn5 =Suma2($conexion, $IdC, $FechaI, $FechaF);
+}else{
+    $FechaI="01-01-2017";
+    $FechaF=  date('d-m-Y');
+    $ar = direccionComunidad($conexion, $IdC);
+$stmn2 =PisoProp($conexion, $IdC,  $FechaI, $FechaF);
+
+$stmn3 =Suma($conexion, $IdC,  $FechaI, $FechaF);
+$fechaActual = date('d-m-Y');
+$stmn4=facturas($conexion,$IdC,$FechaI, $FechaF);
+$stmn5 =Suma2($conexion, $IdC, $FechaI, $FechaF);
+
+}
+if(isset($_GET['refrescar'])){
+    $FechaI="01-01-2017";
+    $FechaF=  date('d-m-Y');
+    $ar = direccionComunidad($conexion, $IdC);
+$stmn2 =PisoProp($conexion, $IdC,  $FechaI, $FechaF);
+
+$stmn3 =Suma($conexion, $IdC,  $FechaI, $FechaF);
+$fechaActual = date('d-m-Y');
+$stmn4=facturas($conexion,$IdC,$FechaI, $FechaF);
+$stmn5 =Suma2($conexion, $IdC, $FechaI, $FechaF);
+}
+
+
+
 
  ?>
 <!DOCTYPE html>
@@ -38,10 +66,21 @@ $stmn5 =Suma2($conexion, $IdC);
 <?php include('cabecera.php') ?>
     <?php include('navegacion2.php') ?>
     <div class="contenedor">
+<div class="caja">
+<p> Selecciona un período : </p>
+<form action="" method="get">
+            <input type="date" name="fechainicio" >
+            <input type="date" name="fechafin">
+            <input type="submit" value="buscar">
+            <input id="refrescar" name="refrescar" type="submit" value="todas las fechas">
+             </form>
+</div>
+</div>    
+    <div class="contenedor">
     <table  width="*%" border=1 frame="box" rules="all" cellspacing=1 cellpadding=1>
 <tr>
-<td id=" logo" style="width:330px;"> <?php echo $ar ?> <br> <br>  Estadillo de <?php echo $fechaActual ?> 
-<button style="float:right"><a href="infoEstadillo.php" > Generar PDF </a></button>
+<td id=" logo" style="width:330px;"> <?php echo $ar ?> <br> <br>  Estadillo desde el <?php echo $FechaI ?> hasta el <?php echo $FechaF ?> 
+<button style="float:right"><a href="infoEstadillo.php?FechaI=<?php echo $FechaI ?>&FechaF=<?php echo $FechaF ?>"> Generar PDF </a></button>
 </td>
 </tr></table> 
    
@@ -110,7 +149,7 @@ $stmn5 =Suma2($conexion, $IdC);
 				
                 ?> 
             <tr>
-            <th style="width:54%" >Suma de Pagos</th>
+            <th style="width:340px" >Suma de Pagos</th>
             <td><?php echo $Fila5["IMP"]; ?></td>
             <td><?php echo $Fila5["IMP"] - $Fila5["IMP"]; ?></td>
             </tr>
@@ -135,10 +174,12 @@ $stmn5 =Suma2($conexion, $IdC);
 </html>
 
 <?php 
-function PisoProp($conexion, $IdC){
+function PisoProp($conexion, $IdC,  $FechaI, $FechaF){
     try{
-        $Comando_sql =  "SELECT NombreAp,PisoLetra, SUM(PagoExigido) AS PAG, SUM(Cantidad) AS CAN FROM PROPIETARIOS Natural JOIN  PERTENECE natural JOIN CUOTAS NATURAL JOIN PAGOS NATURAL JOIN  PISOS WHERE IdC = :IdC Group by NombreAp,PisoLetra ";
+        $Comando_sql =  "SELECT NombreAp,PisoLetra, SUM(PagoExigido) AS PAG, SUM(Cantidad) AS CAN FROM PROPIETARIOS Natural JOIN  PERTENECE natural JOIN CUOTAS NATURAL JOIN PAGOS NATURAL JOIN  PISOS WHERE :FechaI <= FechaPago  and FechaPago <= :FechaF  and :FechaI <= Mes  and Mes <= :FechaF and IdC = :IdC Group by NombreAp,PisoLetra ";
         $stmn = $conexion->prepare($Comando_sql);
+        $stmn -> bindParam(":FechaI", $FechaI);
+        $stmn -> bindParam(":FechaF", $FechaF);
         $stmn -> bindParam(":IdC", $IdC);
         $stmn -> execute();
         return $stmn;
@@ -150,10 +191,12 @@ function PisoProp($conexion, $IdC){
 
 ?>
 <?php 
-function Suma($conexion, $IdC){
+function Suma($conexion, $IdC ,  $FechaI, $FechaF){
     try{
-        $Comando_sql =  "SELECT  SUM(PagoExigido) AS PAG, SUM(Cantidad) AS CAN FROM  CUOTAS NATURAL JOIN PAGOS  WHERE IdC = :IdC  ";
+        $Comando_sql =  "SELECT  SUM(PagoExigido) AS PAG, SUM(Cantidad) AS CAN FROM  CUOTAS NATURAL JOIN PAGOS  WHERE :FechaI <= FechaPago  and FechaPago <= :FechaF  and :FechaI <= Mes  and Mes <= :FechaF and IdC = :IdC   ";
         $stmn = $conexion->prepare($Comando_sql);
+        $stmn -> bindParam(":FechaI", $FechaI);
+        $stmn -> bindParam(":FechaF", $FechaF);
         $stmn -> bindParam(":IdC", $IdC);
         $stmn -> execute();
         return $stmn;
@@ -165,10 +208,13 @@ function Suma($conexion, $IdC){
 
 ?>
 <?php 
-function facturas($conexion, $IdC){
+function facturas($conexion, $IdC , $FechaI, $FechaF){
     try{
-        $Comando_sql =  "SELECT TipoServicio, SUM(Importe) AS IMP FROM FACTURAS  WHERE IdC = :IdC GROUP BY TipoServicio";
+        
+        $Comando_sql =  "SELECT TipoServicio, SUM(Importe) AS IMP FROM FACTURAS  WHERE :FechaI <= FechaEmision  and FechaEmision <= :FechaF and IdC = :IdC  GROUP BY TipoServicio";
         $stmn = $conexion->prepare($Comando_sql);
+        $stmn -> bindParam(":FechaI", $FechaI);
+        $stmn -> bindParam(":FechaF", $FechaF);
         $stmn -> bindParam(":IdC", $IdC);
         $stmn -> execute();
         return $stmn;
@@ -180,10 +226,12 @@ function facturas($conexion, $IdC){
 
 ?>
 <?php 
-function Suma2($conexion, $IdC){
+function Suma2($conexion, $IdC,  $FechaI, $FechaF){
     try{
-        $Comando_sql =  "SELECT  SUM(IMPORTE) AS IMP FROM  FACTURAS  WHERE IdC = :IdC  ";
+        $Comando_sql =  "SELECT  SUM(Importe) AS IMP FROM FACTURAS  WHERE :FechaI <= FechaEmision  and FechaEmision <= :FechaF and IdC = :IdC  ";
         $stmn = $conexion->prepare($Comando_sql);
+        $stmn -> bindParam(":FechaI", $FechaI);
+        $stmn -> bindParam(":FechaF", $FechaF);
         $stmn -> bindParam(":IdC", $IdC);
         $stmn -> execute();
         return $stmn;

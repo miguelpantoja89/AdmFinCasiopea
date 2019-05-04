@@ -129,7 +129,7 @@ function facturasComunidad($conexion, $IdC){
 <?php 
 function facturasPeriodo($conexion, $IdC, $FechaI,$FechaF){
     try{
-        $Comando_sql =  " SELECT Nombre, Importe,TO_CHAR(FechaEmision, 'DD-MM-YYYY') AS FechaEmision,TipoServicio FROM EMPRESAS NATURAL JOIN FACTURAS WHERE :FechaI <= FechaEmision  and FechaEmision <= :FechaF and IdC = :IdC ORDER BY FechaEmision " ;
+        $Comando_sql =  " SELECT  Importe,TO_CHAR(FechaEmision, 'DD-MM-YYYY') AS FechaEmision,TipoServicio FROM  FACTURAS WHERE :FechaI <= FechaEmision  and FechaEmision <= :FechaF and IdC = :IdC ORDER BY FechaEmision " ;
         $stmn = $conexion->prepare($Comando_sql);
         $stmn -> bindParam(":FechaI", $FechaI);
         $stmn -> bindParam(":FechaF", $FechaF);

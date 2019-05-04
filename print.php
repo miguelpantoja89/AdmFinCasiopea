@@ -10,20 +10,18 @@ if(!isset($_SESSION["IdC"])){
     header("Location: inicio.php");
 } else{
     $IdC = $_SESSION["IdC"];
-    $ar= direccionComunidad($conexion, $IdC);
+    $FechaI= $_GET['FechaI'];
+    $FechaF=  $_GET['FechaF'];
+    $ar = direccionComunidad($conexion, $IdC);
+    $stmn2 =PisoProp($conexion, $IdC,  $FechaI, $FechaF);
+
+    $stmn3 =Suma($conexion, $IdC,  $FechaI, $FechaF);
+    $stmn4=facturas($conexion,$IdC,$FechaI, $FechaF);
+    $stmn5 =Suma2($conexion, $IdC, $FechaI, $FechaF); 
     
     
     
 }
-
-
-$stmn2 =PisoProp($conexion, $IdC);
-
-$stmn3 =Suma($conexion, $IdC);
-$fechaActual = date('d-m-Y');
-$stmn4=facturas($conexion,$IdC);
-$stmn5 =Suma2($conexion, $IdC);
-
  ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -77,10 +75,10 @@ $stmn5 =Suma2($conexion, $IdC);
     <table  width="*%" border=1 frame="box" rules="all" cellspacing=1 cellpadding=1>
 <tr><td>
 <img src="img/casiopea.jpg" alt="logo" ></td>
-<td id=" logo" style="width:330px;"> <?php echo $ar ?> <br> <br>  Estadillo de <?php echo $fechaActual ?></td>
+<td id=" logo" style="width:330px;"> <?php echo $ar ?> <br> <br>   Estadillo de: <?php echo $FechaI ?> <br> a <?php echo $FechaF ?></td>
 </tr></table> 
    
-    <table>
+<table>
             <tr>
             <th>Piso</th>
             <th>Propietario</th>
@@ -109,7 +107,7 @@ $stmn5 =Suma2($conexion, $IdC);
 				
                 ?> 
             <tr>
-            <th style="width:340px" >Suma de Ingresos</th>
+            <th style="width:54%" >Suma de Ingresos</th>
             <td><?php echo $Fila3["CAN"]; ?></td>
             <td><?php echo $Fila3["CAN"] - $Fila3["PAG"]; ?></td>
             </tr>
@@ -161,6 +159,7 @@ $stmn5 =Suma2($conexion, $IdC);
           
         </table>
         
+        
 
         
 
@@ -169,10 +168,12 @@ $stmn5 =Suma2($conexion, $IdC);
 </html>
 
 <?php 
-function PisoProp($conexion, $IdC){
+function PisoProp($conexion, $IdC,  $FechaI, $FechaF){
     try{
-        $Comando_sql =  "SELECT NombreAp,PisoLetra, SUM(PagoExigido) AS PAG, SUM(Cantidad) AS CAN FROM PROPIETARIOS Natural JOIN  PERTENECE natural JOIN CUOTAS NATURAL JOIN PAGOS NATURAL JOIN  PISOS WHERE IdC = :IdC Group by NombreAp,PisoLetra ";
+        $Comando_sql =  "SELECT NombreAp,PisoLetra, SUM(PagoExigido) AS PAG, SUM(Cantidad) AS CAN FROM PROPIETARIOS Natural JOIN  PERTENECE natural JOIN CUOTAS NATURAL JOIN PAGOS NATURAL JOIN  PISOS WHERE :FechaI <= FechaPago  and FechaPago <= :FechaF  and :FechaI <= Mes  and Mes <= :FechaF and IdC = :IdC Group by NombreAp,PisoLetra ";
         $stmn = $conexion->prepare($Comando_sql);
+        $stmn -> bindParam(":FechaI", $FechaI);
+        $stmn -> bindParam(":FechaF", $FechaF);
         $stmn -> bindParam(":IdC", $IdC);
         $stmn -> execute();
         return $stmn;
@@ -184,10 +185,12 @@ function PisoProp($conexion, $IdC){
 
 ?>
 <?php 
-function Suma($conexion, $IdC){
+function Suma($conexion, $IdC ,  $FechaI, $FechaF){
     try{
-        $Comando_sql =  "SELECT  SUM(PagoExigido) AS PAG, SUM(Cantidad) AS CAN FROM  CUOTAS NATURAL JOIN PAGOS  WHERE IdC = :IdC  ";
+        $Comando_sql =  "SELECT  SUM(PagoExigido) AS PAG, SUM(Cantidad) AS CAN FROM  CUOTAS NATURAL JOIN PAGOS  WHERE :FechaI <= FechaPago  and FechaPago <= :FechaF  and :FechaI <= Mes  and Mes <= :FechaF and IdC = :IdC   ";
         $stmn = $conexion->prepare($Comando_sql);
+        $stmn -> bindParam(":FechaI", $FechaI);
+        $stmn -> bindParam(":FechaF", $FechaF);
         $stmn -> bindParam(":IdC", $IdC);
         $stmn -> execute();
         return $stmn;
@@ -199,10 +202,13 @@ function Suma($conexion, $IdC){
 
 ?>
 <?php 
-function facturas($conexion, $IdC){
+function facturas($conexion, $IdC , $FechaI, $FechaF){
     try{
-        $Comando_sql =  "SELECT TipoServicio, SUM(Importe) AS IMP FROM FACTURAS  WHERE IdC = :IdC GROUP BY TipoServicio";
+        
+        $Comando_sql =  "SELECT TipoServicio, SUM(Importe) AS IMP FROM FACTURAS  WHERE :FechaI <= FechaEmision  and FechaEmision <= :FechaF and IdC = :IdC  GROUP BY TipoServicio";
         $stmn = $conexion->prepare($Comando_sql);
+        $stmn -> bindParam(":FechaI", $FechaI);
+        $stmn -> bindParam(":FechaF", $FechaF);
         $stmn -> bindParam(":IdC", $IdC);
         $stmn -> execute();
         return $stmn;
@@ -214,21 +220,21 @@ function facturas($conexion, $IdC){
 
 ?>
 <?php 
-function Suma2($conexion, $IdC){
+function Suma2($conexion, $IdC,  $FechaI, $FechaF){
     try{
-        $Comando_sql =  "SELECT  SUM(IMPORTE) AS IMP FROM  FACTURAS  WHERE IdC = :IdC  ";
+        $Comando_sql =  "SELECT  SUM(Importe) AS IMP FROM FACTURAS  WHERE :FechaI <= FechaEmision  and FechaEmision <= :FechaF and IdC = :IdC  ";
         $stmn = $conexion->prepare($Comando_sql);
+        $stmn -> bindParam(":FechaI", $FechaI);
+        $stmn -> bindParam(":FechaF", $FechaF);
         $stmn -> bindParam(":IdC", $IdC);
         $stmn -> execute();
         return $stmn;
     }catch(PDOException $e){
         $_SESSION["excepcion"] = $e -> getMessage();
         header("Location: excepcion.php");
- }
+    }
 }
 
-?>
-<?php
 function direccionComunidad($conexion, $IdC){
     try{
         $Comando_sql =  "SELECT  Direccion FROM  Comunidades  WHERE IdC = :IdC  ";
@@ -242,4 +248,5 @@ function direccionComunidad($conexion, $IdC){
         header("Location: excepcion.php");
     }
 }
+
 ?>
