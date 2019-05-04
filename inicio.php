@@ -184,6 +184,7 @@ $filas = consulta_paginada($conexion, $Comando_sql, $pagina_seleccionada, $pag_t
         			$(".update_div").empty();
         			
         			$("#update_"+idc).append(data);
+                    
                    
 
                     $("#update_"+idc).toggle(100);

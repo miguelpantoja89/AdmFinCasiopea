@@ -11,8 +11,17 @@ if(!isset($_SESSION["IdC"])){
 } else{
     $IdC = $_SESSION["IdC"];
 }
+if(isset($_GET['fechainicio']) and isset($_GET['fechafin'])){
+    $FechaI= date('d-m-Y',strtotime($_GET['fechainicio']));
+    $FechaF= date('d-m-Y',strtotime($_GET['fechafin']));
+    $stmn = facturasPeriodo($conexion, $IdC, $FechaI, $FechaF);
+}else{
+    $FechaI="01-01-2017";
+    $FechaF=  date('d-m-Y');
+    $stmn = facturasPeriodo($conexion, $IdC, $FechaI, $FechaF);
 
-$stmn = facturasComunidad($conexion, $IdC);
+}
+
 
  ?>
 <!DOCTYPE html>
@@ -31,7 +40,16 @@ $stmn = facturasComunidad($conexion, $IdC);
     <?php include('cabecera.php') ?>
     <?php include('navegacion2.php') ?>
     <main>
-     
+<div class="contenedor">
+<div class="caja">
+<p> Selecciona un período : </p>
+<form action="" method="get">
+            <input type="date" name="fechainicio" >
+            <input type="date" name="fechafin">
+            <input type="submit" value="buscar">
+            </form>
+</div>
+</div>      
        <section>
         <article class="inp">
             <div class="contenedor">
@@ -90,9 +108,25 @@ $stmn = facturasComunidad($conexion, $IdC);
 <?php 
 function facturasComunidad($conexion, $IdC){
     try{
-        $Comando_sql =  "SELECT IdC,Importe,FechaEmision,TipoServicio FROM FACTURAS  WHERE IdC = :IdC";
+        $Comando_sql =  "SELECT IdC,Importe,TO_CHAR(FechaEmision, 'DD-MM-YYYY') AS FechaEmision,TipoServicio FROM FACTURAS  WHERE IdC = :IdC";
         $stmn = $conexion->prepare($Comando_sql);
         $stmn -> bindParam(":IdC", $IdC);
+        $stmn -> execute();
+        return $stmn;
+    }catch(PDOException $e){
+        $_SESSION["excepcion"] = $e -> getMessage();
+        header("Location: excepcion.php");
+ }
+}
+
+?>
+<?php 
+function facturasPeriodo($conexion, $IdC, $FechaI,$FechaF){
+    try{
+        $Comando_sql =  " SELECT Nombre, Importe,TO_CHAR(FechaEmision, 'DD-MM-YYYY') AS FechaEmision,TipoServicio FROM EMPRESAS NATURAL JOIN FACTURAS WHERE :FechaI <= FechaEmision  and FechaEmision <= :FechaF ORDER BY FechaEmision " ;
+        $stmn = $conexion->prepare($Comando_sql);
+        $stmn -> bindParam(":FechaI", $FechaI);
+        $stmn -> bindParam(":FechaF", $FechaF);
         $stmn -> execute();
         return $stmn;
     }catch(PDOException $e){
