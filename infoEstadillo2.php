@@ -113,8 +113,8 @@ $stmn5 =Suma2($conexion, $IdC, $FechaI, $FechaF);
 				
                 ?> 
             <tr>
-            <th style="width:54%" >Suma de Ingresos</th>
-            <td><?php echo $Fila3["CAN"]; ?></td>
+            <th style="width:56.3%" >Suma de Ingresos</th>
+            <td  style="width:16.1%"><?php echo $Fila3["CAN"]; ?></td>
             <td><?php echo $Fila3["CAN"] - $Fila3["PAG"]; ?></td>
             </tr>
             <?php $ing= $Fila3["CAN"];} ?>
@@ -149,8 +149,8 @@ $stmn5 =Suma2($conexion, $IdC, $FechaI, $FechaF);
 				
                 ?> 
             <tr>
-            <th style="width:340px" >Suma de Pagos</th>
-            <td><?php echo $Fila5["IMP"]; ?></td>
+            <th style="width:46.3%" >Suma de Pagos</th>
+            <td style="width: 16.1%"><?php echo $Fila5["IMP"]; ?></td>
             <td><?php echo $Fila5["IMP"] - $Fila5["IMP"]; ?></td>
             </tr>
         
@@ -159,7 +159,7 @@ $stmn5 =Suma2($conexion, $IdC, $FechaI, $FechaF);
         <table>
         
             <tr>
-            <th style="width:340px" >Saldo del banco</th>
+            <th style="width:70%" >Saldo del banco</th>
             <td><?php   echo $pago - $ing ?></td>
             </tr>
           
