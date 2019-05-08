@@ -11,6 +11,19 @@ DROP TABLE Comunidades;
 DROP TABLE Propietarios;
 DROP TABLE Usuarios;
 
+DROP FUNCTION Saldo_comunidad;
+DROP FUNCTION Saldo_comunidad_hasta;
+DROP FUNCTION Assert_equals;
+DROP PROCEDURE saldo_comunidades;
+DROP PROCEDURE contratos_de_comunidad;
+DROP PROCEDURE estadillo;
+DROP PROCEDURE facturas_periodo;
+DROP PROCEDURE morosos;
+DROP PROCEDURE morosos_hasta;
+DROP PROCEDURE nueva_cuota;
+DROP PROCEDURE pagos_periodo;
+
+
 CREATE TABLE Usuarios(
 Login VARCHAR(20),
 Pass VARCHAR(20),
