@@ -16,7 +16,7 @@ if(isset($_GET["Ident"])){
             echo "<input id='NumeroPropietarios' type='" . "number" . "' name='NumeroPropietarios' value='" . $form["NUMEROPROPIETARIOS"] . "'/>";
             echo "<input id='CuentaCorriente' type='" . "text" . "' name='CuentaCorriente' value='" . $form["CUENTACORRIENTE"] . "'/>";
             echo "<input id='SaldoInicial' type='" . "text" . "' name='SaldoInicial' value='" . $form["SALDOINICIAL"] . "'/>";
-            echo "<input id='".$IdC."' class='enviar' type='" . "button" . "' value='Enviar'/>";
+            echo "<input id='update_button' class='enviar' type='" . "button" . "' value='Enviar'/>";
             echo "</form>";
            
 

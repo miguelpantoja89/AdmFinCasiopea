@@ -178,7 +178,7 @@ $filas = consulta_paginada($conexion, $Comando_sql, $pagina_seleccionada, $pag_t
 		$(document).ready(function() {
             $(".update_div").hide();
 			$(".editar_fila").on("click", function () {
-                var idc = $(this).val()
+                var idc = $(this).val();
         		$.get("auxi.php", { Ident: idc}, function (data) {
         			
         			$(".update_div").empty();
@@ -193,19 +193,24 @@ $filas = consulta_paginada($conexion, $Comando_sql, $pagina_seleccionada, $pag_t
 
                     
 				});
-    		});
-            $(".enviar").on("click",function(){
-                $.post("controladorComunidad.php",{
-                    IdC: $("#IdC").val()
-                    Direccion: $("#Direccion").val();
-                    NumeroPropietarios: $("#NumeroPropietarios").val();
-                    CuentaCorriente: $("#CuentaCorriente");
-                    SaldoInicial: $("#SaldoInicial").val();
-                }, function(data){
+            });
+            $("#update_button").on("click", function(){
+                $.post("controladorComunidad.php",
+                    {   IdC: $("#IdC").val(),
+                        editar: "on",
+                        Direccion: $("#Direccion").val(),
+                        NumeroPropietarios: $("#NumeroPropietarios"),
+                        CuentaCorriente: $("#CuentaCorriente").val(),
+                        SaldoInicial: $("#SaldoInicial").val()
+                    },
+                    function(data){
+                        $(".update_div").empty();
 
-                })
-                });
+                        $("#update_"+idc).append(data);
 
+
+                    }
+                );
             });
 		});
 	</script>
