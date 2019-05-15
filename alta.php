@@ -30,6 +30,7 @@ if(isset($_SESSION["mensaje"])){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="js/validaciones.js" type="text/javascript"></script>
     <link rel='stylesheet' type='text/css'  href='style.css'>
     <link rel="icon" href="img/favicon.jpg">
     <title>Alta</title>
@@ -52,10 +53,10 @@ if(isset($_SESSION["mensaje"])){
 
     <form class="alta" action="accioncomunidad.php" method="POST">
         
-        <p class="textoin">Dirección: </p><input type="text" name="Direccion" value=<?php echo $form["direccion"] ?>>
-        <p class="textoin">Número de propietarios: </p><input min="1" type="number" name="NumeroPropietarios" value=<?php echo $form["numPropietarios"] ?>>
-        <p class="textoin">Número de  cuenta :</p><input type="text" name="CuentaCorriente" value=<?php echo $form["cuenta"] ?>>
-        <p class="textoin">Saldo de Inicio :</p><input type="text" name="SaldoInicial" value=<?php echo $form["saldoInicial"] ?>>
+        <p class="textoin">Dirección: </p><input type="text" id="Direccion" name="Direccion" value=<?php echo $form["direccion"] ?>>
+        <p class="textoin">Número de propietarios: </p><input min="1" id="NumeroPropietarios" type="number" name="NumeroPropietarios" value=<?php echo $form["numPropietarios"] ?>>
+        <p class="textoin">Número de  cuenta :</p><input type="text" id="CuentaCorriente" name="CuentaCorriente" value=<?php echo $form["cuenta"] ?>>
+        <p class="textoin">Saldo de Inicio :</p><input type="text" id="SaldoInicial" name="SaldoInicial" value=<?php echo $form["saldoInicial"] ?>>
         <br>
         <br>
         <br>
