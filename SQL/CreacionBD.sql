@@ -310,8 +310,8 @@ IS
     v_facturas NUMBER;
 BEGIN
     SELECT saldoInicial INTO v_saldoInicial FROM Comunidades WHERE IdC=v_IdC;
-    SELECT SUM(cantidad) INTO v_pagos FROM Pagos WHERE IdC=v_IdC;
-    SELECT SUM(importe) INTO v_facturas FROM Facturas WHERE IdC=v_IdC;
+    SELECT COALESCE(SUM(cantidad),0) INTO v_pagos FROM Pagos WHERE IdC=v_IdC;
+    SELECT COALESCE(SUM(importe),0) INTO v_facturas FROM Facturas WHERE IdC=v_IdC;
     v_saldo := v_saldoInicial+v_pagos-v_facturas;
     RETURN v_saldo;
 END saldo_comunidad;
@@ -325,8 +325,8 @@ IS
     v_facturas NUMBER;
 BEGIN
     SELECT saldoInicial INTO v_saldoInicial FROM Comunidades WHERE IdC=v_IdC;
-    SELECT SUM(cantidad) INTO v_pagos FROM Pagos WHERE IdC=v_IdC AND fechapago<=fechafin;
-    SELECT SUM(importe) INTO v_facturas FROM Facturas WHERE IdC=v_IdC AND fechaemision<=fechafin;
+    SELECT COALESCE(SUM(cantidad),0) INTO v_pagos FROM Pagos WHERE IdC=v_IdC AND fechapago<=fechafin;
+    SELECT COALESCE(SUM(importe),0) INTO v_facturas FROM Facturas WHERE IdC=v_IdC AND fechaemision<=fechafin;
     v_saldo := v_saldoInicial+v_pagos-v_facturas;
     RETURN v_saldo;
 END saldo_comunidad_hasta;
