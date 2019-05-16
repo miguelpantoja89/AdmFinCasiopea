@@ -1,14 +1,14 @@
 <?php
 session_start();
 include('includes/gestionBD.php');
-if(isset($_SESSION["form"])){
+if(isset($_SESSION["formPropietario"])){
     $form["NombreAp"] = $_POST['NombreAp'];
     $form["Dni"] = $_POST['Dni'];
     $form["PisoLetra"] = $_POST['PisoLetra'];
     $form["Telefono"] = $_POST['Telefono'];
     $form["Email"] = $_POST['Email'];
 
-    $_SESSION['form'] = $form;
+    $_SESSION['formPropietario'] = $form;
 }else{
     header('Location: altaPropietario.php');
 }
@@ -28,7 +28,7 @@ if (count($errores)>0) {
     insertarPertenencia($conexion, $IdP, $IdC);
     insertarPiso($conexion, $IdP, $IdC, $form["PisoLetra"]);
     $_SESSION["mensaje"] = "Propietario añadido satisfactoriamente";
-    unset($_SESSION["form"]);
+    unset($_SESSION["formPropietario"]);
 }
 cerrarConexionBD($conexion);
 header('Location: altaPropietario.php');

@@ -161,12 +161,6 @@ $filas = consulta_paginada($conexion, $Comando_sql, $pagina_seleccionada, $pag_t
 <?php } ?>
 
 </div>
-        <?php
-        if(isset($_SESSION["excepcion"])){
-         
-            header("Location: excepcion.php");
-           
-        }?>
          </article>
         </section>
     

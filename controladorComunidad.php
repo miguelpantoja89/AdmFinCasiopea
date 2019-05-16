@@ -68,7 +68,7 @@ function validarActualizacionComunidad($conexion, $comunidad){
     }
     if($comunidad["cuenta"]==""){
         $errores[] = "La cuenta bancaria no puede estar vacía";
-    }else if(cuentaBancariaRepetida($conexion, $comunidad["cuenta"])>1){
+    }else if(cuentaBancariaRepetida2($conexion,$comunidad["IdC"], $comunidad["cuenta"])>0){
         $errores[] = "La cuenta bancaria está repetida";    
     }
     if($comunidad["saldoInicial"]==""){
@@ -79,9 +79,10 @@ function validarActualizacionComunidad($conexion, $comunidad){
     return $errores;
 }
 
-function cuentaBancariaRepetida($conexion, $cuenta){
+function cuentaBancariaRepetida2($conexion, $IdC, $cuenta){
     try{
-        $stmn = $conexion -> prepare('SELECT COUNT(*) AS TOTAL FROM Comunidades WHERE CuentaCorriente=:cuenta');
+		$stmn = $conexion -> prepare('SELECT COUNT(*) AS TOTAL FROM Comunidades WHERE IdC<>:IdC AND CuentaCorriente=:cuenta');
+		$stmn -> bindParam(':IdC', $IdC);
         $stmn -> bindParam(':cuenta', $cuenta);
         $stmn -> execute();
         $repetido = $stmn -> fetchColumn();

@@ -1,16 +1,16 @@
 <?php
 
 session_start();
-if(!isset($_SESSION["form"])){
+if(!isset($_SESSION["formPropietario"])){
     $form["NombreAp"] = "";
     $form["Dni"] = " ";
     $form["PisoLetra"] = " ";
     $form["Telefono"] = "";
     $form["Email"] = "";
 
-    $_SESSION["form"] = $form;
+    $_SESSION["formPropietario"] = $form;
 } else{
-    $form = $_SESSION["form"];
+    $form = $_SESSION["formPropietario"];
 }
 
 if(isset($_SESSION["mensaje"])){

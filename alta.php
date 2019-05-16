@@ -1,15 +1,15 @@
 <?php
 
 session_start();
-if(!isset($_SESSION["form"])){
+if(!isset($_SESSION["formComunidad"])){
     $form["direccion"] = "";
     $form["numPropietarios"] = 0;
     $form["cuenta"] = "";
     $form["saldoInicial"] = "";
 
-    $_SESSION["form"] = $form;
+    $_SESSION["formComunidad"] = $form;
 } else{
-    $form = $_SESSION["form"];
+    $form = $_SESSION["formComunidad"];
 }
 
 if (isset($_SESSION["errores"])){

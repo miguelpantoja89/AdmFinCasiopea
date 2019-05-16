@@ -1,13 +1,13 @@
 <?php
 session_start();
 include('includes/gestionBD.php');
-if(isset($_SESSION["form"])){
+if(isset($_SESSION["formComunidad"])){
     $form["direccion"] = $_POST['Direccion'];
     $form["numPropietarios"] = $_POST['NumeroPropietarios'];
     $form["cuenta"] = $_POST['CuentaCorriente'];
     $form["saldoInicial"] = $_POST['SaldoInicial'];
 
-    $_SESSION['form'] = $form;
+    $_SESSION['formComunidad'] = $form;
 }else{
     header('Location: alta.php');
 }
@@ -19,7 +19,7 @@ if (count($errores)>0) {
     $_SESSION["errores"] = $errores;
 }else{
     insertarComunidad($conexion, $form);
-    unset($_SESSION["form"]);
+    unset($_SESSION["formComunidad"]);
 }
 cerrarConexionBD($conexion);
 header('Location: alta.php');
@@ -68,21 +68,17 @@ function validarComunidad($conexion, $comunidad){
 }
 
 function cuentaBancariaRepetida($conexion, $cuenta){
-    $error = "";
+    
     try{
         $stmn = $conexion -> prepare('SELECT COUNT(*) AS TOTAL FROM Comunidades WHERE CuentaCorriente=:cuenta');
         $stmn -> bindParam(':cuenta', $cuenta);
         $stmn -> execute();
         $repetido = $stmn -> fetchColumn();
-        return repetido;
-        if($repetido > 0){
-            $error = "La cuenta bancaria está repetida";
-        }
+        return $repetido;
     } catch(PDOException $e){
         $_SESSION["excepcion"] = $e -> GetMessage();
         header("Location: excepcion.php");
     }
-    return $error;
 }
 
 ?>
