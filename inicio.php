@@ -198,7 +198,8 @@ $filas = consulta_paginada($conexion, $Comando_sql, $pagina_seleccionada, $pag_t
                             Direccion: $("#Direccion").val(),
                             NumeroPropietarios: $("#NumeroPropietarios").val(),
                             CuentaCorriente: $("#CuentaCorriente").val(),
-                            SaldoInicial: $("#SaldoInicial").val()
+                            SaldoInicial: $("#SaldoInicial").val(),
+                            Presidente: $("#Presidente").val()
                         },
                         function(data){
                             $(".update_div").empty();

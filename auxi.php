@@ -17,7 +17,7 @@ if(isset($_GET["Ident"])){
             echo "<input id='NumeroPropietarios' type='" . "number" . "' name='NumeroPropietarios' value='" . $form["NUMEROPROPIETARIOS"] . "'/>";
             echo "<input id='CuentaCorriente' type='" . "text" . "' name='CuentaCorriente' value='" . $form["CUENTACORRIENTE"] . "'/>";
             echo "<input id='SaldoInicial' type='" . "text" . "' name='SaldoInicial' value='" . $form["SALDOINICIAL"] . "'/>";
-            echo "<select name='presidente'>";
+            echo "<select id='Presidente' name='presidente'>";
             foreach($propietarios as $propietario){
                 if($propietario["IDP"]==$form["PRESIDENTE"]){
                     echo "<option value='".$propietario["IDP"]."' selected>".$propietario["NOMBREAP"]."</option>";

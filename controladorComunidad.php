@@ -23,6 +23,7 @@
 		$comunidad["numPropietarios"] = $_REQUEST["NumeroPropietarios"];
 		$comunidad["cuenta"] = $_REQUEST["CuentaCorriente"];
 		$comunidad["saldoInicial"] = $_REQUEST["SaldoInicial"];
+		$comunidad["presidente"] = $_REQUEST["Presidente"];
 		
 		$errores = validarActualizacionComunidad($conexion, $comunidad);
 		if(count($errores)>0){
@@ -93,11 +94,12 @@ function cuentaBancariaRepetida($conexion, $cuenta){
 
 function actualizarComunidad($conexion, $comunidad){
 	try{
-		$stmn = $conexion -> prepare('UPDATE Comunidades SET Direccion=:direccion, numeroPropietarios=:numeroPropietarios, cuentaCorriente=:cuentacorriente, saldoInicial=:saldoInicial WHERE IdC=:IdC');
+		$stmn = $conexion -> prepare('UPDATE Comunidades SET Direccion=:direccion, numeroPropietarios=:numeroPropietarios, cuentaCorriente=:cuentacorriente, saldoInicial=:saldoInicial, presidente=:presidente WHERE IdC=:IdC');
 		$stmn -> bindParam(':direccion', $comunidad["direccion"]);
 		$stmn -> bindParam(':numeroPropietarios', $comunidad["numPropietarios"]);
 		$stmn -> bindParam(':cuentacorriente', $comunidad["cuenta"]);
 		$stmn -> bindParam(':saldoInicial', $comunidad["saldoInicial"]);
+		$stmn -> bindParam(':presidente', $comunidad["presidente"]);
 		$stmn -> bindParam(':IdC', $comunidad["IdC"]);
 		$stmn -> execute();
 	} catch(PDOException $e){
