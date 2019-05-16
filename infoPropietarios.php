@@ -33,8 +33,12 @@ $stmn = propietariosComunidad($conexion, $IdC);
     <main>
      
        <section>
+       
         <article class="inp">
+        
             <div class="contenedor">
+            
+            
             <table>
             <tr>
             <th>Piso</th>
@@ -55,17 +59,10 @@ $stmn = propietariosComunidad($conexion, $IdC);
                <td><?php echo $Fila["EMAIL"]; ?></td>
                <td> <form  action="controladorPropietarios.php" method="post" >
             
-            <input id="IdC" name="IdC" type="hidden" value="<?php echo $Fila["IDC"];?>" />
-                
-                
-                    
-                    
+            <input id="Dni" name="Dni" type="hidden" value="<?php echo $Fila["DNI"];?>" />
 
-                    <button id="editar" name="editar" type="submit" class="editar_fila">
-				    <img src="img/pencil.png" class="editar_fila" alt="modificación">
-                    </button>
                 
-                    <button id="borrar" name="borrar" type="submit" class="editar_fila">
+                    <button id="borrar" name="borrar" type="submit" class="editar_fila" onclick="return confirm('¿Estas seguro que quieres eliminar este Propietario?');">
 				    <img src="img/trash.png" class="editar_fila" alt="Borrar ">
 				    </button>
                 
@@ -98,7 +95,7 @@ $stmn = propietariosComunidad($conexion, $IdC);
 <?php 
 function propietariosComunidad($conexion, $IdC){
     try{
-        $Comando_sql =  "SELECT NombreAp,Dni,Telefono,PisoLetra, Email FROM PROPIETARIOS Natural JOIN  PERTENECE natural JOIN PISOS WHERE IdC = :IdC";
+        $Comando_sql =  "SELECT IdP,NombreAp,Dni,Telefono,PisoLetra, Email FROM PROPIETARIOS Natural JOIN  PERTENECE natural JOIN PISOS WHERE IdC = :IdC";
         $stmn = $conexion->prepare($Comando_sql);
         $stmn -> bindParam(":IdC", $IdC);
         $stmn -> execute();
@@ -108,5 +105,7 @@ function propietariosComunidad($conexion, $IdC){
         header("Location: excepcion.php");
  }
 }
+
+
 
 ?>
