@@ -92,7 +92,9 @@ $filas = consulta_paginada($conexion, $Comando_sql, $pagina_seleccionada, $pag_t
             <input  id="IdC" name="IdC" type="hidden" value="<?php echo $Fila["IDC"];?>" />
             
                 
-                <div class="caja"><?php echo $Fila["DIRECCION"]; ?> 
+                <div class="caja">
+                    <?php echo $Fila["DIRECCION"]; ?> 
+                
 
               
                     <button id="consultar" name="consultar" type="submit" class="editar_fila">
@@ -189,23 +191,24 @@ $filas = consulta_paginada($conexion, $Comando_sql, $pagina_seleccionada, $pag_t
 
                     $("#update_"+idc).toggle(100);
                     $("#update_button").on("click", function(){
-                
-                $.post("controladorComunidad.php",
-                    {   IdC: idc,
-                        editar: "on",
-                        Direccion: $("#Direccion").val(),
-                        NumeroPropietarios: $("#NumeroPropietarios").val(),
-                        CuentaCorriente: $("#CuentaCorriente").val(),
-                        SaldoInicial: $("#SaldoInicial").val()
-                    },
-                    function(data){
-                        $(".update_div").empty();
+                        var direccion = $("#Direccion").val();
+                        $.post("controladorComunidad.php",
+                        {   IdC: $("#IdC_update").val(),
+                            editar: "on",
+                            Direccion: $("#Direccion").val(),
+                            NumeroPropietarios: $("#NumeroPropietarios").val(),
+                            CuentaCorriente: $("#CuentaCorriente").val(),
+                            SaldoInicial: $("#SaldoInicial").val()
+                        },
+                        function(data){
+                            $(".update_div").empty();
 
-                        $("#update_"+idc).append(data);
+                            $("#update_"+idc).append(data);
 
-
-                    }
-                );
+                           // $("#dir_"+idc).empty();
+                           // $("#dir_"+idc).append(direccion);
+                        }
+                    );
 
                     
 				});
