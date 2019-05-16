@@ -2,7 +2,7 @@ function validaFormComunidad(){
     function validaForm1() {
 
 		
-		var exprCuenta=
+		var exprCuenta;
 
 		var direccion = document.getElementById("Direccion");
 		var numprop = document.getElementById("NumeroPropietarios");

@@ -189,17 +189,12 @@ $filas = consulta_paginada($conexion, $Comando_sql, $pagina_seleccionada, $pag_t
 
                     $("#update_"+idc).toggle(100);
 
-                    
-
-                    
-				});
-            });
-            $("#update_button").on("click", function(){
+                    $("#update_button").on("click", function(){
                 $.post("controladorComunidad.php",
                     {   IdC: $("#IdC").val(),
                         editar: "on",
                         Direccion: $("#Direccion").val(),
-                        NumeroPropietarios: $("#NumeroPropietarios"),
+                        NumeroPropietarios: $("#NumeroPropietarios").val(),
                         CuentaCorriente: $("#CuentaCorriente").val(),
                         SaldoInicial: $("#SaldoInicial").val()
                     },
@@ -211,6 +206,11 @@ $filas = consulta_paginada($conexion, $Comando_sql, $pagina_seleccionada, $pag_t
 
                     }
                 );
+
+                    
+				});
             });
-		});
+            
+            });
+        });
 	</script>
