@@ -188,10 +188,10 @@ $filas = consulta_paginada($conexion, $Comando_sql, $pagina_seleccionada, $pag_t
                    
 
                     $("#update_"+idc).toggle(100);
-
                     $("#update_button").on("click", function(){
+                
                 $.post("controladorComunidad.php",
-                    {   IdC: $("#IdC").val(),
+                    {   IdC: idc,
                         editar: "on",
                         Direccion: $("#Direccion").val(),
                         NumeroPropietarios: $("#NumeroPropietarios").val(),
@@ -209,8 +209,10 @@ $filas = consulta_paginada($conexion, $Comando_sql, $pagina_seleccionada, $pag_t
 
                     
 				});
+
             });
             
             });
+            
         });
 	</script>
