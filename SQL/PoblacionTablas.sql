@@ -171,6 +171,7 @@ BEGIN
 pck_presupuestos.inicializar;
 pck_conceptos.inicializar;
 pck_presupuestos.insertar('Insertar un presupuesto',TO_DATE('20/11/2017','DD/MM/YYYY'),TO_DATE('01/01/2018','DD/MM/YYYY'),'Presupuesto anual 2018',1,TRUE);
+pck_presupuestos.insertar('Insertar un presupuesto',TO_DATE('20/11/2018','DD/MM/YYYY'),TO_DATE('01/01/2019','DD/MM/YYYY'),'Presupuesto anual 2019',1,TRUE);
 pck_conceptos.insertar('Insertar un concepto','Alcantarillado','9,25','Alcantarillado',1,TRUE);
 pck_conceptos.insertar('Insertar un concepto','Gastos bancarios','8,08','Gastos bancarios',1,TRUE);
 pck_conceptos.insertar('Insertar un concepto','Administrador','52,27','Gastos administrativos',1,TRUE);
