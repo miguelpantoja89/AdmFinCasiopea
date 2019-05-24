@@ -13,8 +13,7 @@ if(!isset($_SESSION["IdC"])){
 }
 
 $stmn = presupuestosComunidad($conexion, $IdC);
-$idpres= getIdPresupuesto($conexion, $IdC);
-$stmn2 = conceptosPresupuesto($conexion, $idpres);
+
 
  ?>
 <!DOCTYPE html>
@@ -81,19 +80,27 @@ $stmn2 = conceptosPresupuesto($conexion, $idpres);
             </thead>
             <tbody>
             <?php foreach ($stmn as $Fila) {
-			
+                $idpres= getIdPresupuesto($conexion, $IdC);
+                $stmn2 = conceptosPresupuesto($conexion, $idpres);
         ?>
                 <tr class="breakrow">
                
-                <td><?php echo $Fila["FECHAAPROBACION"]; ?></td><td><?php echo $Fila["FECHAAPLICACION"]; ?></td><td><?php echo $Fila["MOTIVO"]; ?></td></tr>
-                <?php } ?>
+                    <td><?php echo $Fila["FECHAAPROBACION"]; ?></td>
+                    <td><?php echo $Fila["FECHAAPLICACION"]; ?></td>
+                    <td><?php echo $Fila["MOTIVO"]; ?></td>
+                </tr>
                 <?php foreach ($stmn2 as $Fila2) {
 				
-        ?>
-                <tr class="datarow"><td><?php echo $Fila2["NOMBRE"]; ?></td>
-              <td><?php echo $Fila2["CANTIDAD"]; ?></td>
-              <td><?php echo $Fila2["SERVICIO"]; ?></td></tr>
-              <?php } ?>
+                ?>
+                        <tr class="datarow" style="display:none;">
+                             <td><?php echo $Fila2["NOMBRE"]; ?></td>
+                             <td><?php echo $Fila2["CANTIDAD"]; ?></td>
+                             <td><?php echo $Fila2["SERVICIO"]; ?></td>
+                        </tr>
+                      <?php } ?>
+                <?php } ?>
+
+              
                 </tbody>
         </table>
     </div>
