@@ -28,38 +28,7 @@ $stmn = presupuestosComunidad($conexion, $IdC);
     <link rel="icon" href="img/favicon.jpg">
     
     <title>Facturas</title>
-    <style>
-     #container{
-        margin:0 auto;
-        width:80%;
-        overflow:auto;
-    }
-    table.gridtable {
-                margin:0 auto;
-                width:95%;
-                overflow:auto;
-                font-family: helvetica,arial,sans-serif;
-                font-size:14px;
-                color:#333333;
-                border-width: 1px;
-                border-color: #666666;
-                border-collapse: collapse;
-                text-align: center;
-        }
-        table.gridtable th {
-                border-width: 1px;
-                padding: 8px;
-                border-style: solid;
-                border-color: #666666;
-                background-color: #F6B4A5;
-        }
-        table.gridtable td {
-                border-width: 1px;
-                padding: 8px;
-                border-style: solid;
-                border-color: #666666;
-        }
-    </style>
+    
 </head>
 <body>
         
@@ -91,12 +60,13 @@ $stmn = presupuestosComunidad($conexion, $IdC);
                 </tr>
                 <?php foreach ($stmn2 as $Fila2) {
 				
-                ?>
-                        <tr class="datarow" style="display:none;">
+                ?>       
+                        <tr class="datarow" style="display:none;background-color: white;">
                              <td><?php echo $Fila2["NOMBRE"]; ?></td>
                              <td><?php echo $Fila2["CANTIDAD"]; ?></td>
                              <td><?php echo $Fila2["SERVICIO"]; ?></td>
                         </tr>
+                        
                       <?php } ?>
                 <?php } ?>
 
