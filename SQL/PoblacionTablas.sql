@@ -159,7 +159,9 @@ pck_facturas.insertar('Insertar una factura',200,TO_DATE('01/03/2018','DD/MM/YYY
 pck_facturas.insertar('Insertar una factura',100,TO_DATE('01/01/2018','DD/MM/YYYY'),'Limpieza',1,3,TRUE);
 pck_facturas.insertar('Insertar una factura',50,TO_DATE('01/02/2018','DD/MM/YYYY'),'Gastos administrativos',1,4,TRUE);
 pck_facturas.insertar('Insertar una factura',250,TO_DATE('01/03/2018','DD/MM/YYYY'),'Luz',1,5,TRUE);
+pck_facturas.insertar('Insertar una factura',150,TO_DATE('01/04/2018','DD/MM/YYYY'),'Luz',1,5,TRUE);
 pck_facturas.insertar('Insertar una factura',10,TO_DATE('15/03/2018','DD/MM/YYYY'),'Varios',1,NULL,TRUE);
+pck_facturas.insertar('Insertar una factura',5,TO_DATE('15/06/2018','DD/MM/YYYY'),'Varios',1,NULL,TRUE);
 ----
 pck_facturas.insertar('Insertar una factura',500,TO_DATE('15/04/2018','DD/MM/YYYY'),'Varios',2,NULL,TRUE);
 

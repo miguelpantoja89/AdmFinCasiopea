@@ -49,7 +49,13 @@ $stmn = presupuestosComunidad($conexion, $IdC);
             </thead>
             <tbody>
             <?php foreach ($stmn as $Fila) {
-                $idpres= getIdPresupuesto($conexion, $IdC);
+                $idpres= $Fila["IDPRESUPUESTO"];
+                $fecha = $Fila["FECHAAPLICACION"];
+                $anyo = substr($fecha, -2);
+                $anyo = $anyo + 1;
+                $fecha2 = substr_replace($fecha, $anyo, -2, 2);
+                $FechaI = date('d-m-Y',strtotime($fecha));
+                $FechaF = date('d-m-Y',strtotime($fecha2));
                 $stmn2 = conceptosPresupuesto($conexion, $idpres);
         ?>
                 <tr class="breakrow">
@@ -59,12 +65,16 @@ $stmn = presupuestosComunidad($conexion, $IdC);
                     <td><?php echo $Fila["MOTIVO"]; ?></td>
                 </tr>
                 <?php foreach ($stmn2 as $Fila2) {
-				
+                    $tipoServicio = $Fila2["SERVICIO"];
+                    $facturado = facturasServicio($conexion, $IdC, $FechaI, $FechaF, $tipoServicio);
+                    $restante = $Fila2["CANTIDAD"]-(double)$facturado;
                 ?>       
                         <tr class="datarow" style="display:none;background-color: white;">
                              <td><?php echo $Fila2["NOMBRE"]; ?></td>
                              <td><?php echo $Fila2["CANTIDAD"]; ?></td>
                              <td><?php echo $Fila2["SERVICIO"]; ?></td>
+                             <td><?php echo $facturado; ?></td>
+                             <td><?php echo $restante; ?></td>
                         </tr>
                         
                       <?php } ?>
@@ -108,10 +118,10 @@ $('#tableMain').on('click', 'tr.breakrow',function(){
 <?php 
 function presupuestosComunidad($conexion, $IdC){
     try{
-        $Comando_sql =  "SELECT IdC,
+        $Comando_sql =  "SELECT IdPresupuesto, IdC,
         FechaAprobacion,
         FechaAplicacion,
-        Motivo FROM PRESUPUESTOS  WHERE IdC = :IdC";
+        Motivo FROM PRESUPUESTOS WHERE IdC = :IdC";
         $stmn = $conexion->prepare($Comando_sql);
         $stmn -> bindParam(":IdC", $IdC);
         $stmn -> execute();
@@ -141,6 +151,22 @@ function conceptosPresupuesto($conexion, $IdPresupuesto){
         $stmn -> bindParam(":IdPresupuesto", $IdPresupuesto);
         $stmn -> execute();
         return $stmn;
+    }catch(PDOException $e){
+        $_SESSION["excepcion"] = $e -> getMessage();
+        header("Location: excepcion.php");
+ }
+}
+
+function facturasServicio($conexion, $IdC, $FechaI,$FechaF,$tipoServicio){
+    try{
+        $Comando_sql =  " SELECT  COALESCE(SUM(Importe),0) AS total FROM FACTURAS WHERE :FechaI <= FechaEmision and FechaEmision <= :FechaF and IdC = :IdC and TipoServicio=:tp" ;
+        $stmn = $conexion->prepare($Comando_sql);
+        $stmn -> bindParam(":FechaI", $FechaI);
+        $stmn -> bindParam(":FechaF", $FechaF);
+        $stmn -> bindParam(":IdC", $IdC);
+        $stmn -> bindParam(":tp", $tipoServicio);
+        $stmn -> execute();
+        return $stmn -> fetchColumn();
     }catch(PDOException $e){
         $_SESSION["excepcion"] = $e -> getMessage();
         header("Location: excepcion.php");
