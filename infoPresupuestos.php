@@ -114,6 +114,7 @@ $('#tableMain').on('click', 'tr.breakrow',function(){
 });
 
 
+
   </script>
 <?php 
 function presupuestosComunidad($conexion, $IdC){
