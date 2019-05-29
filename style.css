@@ -342,3 +342,15 @@ table,td,tr,th{
    color: #4F8A10;
    background-color: #DFF2BF;
 }
+
+.verde{
+   background-color: green;
+}
+
+.amarillo{
+   background-color: yellow;
+}
+
+.rojo{
+   background-color: red;
+}
