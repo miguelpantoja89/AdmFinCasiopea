@@ -27,7 +27,7 @@ $stmn = presupuestosComunidad($conexion, $IdC);
 
     <link rel="icon" href="img/favicon.jpg">
     
-    <title>Facturas</title>
+    <title>Presupuestos</title>
     
 </head>
 <body>
@@ -66,15 +66,24 @@ $stmn = presupuestosComunidad($conexion, $IdC);
                 </tr>
                 <?php foreach ($stmn2 as $Fila2) {
                     $tipoServicio = $Fila2["SERVICIO"];
-                    $facturado = facturasServicio($conexion, $IdC, $FechaI, $FechaF, $tipoServicio);
-                    $restante = $Fila2["CANTIDAD"]-(double)$facturado;
+                    $presupuestado = $Fila2["CANTIDAD"];
+                    $presupuestado = floatval(str_replace(",", ".", $presupuestado));
+                    $facturado = doubleval(facturasServicio($conexion, $IdC, $FechaI, $FechaF, $tipoServicio));
+                    $restante = doubleval($presupuestado-$facturado);
+                    if($restante>=5){
+                        $clase = "verde";
+                    }else if($restante>=0){
+                        $clase = "amarillo";
+                    }else{
+                        $clase = "rojo";
+                    }
                 ?>       
                         <tr class="datarow" style="display:none;background-color: white;">
                              <td><?php echo $Fila2["NOMBRE"]; ?></td>
-                             <td><?php echo $Fila2["CANTIDAD"]; ?></td>
-                             <td><?php echo $Fila2["SERVICIO"]; ?></td>
-                             <td><?php echo $facturado; ?></td>
-                             <td><?php echo $restante; ?></td>
+                             <td><?php printf('%.2f',$presupuestado);?></td>
+                             <td><?php echo $Fila2["SERVICIO"];?></td>
+                             <td><?php echo $facturado;?></td>
+                             <td class="<?php echo $clase?>"><?php printf('%.2f', $restante);?></td>
                         </tr>
                         
                       <?php } ?>
@@ -101,7 +110,6 @@ $stmn = presupuestosComunidad($conexion, $IdC);
 </html>
 <script>
 		 $( document ).ready(function() {
-
 
 
 
