@@ -15,6 +15,9 @@ if(isset($_SESSION["formPropietario"])){
 $conexion=crearConexionBD();
 
 $error = validarDNI($conexion, $form);
+$error = validarTelefono($conexion, $form);
+$error = validarEmail($conexion, $form);
+
 if($error!=""){
     $errores[] = $error;
 }
@@ -107,6 +110,48 @@ function insertarPiso($conexion, $IdP, $IdC, $piso){
         $_SESSION["excepcion"] = $e -> getMessage();
         header("Location: excepcion.php");
     }
+}
+
+function validarTelefono($conexion, $propietario){
+    $error = "";
+    if(!preg_match("/^[0-9]{9}$/", $propietario["Telefono"])){
+        $error = "El Telefono de ". $propietario["Telefono"] . " no es válido";
+    }else{
+        try{
+            $stmn = $conexion -> prepare('SELECT COUNT(*) AS TOTAL FROM Propietarios WHERE telefono=:telefono');
+            $stmn -> bindParam(':telefono', $propietario["Telefono"]);
+            $stmn -> execute();
+            $repetido = $stmn -> fetchColumn();
+            if($repetido > 0){
+                $error = "El Telefono de " . $propietario["NombreAp"] . " (" . $propietario["Telefono"] . ") ya existe en la base de datos";
+            }
+        } catch(PDOException $e){
+            $_SESSION["excepcion"] = $e -> GetMessage();
+            header("Location: excepcion.php");
+        }
+    }
+    return $error;
+}
+
+function validarEmail($conexion, $propietario){
+    $error = "";
+    if(!preg_match("/^[A-z0-9\\._-]+@[A-z0-9][A-z0-9-]*(\\.[A-z0-9_-]+)*\\.([A-z]{2,6})$/", $propietario["Email"])){
+        $error = "El Email de ". $propietario["Email"] . " no es válido";
+    }else{
+        try{
+            $stmn = $conexion -> prepare('SELECT COUNT(*) AS TOTAL FROM Propietarios WHERE email=:email');
+            $stmn -> bindParam(':email', $propietario["Email"]);
+            $stmn -> execute();
+            $repetido = $stmn -> fetchColumn();
+            if($repetido > 0){
+                $error = "El Email de " . $propietario["NombreAp"] . " (" . $propietario["Email"] . ") ya existe en la base de datos";
+            }
+        } catch(PDOException $e){
+            $_SESSION["excepcion"] = $e -> GetMessage();
+            header("Location: excepcion.php");
+        }
+    }
+    return $error;
 }
 
 ?>
