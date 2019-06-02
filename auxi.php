@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once("includes/gestionBD.php");
+require_once("includes/funciones.php");
 if(isset($_GET["Ident"])){
 	$IdC = $_GET["Ident"];
 	$conexion = crearConexionBD();
@@ -40,34 +40,5 @@ if(isset($_GET["Ident"])){
 	cerrarConexionBD($conexion);
 	unset($_GET["Ident"]);
 }
-function informacionComunidad($conexion, $IdC){
-    try{
-        $Comando_sql =  "SELECT IdC,
-        Direccion,
-        NumeroPropietarios,
-        CuentaCorriente,
-        SaldoInicial,
-        Presidente FROM COMUNIDADES WHERE IdC = :IdC";
-        $stmn = $conexion->prepare($Comando_sql);
-        $stmn -> bindParam(":IdC", $IdC);
-        $stmn -> execute();
-        return $stmn;
-    } catch(PDOException $e){
-            $_SESSION["excepcion"] = $e -> getMessage();
-            header("Location: excepcion.php");
-        }
-}
 
-function nombrePropietariosComunidad($conexion, $IdC){
-    try{
-        $Comando_sql =  "SELECT IdP,NombreAp FROM PROPIETARIOS Natural JOIN PERTENECE WHERE IdC = :IdC ORDER BY NombreAp ASC";
-        $stmn = $conexion->prepare($Comando_sql);
-        $stmn -> bindParam(":IdC", $IdC);
-        $stmn -> execute();
-        return $stmn;
-    }catch(PDOException $e){
-        $_SESSION["excepcion"] = $e -> getMessage();
-        header("Location: excepcion.php");
- }
-}
 ?>

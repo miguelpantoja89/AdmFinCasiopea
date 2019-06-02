@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once('includes/gestionBD.php');
+include_once('includes/funciones.php');
 $conexion = crearConexionBD();
 
 if(!isset($_SESSION["IdC"])){
@@ -39,76 +39,4 @@ if (isset($_POST["import"])) {
     header("Location: altaPropietario.php");
 }
 
-
-function insertarPropietario($conexion, $propietario){
-    try{
-        $stmn = $conexion -> prepare("INSERT INTO Propietarios (NOMBREAP, DNI, TELEFONO, EMAIL) VALUES (:Nombre, :dni, :telefono, :email)");
-        $stmn -> bindParam(':Nombre', $propietario[0]);
-        $stmn -> bindParam(':dni', $propietario[1]);
-        $stmn -> bindParam(':telefono', $propietario[2]);
-        $stmn -> bindParam(':email', $propietario[3]);
-        $stmn -> execute();
-    }catch(PDOException $e){
-        $_SESSION["excepcion"] = $e -> getMessage();
-        header("Location: excepcion.php");
-    }
-}
-
-function getIdPropietario($conexion, $dni){
-    try{
-        $stmn = $conexion -> prepare("SELECT IdP FROM Propietarios WHERE DNI=:dni");
-        $stmn -> bindParam(':dni', $dni);
-        $stmn -> execute();
-        return $stmn -> fetchColumn();
-    }catch(PDOException $e){
-        $_SESSION["excepcion"] = $e -> getMessage();
-        header("Location: excepcion.php");
-    }
-}
-
-function insertarPertenencia($conexion, $IdP, $IdC){
-    try{
-        $stmn = $conexion -> prepare("INSERT INTO Pertenece (IDP, IDC) VALUES (:idp, :idc)");
-        $stmn -> bindParam(':idp', $IdP);
-        $stmn -> bindParam(':idc', $IdC);
-        $stmn -> execute();
-    }catch(PDOException $e){
-        $_SESSION["excepcion"] = $e -> getMessage();
-        header("Location: excepcion.php");
-    }
-}
-
-function validarDNI($conexion, $propietario){
-    $error = "";
-    if(!preg_match("/^[0-9]{8}[A-Z]$/", $propietario[1])){
-        $error = "El DNI de ". $propietario[0] . " no es válido";
-    }else{
-        try{
-            $stmn = $conexion -> prepare('SELECT COUNT(*) AS TOTAL FROM Propietarios WHERE dni=:dni');
-            $stmn -> bindParam(':dni', $propietario[1]);
-            $stmn -> execute();
-            $repetido = $stmn -> fetchColumn();
-            if($repetido > 0){
-                $error = "El DNI de " . $propietario[0] . " (" . $propietario[1] . ") ya existe en la base de datos";
-            }
-        } catch(PDOException $e){
-            $_SESSION["excepcion"] = $e -> GetMessage();
-            header("Location: excepcion.php");
-        }
-    }
-    return $error;
-}
-
-function insertarPiso($conexion, $IdP, $IdC, $piso){
-    try{
-        $stmn = $conexion -> prepare("INSERT INTO Pisos (PISOLETRA, IDP, IDC) VALUES (:pisoletra, :idp, :idc)");
-        $stmn -> bindParam(':pisoletra', $piso);
-        $stmn -> bindParam(':idp', $IdP);
-        $stmn -> bindParam(':idc', $IdC);
-        $stmn -> execute();
-    }catch(PDOException $e){
-        $_SESSION["excepcion"] = $e -> getMessage();
-        header("Location: excepcion.php");
-    }
-}
 ?>

@@ -2,7 +2,7 @@
 
 session_start();
 
-include_once ('includes/gestionBD.php');
+include_once ('includes/funciones.php');
 $conexion= crearConexionBD();  
 
   	
@@ -92,20 +92,4 @@ $stmn = propietariosComunidad($conexion, $IdC);
 </body>
 </html>
 
-<?php 
-function propietariosComunidad($conexion, $IdC){
-    try{
-        $Comando_sql =  "SELECT IdP,NombreAp,Dni,Telefono,PisoLetra, Email FROM PROPIETARIOS Natural JOIN  PERTENECE natural JOIN PISOS WHERE IdC = :IdC";
-        $stmn = $conexion->prepare($Comando_sql);
-        $stmn -> bindParam(":IdC", $IdC);
-        $stmn -> execute();
-        return $stmn;
-    }catch(PDOException $e){
-        $_SESSION["excepcion"] = $e -> getMessage();
-        header("Location: excepcion.php");
- }
-}
 
-
-
-?>

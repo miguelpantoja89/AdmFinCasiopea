@@ -2,7 +2,7 @@
 
 session_start();
 
-include_once ('includes/gestionBD.php');
+include_once ('includes/funciones.php');
 $conexion= crearConexionBD();  
 
   	
@@ -124,61 +124,4 @@ $('#tableMain').on('click', 'tr.breakrow',function(){
 
 
   </script>
-<?php 
-function presupuestosComunidad($conexion, $IdC){
-    try{
-        $Comando_sql =  "SELECT IdPresupuesto, IdC,
-        FechaAprobacion,
-        FechaAplicacion,
-        Motivo FROM PRESUPUESTOS WHERE IdC = :IdC";
-        $stmn = $conexion->prepare($Comando_sql);
-        $stmn -> bindParam(":IdC", $IdC);
-        $stmn -> execute();
-        return $stmn;
-    }catch(PDOException $e){
-        $_SESSION["excepcion"] = $e -> getMessage();
-        header("Location: excepcion.php");
- }
-}
-function getIdPresupuesto($conexion, $IdC){
-    try{
-        $stmn = $conexion -> prepare("SELECT IdPresupuesto FROM PRESUPUESTOS WHERE IdC = :IdC");
-        $stmn -> bindParam(":IdC", $IdC);
-        $stmn -> execute();
-        return $stmn -> fetchColumn();
-    }catch(PDOException $e){
-        $_SESSION["excepcion"] = $e -> getMessage();
-        header("Location: excepcion.php");
-    }
-}
 
-function conceptosPresupuesto($conexion, $IdPresupuesto){
-    try{
-        $Comando_sql =  "SELECT IdPresupuesto,Nombre,Cantidad,
-        Servicio FROM CONCEPTOS  WHERE IdPresupuesto = :IdPresupuesto";
-        $stmn = $conexion->prepare($Comando_sql);
-        $stmn -> bindParam(":IdPresupuesto", $IdPresupuesto);
-        $stmn -> execute();
-        return $stmn;
-    }catch(PDOException $e){
-        $_SESSION["excepcion"] = $e -> getMessage();
-        header("Location: excepcion.php");
- }
-}
-
-function facturasServicio($conexion, $IdC, $FechaI,$FechaF,$tipoServicio){
-    try{
-        $Comando_sql =  " SELECT  COALESCE(SUM(Importe),0) AS total FROM FACTURAS WHERE :FechaI <= FechaEmision and FechaEmision <= :FechaF and IdC = :IdC and TipoServicio=:tp" ;
-        $stmn = $conexion->prepare($Comando_sql);
-        $stmn -> bindParam(":FechaI", $FechaI);
-        $stmn -> bindParam(":FechaF", $FechaF);
-        $stmn -> bindParam(":IdC", $IdC);
-        $stmn -> bindParam(":tp", $tipoServicio);
-        $stmn -> execute();
-        return $stmn -> fetchColumn();
-    }catch(PDOException $e){
-        $_SESSION["excepcion"] = $e -> getMessage();
-        header("Location: excepcion.php");
- }
-}
-?>

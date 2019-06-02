@@ -2,7 +2,7 @@
 
 session_start();
 
-include_once ('includes/gestionBD.php');
+include_once ('includes/funciones.php');
 $conexion= crearConexionBD();  
 
   	
@@ -10,6 +10,10 @@ if(!isset($_SESSION["IdC"])){
     header("Location: inicio.php");
 } else{
     $IdC = $_SESSION["IdC"];
+}
+if(isset($_REQUEST["borrar"])){
+    $IdPago = $_REQUEST["IdPago"];
+    borrarPago($conexion, $IdC, $IdPago);
 }
 
 $stmn = pagosComunidad($conexion, $IdC);
@@ -51,20 +55,10 @@ $stmn = pagosComunidad($conexion, $IdC);
                <td><?php echo $Fila["CANTIDAD"]; ?></td>
                <td><?php echo $Fila["NOMBREAP"]; ?> </td>
                <td><?php echo $Fila["DNI"]; ?></td>
-               <td> <form  action="controladorFacturas.php" method="post" >
+               <td> <form  action="infoPagos.php" method="post" >
             
-            <input id="IdC" name="IdC" type="hidden" value="<?php echo $Fila["IDC"];?>" />
+            <input id="IdPago" name="IdPago" type="hidden" value="<?php echo $Fila["IDPAGO"];?>" />
                 
-                
-                    
-
-                    <button id="consultar" name="consultar" type="submit" class="editar_fila">
-                    <img src="img/info.png" class="editar_fila" alt="informaciñon">
-                    </button>
-
-                    <button id="editar" name="editar" type="submit" class="editar_fila">
-				    <img src="img/pencil.png" class="editar_fila" alt="modificación">
-                    </button>
                 
                     <button id="borrar" name="borrar" type="submit" class="editar_fila">
 				    <img src="img/trash.png" class="editar_fila" alt="Borrar ">
@@ -89,20 +83,3 @@ $stmn = pagosComunidad($conexion, $IdC);
     
 </body>
 </html>
-
-<?php 
-function pagosComunidad($conexion, $IdC){
-    try{
-        $Comando_sql =  "SELECT FechaPago,IdC,IdPago,
-        Cantidad, NombreAp, Dni FROM PAGOS NATURAL JOIN PROPIETARIOS  WHERE IdC = :IdC ORDER BY FechaPago " ;
-        $stmn = $conexion->prepare($Comando_sql);
-        $stmn -> bindParam(":IdC", $IdC);
-        $stmn -> execute();
-        return $stmn;
-    }catch(PDOException $e){
-        $_SESSION["excepcion"] = $e -> getMessage();
-        header("Location: excepcion.php");
- }
-}
-
-?>

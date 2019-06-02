@@ -1,7 +1,7 @@
 <?php	
     session_start();
     
-	include_once ('includes/gestionBD.php');
+	include_once ('includes/funciones.php');
 	$conexion= crearConexionBD(); 
 	
 	if(!isset($_REQUEST["IdC"])){
@@ -44,68 +44,4 @@
 
 	}
 
-
-function borrarComunidad($conexion, $IdC){
-	try{
-		$Comando_sql =  "DELETE FROM COMUNIDADES WHERE IdC = :IdC";
-		$stmn = $conexion->prepare($Comando_sql);
-		$stmn -> bindParam(":IdC", $IdC);
-		$stmn -> execute();
-	} catch(PDOException $e){
-		$_SESSION["excepcion"] = $e -> getMessage();
-		header("Location: excepcion.php");
-	}
-}
-
-// FUNCIONES DE VALIDACION
-function validarActualizacionComunidad($conexion, $comunidad){
-    $errores = array();
-    if($comunidad["direccion"]==""){
-        $errores[] = "La dirección no puede estar vacía";
-    }
-    if($comunidad["numPropietarios"]<=0){
-        $errores[] = "El número de propietarios debe ser mayor que 0";
-    }
-    if($comunidad["cuenta"]==""){
-        $errores[] = "La cuenta bancaria no puede estar vacía";
-    }else if(cuentaBancariaRepetida2($conexion,$comunidad["IdC"], $comunidad["cuenta"])>0){
-        $errores[] = "La cuenta bancaria está repetida";    
-    }
-    if($comunidad["saldoInicial"]==""){
-        $errores[] = "El saldo inicial no puede estar vacío";
-    }else if($comunidad["saldoInicial"]<0){
-        $errores[] = "El saldo inical no puede ser negativo";
-    }
-    return $errores;
-}
-
-function cuentaBancariaRepetida2($conexion, $IdC, $cuenta){
-    try{
-		$stmn = $conexion -> prepare('SELECT COUNT(*) AS TOTAL FROM Comunidades WHERE IdC<>:IdC AND CuentaCorriente=:cuenta');
-		$stmn -> bindParam(':IdC', $IdC);
-        $stmn -> bindParam(':cuenta', $cuenta);
-        $stmn -> execute();
-        $repetido = $stmn -> fetchColumn();
-        return $repetido;
-    } catch(PDOException $e){
-        $_SESSION["excepcion"] = $e -> GetMessage();
-        header("Location: excepcion.php");
-    }
-}
-
-function actualizarComunidad($conexion, $comunidad){
-	try{
-		$stmn = $conexion -> prepare('UPDATE Comunidades SET Direccion=:direccion, numeroPropietarios=:numeroPropietarios, cuentaCorriente=:cuentacorriente, saldoInicial=:saldoInicial, presidente=:presidente WHERE IdC=:IdC');
-		$stmn -> bindParam(':direccion', $comunidad["direccion"]);
-		$stmn -> bindParam(':numeroPropietarios', $comunidad["numPropietarios"]);
-		$stmn -> bindParam(':cuentacorriente', $comunidad["cuenta"]);
-		$stmn -> bindParam(':saldoInicial', $comunidad["saldoInicial"]);
-		$stmn -> bindParam(':presidente', $comunidad["presidente"]);
-		$stmn -> bindParam(':IdC', $comunidad["IdC"]);
-		$stmn -> execute();
-	} catch(PDOException $e){
-		$_SESSION["excepcion"] = $e -> GetMessage();
-        header("Location: excepcion.php");
-	}
-}
 ?>

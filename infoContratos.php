@@ -2,7 +2,7 @@
 
 session_start();
 
-include_once ('includes/gestionBD.php');
+include_once ('includes/funciones.php');
 $conexion= crearConexionBD();  
 
   	
@@ -11,14 +11,15 @@ if(!isset($_SESSION["IdC"])){
 } else{
     $IdC = $_SESSION["IdC"];
 }
-try{
-$Comando_sql =  "SELECT nombre, fechainicio, fechafin FROM CONTRATOS NATURAL JOIN EMPRESAS WHERE IdC = :IdC";
- $stmn = $conexion->prepare($Comando_sql);
- $stmn -> bindParam(":IdC", $IdC);
- $stmn -> execute();
- } catch(PDOException $e){
-     $_SESSION["excepcion"] = $e -> getMessage();
- }
+
+if(isset($_REQUEST["borrar"])){
+    $IdContrato = $_REQUEST["IdContrato"];
+    borrarContrato($conexion, $IdC, $IdContrato);
+}
+
+$stmn = contratosComunidad($conexion, $IdC);
+
+cerrarConexionBD($conexion);
 
  ?>
  <!DOCTYPE html>
@@ -54,20 +55,12 @@ $Comando_sql =  "SELECT nombre, fechainicio, fechafin FROM CONTRATOS NATURAL JOI
                <td><?php echo $Fila["NOMBRE"]; ?></td>
                <td><?php echo $Fila["FECHAINICIO"]; ?></td>
                <td><?php echo $Fila["FECHAFIN"]; ?></td>
-               <td> <form  action="controladorFacturas.php" method="post" >
+               <td> <form  action="infoContratos.php" method="post" >
             
-            <input id="IdC" name="IdC" type="hidden" value="<?php echo $Fila["IDC"];?>" />
+            <input id="IdContrato" name="IdContrato" type="hidden" value="<?php echo $Fila["IDCONTRATO"];?>" />
                 
                 
-                    
-                    <button id="consultar" name="consultar" type="submit" class="editar_fila">
-                    <img src="img/info.png" class="editar_fila" alt="informaciñon">
-                    </button>
-
-                    <button id="editar" name="editar" type="submit" class="editar_fila">
-				    <img src="img/pencil.png" class="editar_fila" alt="modificación">
-                    </button>
-                
+                                   
                     <button id="borrar" name="borrar" type="submit" class="editar_fila">
 				    <img src="img/trash.png" class="editar_fila" alt="Borrar ">
 				    </button>

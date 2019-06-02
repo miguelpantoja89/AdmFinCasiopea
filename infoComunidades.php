@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once ('includes/gestionBD.php');
+include_once ('includes/funciones.php');
 $conexion= crearConexionBD();
 
 if(!isset($_SESSION["IdC"])){
@@ -59,48 +59,3 @@ $saldo = saldoComunidad($conexion, $IdC);
 </body>
 </html>
 
-<?php 
-
-function getNombrePropietario($conexion, $IdP){
-    try{
-    $stmn = $conexion -> prepare("SELECT NombreAp FROM Propietarios WHERE IdP=:IdP");
-    $stmn -> bindParam(":IdP", $IdP);
-    $stmn -> execute();
-    return $stmn -> fetchColumn();
-    }catch(PDOException $e){
-        $_SESSION["excepcion"] = $e -> getMessage();
-        header("Location: excepcion.php");
-    }
-}
-
-function informacionComunidad($conexion, $IdC){
-    try{
-        $Comando_sql =  "SELECT IdC,
-        Direccion,
-        NumeroPropietarios,
-        CuentaCorriente,
-        SaldoInicial,
-        Presidente FROM COMUNIDADES WHERE IdC = :IdC";
-        $stmn = $conexion->prepare($Comando_sql);
-        $stmn -> bindParam(":IdC", $IdC);
-        $stmn -> execute();
-        return $stmn;
-    } catch(PDOException $e){
-            $_SESSION["excepcion"] = $e -> getMessage();
-            header("Location: excepcion.php");
-        }
-}
-
-function saldoComunidad($conexion, $IdC){
-    try{
-        $stmn = $conexion -> prepare('SELECT SALDO_COMUNIDAD(:IdC) FROM DUAL');
-        $stmn -> bindParam(":IdC", $IdC);
-        $stmn -> execute();
-        return $stmn -> fetchColumn();
-    }catch (PDOException $e){
-        $_SESSION["excepcion"] = $e -> getMessage();
-        header("Location: excepcion.php");
-    }
-}
-
-?>

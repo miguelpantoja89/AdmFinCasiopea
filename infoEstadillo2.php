@@ -2,7 +2,7 @@
 
 session_start();
 
-include_once ('includes/gestionBD.php');
+include_once ('includes/funciones.php');
 $conexion= crearConexionBD();  
 
   	
@@ -173,86 +173,4 @@ $stmn5 =Suma2($conexion, $IdC, $FechaI, $FechaF);
 </body>
 </html>
 
-<?php 
-function PisoProp($conexion, $IdC,  $FechaI, $FechaF){
-    try{
-        $Comando_sql =  "SELECT NombreAp,PisoLetra, SUM(PagoExigido) AS PAG, SUM(Cantidad) AS CAN FROM PROPIETARIOS Natural JOIN  PERTENECE natural JOIN CUOTAS NATURAL JOIN PAGOS NATURAL JOIN  PISOS WHERE :FechaI <= FechaPago  and FechaPago <= :FechaF  and :FechaI <= Mes  and Mes <= :FechaF and IdC = :IdC Group by NombreAp,PisoLetra ";
-        $stmn = $conexion->prepare($Comando_sql);
-        $stmn -> bindParam(":FechaI", $FechaI);
-        $stmn -> bindParam(":FechaF", $FechaF);
-        $stmn -> bindParam(":IdC", $IdC);
-        $stmn -> execute();
-        return $stmn;
-    }catch(PDOException $e){
-        $_SESSION["excepcion"] = $e -> getMessage();
-        header("Location: excepcion.php");
- }
-}
 
-?>
-<?php 
-function Suma($conexion, $IdC ,  $FechaI, $FechaF){
-    try{
-        $Comando_sql =  "SELECT  SUM(PagoExigido) AS PAG, SUM(Cantidad) AS CAN FROM  CUOTAS NATURAL JOIN PAGOS  WHERE :FechaI <= FechaPago  and FechaPago <= :FechaF  and :FechaI <= Mes  and Mes <= :FechaF and IdC = :IdC   ";
-        $stmn = $conexion->prepare($Comando_sql);
-        $stmn -> bindParam(":FechaI", $FechaI);
-        $stmn -> bindParam(":FechaF", $FechaF);
-        $stmn -> bindParam(":IdC", $IdC);
-        $stmn -> execute();
-        return $stmn;
-    }catch(PDOException $e){
-        $_SESSION["excepcion"] = $e -> getMessage();
-        header("Location: excepcion.php");
- }
-}
-
-?>
-<?php 
-function facturas($conexion, $IdC , $FechaI, $FechaF){
-    try{
-        
-        $Comando_sql =  "SELECT TipoServicio, SUM(Importe) AS IMP FROM FACTURAS  WHERE :FechaI <= FechaEmision  and FechaEmision <= :FechaF and IdC = :IdC  GROUP BY TipoServicio";
-        $stmn = $conexion->prepare($Comando_sql);
-        $stmn -> bindParam(":FechaI", $FechaI);
-        $stmn -> bindParam(":FechaF", $FechaF);
-        $stmn -> bindParam(":IdC", $IdC);
-        $stmn -> execute();
-        return $stmn;
-    }catch(PDOException $e){
-        $_SESSION["excepcion"] = $e -> getMessage();
-        header("Location: excepcion.php");
- }
-}
-
-?>
-<?php 
-function Suma2($conexion, $IdC,  $FechaI, $FechaF){
-    try{
-        $Comando_sql =  "SELECT  SUM(Importe) AS IMP FROM FACTURAS  WHERE :FechaI <= FechaEmision  and FechaEmision <= :FechaF and IdC = :IdC  ";
-        $stmn = $conexion->prepare($Comando_sql);
-        $stmn -> bindParam(":FechaI", $FechaI);
-        $stmn -> bindParam(":FechaF", $FechaF);
-        $stmn -> bindParam(":IdC", $IdC);
-        $stmn -> execute();
-        return $stmn;
-    }catch(PDOException $e){
-        $_SESSION["excepcion"] = $e -> getMessage();
-        header("Location: excepcion.php");
-    }
-}
-
-function direccionComunidad($conexion, $IdC){
-    try{
-        $Comando_sql =  "SELECT  Direccion FROM  Comunidades  WHERE IdC = :IdC  ";
-        $stmn = $conexion->prepare($Comando_sql);
-        $stmn -> bindParam(":IdC", $IdC);
-        $stmn -> execute();
-        $result = $stmn -> fetchColumn();
-        return $result;
-    }catch(PDOException $e){
-        $_SESSION["excepcion"] = $e -> getMessage();
-        header("Location: excepcion.php");
-    }
-}
-
-?>

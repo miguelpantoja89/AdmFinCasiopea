@@ -2,7 +2,7 @@
 
 session_start();
 
-include_once ('includes/gestionBD.php');
+include_once ('includes/funciones.php');
 $conexion= crearConexionBD();  
 
   	
@@ -11,6 +11,12 @@ if(!isset($_SESSION["IdC"])){
 } else{
     $IdC = $_SESSION["IdC"];
 }
+
+if(isset($_REQUEST["borrar"])){
+    $IdFactura = $_REQUEST["IdFactura"];
+    borrarFactura($conexion, $IdC, $IdFactura);
+}
+
 if(isset($_GET['fechainicio']) and isset($_GET['fechafin'])){
     $FechaI= date('d-m-Y',strtotime($_GET['fechainicio']));
     $FechaF= date('d-m-Y',strtotime($_GET['fechafin']));
@@ -73,19 +79,9 @@ if(isset($_GET['refrescar'])){
                <td><?php echo $Fila["IMPORTE"]; ?></td>
                <td><?php echo $Fila["FECHAEMISION"]; ?></td>
                <td><?php echo $Fila["TIPOSERVICIO"]; ?></td>
-               <td> <form  action="controladorFacturas.php" method="post" >
+               <td> <form  action="infoFacturas.php" method="post" >
             
-            <input id="IdC" name="IdC" type="hidden" value="<?php echo $Fila["IDC"];?>" />
-                
-                
-                    
-                    <button id="consultar" name="consultar" type="submit" class="editar_fila">
-                    <img src="img/info.png" class="editar_fila" alt="informaciñon">
-                    </button>
-
-                    <button id="editar" name="editar" type="submit" class="editar_fila">
-				    <img src="img/pencil.png" class="editar_fila" alt="modificación">
-                    </button>
+            <input id="IdFactura" name="IdFactura" type="hidden" value="<?php echo $Fila["IDFACTURA"];?>" />
                 
                     <button id="borrar" name="borrar" type="submit" class="editar_fila">
 				    <img src="img/trash.png" class="editar_fila" alt="Borrar ">
@@ -111,35 +107,3 @@ if(isset($_GET['refrescar'])){
 </body>
 </html>
 
-<?php 
-function facturasComunidad($conexion, $IdC){
-    try{
-        $Comando_sql =  "SELECT IdC,Importe,TO_CHAR(FechaEmision, 'DD-MM-YYYY') AS FechaEmision,TipoServicio FROM FACTURAS  WHERE IdC = :IdC";
-        $stmn = $conexion->prepare($Comando_sql);
-        $stmn -> bindParam(":IdC", $IdC);
-        $stmn -> execute();
-        return $stmn;
-    }catch(PDOException $e){
-        $_SESSION["excepcion"] = $e -> getMessage();
-        header("Location: excepcion.php");
- }
-}
-
-?>
-<?php 
-function facturasPeriodo($conexion, $IdC, $FechaI,$FechaF){
-    try{
-        $Comando_sql =  " SELECT  Importe,TO_CHAR(FechaEmision, 'DD-MM-YYYY') AS FechaEmision,TipoServicio FROM  FACTURAS WHERE :FechaI <= FechaEmision  and FechaEmision <= :FechaF and IdC = :IdC ORDER BY FechaEmision " ;
-        $stmn = $conexion->prepare($Comando_sql);
-        $stmn -> bindParam(":FechaI", $FechaI);
-        $stmn -> bindParam(":FechaF", $FechaF);
-        $stmn -> bindParam(":IdC", $IdC);
-        $stmn -> execute();
-        return $stmn;
-    }catch(PDOException $e){
-        $_SESSION["excepcion"] = $e -> getMessage();
-        header("Location: excepcion.php");
- }
-}
-
-?>
